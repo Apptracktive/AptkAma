@@ -1,0 +1,37 @@
+//// Setup ////
+
+1. (Optional) If you implemented the AptkAmsBaseNotificationHandler class for notification purpose, add this line BEFORE AptkAmsPluginLoader.Init(configuration, app); :
+
+	configuration.NotificationHandler = new AptkAmsNotificationHandler();
+
+where AptkAmsNotificationHandler is the name of your implementation class.
+
+Then still in the AppDelegate, add these overrides:
+
+	public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+    {
+        AptkAmsPluginLoader.Instance.Notification.RegisteredForRemoteNotifications(deviceToken);
+    }
+
+    public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
+    {
+        AptkAmsPluginLoader.Instance.Notification.FailedToRegisterForRemoteNotifications(error);
+    }
+
+    public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
+    {
+        AptkAmsPluginLoader.Instance.Notification.ReceivedRemoteNotification(userInfo);
+    }
+
+
+//// Usage ////
+
+See the ToDo-AptkAms's Notification
+
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive
+Contact on Twitter @Apptracktive

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AptkAma.Sample.Core.MainPage">
+
+  <Grid RowSpacing="0">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <StackLayout Grid.Row="0" BackgroundColor="#5ABAFF" Padding="10,30,10,5">
+      <Label TextColor="#555555" Text="Apptracktive plugin for Azure Mobile Apps" />
+      <StackLayout Orientation="Horizontal">
+        <Entry x:Name="NewItemName"	Placeholder="Enter new item here" HorizontalOptions="StartAndExpand" />
+        <Button Text="Add" HeightRequest="30" HorizontalOptions="End" Clicked="OnAdd" />
+      </StackLayout>
+      <StackLayout Orientation="Horizontal">
+        <Button Text="Sync" HeightRequest="30" HorizontalOptions="Start" Clicked="OnSync" />
+        <Button Text="Log" HeightRequest="30" HorizontalOptions="End" Clicked="OnLog" />
+      </StackLayout>
+    </StackLayout>
+
+    <ListView x:Name="ToDoItems"
+				      ItemSelected="OnSelected"
+				      IsPullToRefreshEnabled="true" Refreshing="OnRefresh"
+				      Grid.Row="1">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <ViewCell.ContextActions>
+              <MenuItem Clicked="OnComplete" Text="Complete" IsDestructive="True" CommandParameter="{Binding .}"/>
+            </ViewCell.ContextActions>
+            <StackLayout Padding="15,0,0,0" VerticalOptions="StartAndExpand" Orientation="Vertical">
+              <Label Text="{Binding Text}" />
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </Grid>
+</ContentPage>

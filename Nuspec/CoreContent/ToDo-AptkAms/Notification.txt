@@ -1,0 +1,54 @@
+//// Setup ////
+
+1. (Optional) If you plan to use notifications, you can handle its life cycle by implementing the AptkAmsBaseNotificationHandler class like:
+
+    public class AptkAmsNotificationHandler : AptkAmsBaseNotificationHandler
+    {
+        public static IAptkAmsNotificationTemplate TestNotificationTemplate = new AptkAmsNotificationTemplate("MyTemplate")
+        {
+            {"name", "$(name)"},
+            {"alert", "$(message)"},
+            {"sound", "default"}
+        };
+
+        public AptkAmsNotificationHandler()
+        {
+            GoogleSenderIds = Constants.GoogleSenderIds;
+        }
+
+        public override void OnNotificationReceived(IAptkAmsNotification notification)
+        {
+            if (notification.IsTypeOf(TestNotificationTemplate))
+            {
+            }
+        }
+    }
+
+where TestNotificationTemplate is an example of a notification custom template.
+
+
+//// Usage ////
+
+AptkAms plugin let you work with most of Azure usefull services for mobile development such as Azure Mobile Services, Push notification, Blob storage or SignalR.
+
+The main purpose is to access any API functionality by a single line of code from anywhere in the project (PCL or not), like:
+
+	await _aptkAmsService.Notification.RegisterAsync(AptkAmsNotificationHandler.TestNotificationTemplate);
+
+or:
+	
+	await _aptkAmsService.Notification.UnregisterAllAsync();
+
+where _aptkAmsService is resolved from AptkAmsPluginLoader.Instance.
+
+On the handler side, the OnNotificationReceived method will be called as soon as a notification you registered for comes in.
+From here you can check the type of the incoming notification thanks to the IsTypeOf method with any template you registered for.
+You could then for example ask for a local notification thanks to the LocalNotification plugin for Xamarin & Windows.
+
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive
+Contact on Twitter @Apptracktive

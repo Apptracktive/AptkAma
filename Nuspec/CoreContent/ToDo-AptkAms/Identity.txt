@@ -1,0 +1,27 @@
+//// Setup ////
+
+1. (Optional) If you plan to use the custom login and registration methods, you need to create your custom login and registration controllers on your backend 
+(see sample, online documentation and tutorials).
+
+
+//// Usage ////
+
+AptkAms plugin let you work with most of Azure usefull services for mobile development such as Azure Mobile Services, Push notification, Blob storage or SignalR.
+
+The main purpose is to access any API functionality by a single line of code from anywhere in the project (PCL or not), like:
+
+    await _aptkAmsService.Identity.LoginAsync(AptkAmsAuthenticationProvider.Facebook);
+	
+or:
+
+	await _aptkAmsService.Identity.LoginAsync ("CustomLogin", login, password);
+
+where _aptkAmsService is resolved from AptkAmsPluginLoader.Instance.
+
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive
+Contact on Twitter @Apptracktive

@@ -1,0 +1,22 @@
+//// Setup ////
+
+1. Add this line AFTER AptkAmsPluginLoader.Init(configuration); and complete it:
+
+		AptkAmsLocalStorePluginLoader.Init(new AptkAmsLocalStorePluginConfiguration(Windows.Storage.ApplicationData.Current.LocalFolder.Path));
+
+If you use it with Xamarin.Forms, be sure to paste it just before LoadApplication(...)
+
+2. (Optional) There are many other optional settings to configure (like database name, init timeout, etc...) so please refer to online documentation and tutorials
+
+
+//// Usage ////
+
+See the ToDo-AptkAms's LocalStore
+
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive
+Contact on Twitter @Apptracktive
