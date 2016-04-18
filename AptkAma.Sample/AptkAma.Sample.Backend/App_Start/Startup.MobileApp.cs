@@ -20,6 +20,7 @@ namespace AptkAma.Sample.Backend
         public static void ConfigureMobileApp(IAppBuilder app)
         {
             HttpConfiguration config = new HttpConfiguration();
+            config.Routes.MapHttpRoute("CustomLogin", ".auth/login/CustomLogin", new { controller = "CustomLogin" });
 
             new MobileAppConfiguration()
                 .UseDefaultConfiguration()
