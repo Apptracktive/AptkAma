@@ -12,8 +12,7 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// <summary>
         /// Called after any successful notification registration
         /// </summary>
-        /// <param name="notificationName">Name of the notification</param>
-        void OnRegistrationSucceeded(string notificationName);
+        void OnRegistrationSucceeded();
 
         /// <summary>
         /// Called after any notification registration failure
@@ -30,7 +29,6 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// <summary>
         /// Called after any successful notification unregistration
         /// </summary>
-        /// <param name="notificationName">Name of the notification</param>
-        void OnUnregistrationSucceeded(string notificationName);
+        void OnUnregistrationSucceeded();
     }
 }

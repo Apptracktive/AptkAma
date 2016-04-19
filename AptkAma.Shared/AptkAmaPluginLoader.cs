@@ -72,7 +72,7 @@ namespace Aptk.Plugins.AptkAma
 
         private static IMobileServiceClient CreateMobileServiceClient()
         {
-            var client = new MobileServiceClient(_configuration.AmsUrl, _configuration.AmsKey, _configuration.HttpHandlers);
+            var client = new MobileServiceClient(_configuration.AmsUrl, _configuration.HttpHandlers);
 
             if (_configuration.SerializerSettings != null)
                 client.SerializerSettings = _configuration.SerializerSettings;
@@ -230,7 +230,7 @@ namespace Aptk.Plugins.AptkAma
 
         private static IAptkAmaNotificationService CreateAptkAmaNotificationService()
         {
-#if PORTABLE
+#if PORTABLE || WINDOWS_PHONE
             return null;
 #elif __ANDROID__
             return new AptkAmaNotificationService(_client, _configuration, _context);
@@ -240,7 +240,7 @@ namespace Aptk.Plugins.AptkAma
         }
         #endregion
 
-#if PORTABLE
+#if PORTABLE || WINDOWS_PHONE
 #else
         #region PushInstance
         /// <summary>

@@ -9,6 +9,7 @@ using Aptk.Plugins.AptkAma.Extensions;
 using Foundation;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UIKit;
 
 namespace Aptk.Plugins.AptkAma.Notification
@@ -41,22 +42,38 @@ namespace Aptk.Plugins.AptkAma.Notification
                 platformNotificationService.DeviceToken = deviceToken;
                 var push = ((MobileServiceClient)platformNotificationService.Client).GetPush();
 
+                var templates = new JObject();
+
                 foreach (var pendingRegistration in platformNotificationService.PendingRegistrations)
                 {
-                    var expiryDate = DateTime.Now.Add(pendingRegistration.ExpiresAfter).ToString(pendingRegistration.CultureInfo);
                     var template = JsonConvert.SerializeObject(new Dictionary<string, object> { {"aps", pendingRegistration} });
-
-                    UIApplication.SharedApplication.InvokeOnMainThread(async () =>
+                    var body = new JObject
                     {
-                        await push.RegisterTemplateAsync(platformNotificationService.DeviceToken, template, expiryDate, pendingRegistration.Name, pendingRegistration.Tags);
-                            
-                        Debug.WriteLine($"Notification {pendingRegistration.Name} registered with template {template} and tags {pendingRegistration.Tags}");
+                        ["body"] = template
+                    };
 
-                        platformNotificationService.Configuration.NotificationHandler?.OnRegistrationSucceeded(pendingRegistration.Name);
-                    });
+                    if (pendingRegistration.Tags != null)
+                    {
+                        var tags = JsonConvert.SerializeObject(pendingRegistration.Tags);
+
+                        if (tags != null)
+                            body.Add("tags", tags);
+                    }
+
+                    templates.Add(pendingRegistration.Name, body);
                 }
 
-                UIApplication.SharedApplication.InvokeOnMainThread(() => platformNotificationService.Configuration.CacheService?.SaveRegistrationId(deviceToken.ToString()));
+
+                UIApplication.SharedApplication.InvokeOnMainThread(async () =>
+                {
+                    await push.RegisterAsync(platformNotificationService.DeviceToken, templates);
+
+                    Debug.WriteLine($"{platformNotificationService.PendingRegistrations.Count()} notifications registered");
+
+                    platformNotificationService.Configuration.NotificationHandler?.OnRegistrationSucceeded();
+                });
+
+                platformNotificationService.Configuration.CacheService?.SaveRegistrationId(deviceToken.ToString());
                 platformNotificationService.Tcs.SetResult(true);
             }
             catch (Exception ex)
@@ -176,30 +193,15 @@ namespace Aptk.Plugins.AptkAma.Notification
             {
                 platformNotificationService.DeviceToken = deviceToken;
                 var push = ((MobileServiceClient)platformNotificationService.Client).GetPush();
-
-                if (platformNotificationService.PendingUnregistrations != null && platformNotificationService.PendingUnregistrations.Any())
+                
+                UIApplication.SharedApplication.InvokeOnMainThread(async () =>
                 {
-                    foreach (var pendingUnregistration in platformNotificationService.PendingUnregistrations)
-                    {
-                        UIApplication.SharedApplication.InvokeOnMainThread(async () =>
-                        {
-                            await push.UnregisterTemplateAsync(pendingUnregistration.Name);
+                    await push.UnregisterAsync();
 
-                            platformNotificationService.Configuration.NotificationHandler?.OnUnregistrationSucceeded(pendingUnregistration.Name);
-                        });
-                    } 
-                }
-                else
-                {
-                    UIApplication.SharedApplication.InvokeOnMainThread(async () =>
-                    {
-                        await push.UnregisterAllAsync(deviceToken);
+                    platformNotificationService.Configuration.NotificationHandler?.OnUnregistrationSucceeded();
+                });
 
-                        platformNotificationService.Configuration.NotificationHandler?.OnUnregistrationSucceeded("All");
-                    });
-                }
-
-                UIApplication.SharedApplication.InvokeOnMainThread(() => platformNotificationService.Configuration.CacheService?.ClearRegistrationId());
+                platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
                 platformNotificationService.Tcs.SetResult(true);
             }
             catch (Exception ex)
@@ -208,7 +210,6 @@ namespace Aptk.Plugins.AptkAma.Notification
             }
             finally
             {
-                platformNotificationService.PendingUnregistrations = null;
                 platformNotificationService.Tcs = null;
             }
         }

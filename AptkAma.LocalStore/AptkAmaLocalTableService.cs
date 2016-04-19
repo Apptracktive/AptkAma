@@ -200,12 +200,20 @@ namespace Aptk.Plugins.AptkAma.Data
             await _localTable.DeleteAsync(instance);
         }
 
-        public async Task PullAsync<U>(string queryId, IMobileServiceTableQuery<U> query, bool pushOtherTables, CancellationToken cancellationToken)
+        public async Task PullAsync(string queryId, string query, IDictionary<string, string> parameters, bool pushOtherTables, CancellationToken cancellationToken, PullOptions pullOptions)
         {
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(queryId, query, pushOtherTables, cancellationToken);
+            await _localTable.PullAsync(queryId, query, parameters, pushOtherTables, cancellationToken, pullOptions);
+        }
+
+        public async Task PullAsync<U>(string queryId, IMobileServiceTableQuery<U> query, bool pushOtherTables, CancellationToken cancellationToken, PullOptions pullOptions)
+        {
+            if (!await InitializeAsync())
+                throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
+
+            await _localTable.PullAsync(queryId, query, pushOtherTables, cancellationToken, pullOptions);
         }
 
         public async Task PullAsync(string queryId, bool pushOtherTables, CancellationToken cancellationToken)
@@ -302,15 +310,6 @@ namespace Aptk.Plugins.AptkAma.Data
                 throw new MobileServiceInvalidOperationException("Unable to lookup data. Initialization failed.", null, null);
 
             return await ((IMobileServiceSyncTable) _localTable).LookupAsync(id);
-        }
-
-        public async Task PullAsync(string queryId, string query, IDictionary<string, string> parameters, bool pushOtherTables,
-            CancellationToken cancellationToken)
-        {
-            if (!await InitializeAsync())
-                throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
-
-            await _localTable.PullAsync(queryId, query, parameters, pushOtherTables, cancellationToken);
         }
 
         public async Task PurgeAsync(string queryId, string query, bool force, CancellationToken cancellationToken)

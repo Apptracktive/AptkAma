@@ -57,12 +57,11 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// <summary>
         /// Unregister from Azure Push Notifications
         /// </summary>
-        public override Task<bool> UnregisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications)
+        public override Task<bool> UnregisterAsync()
         {
             if (Tcs == null)
             {
                 Tcs = new TaskCompletionSource<bool>();
-                PendingUnregistrations = notifications;
                 this.Unregister(DeviceToken);
             }
             return Tcs.Task;

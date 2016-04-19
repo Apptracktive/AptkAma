@@ -22,27 +22,9 @@ namespace Aptk.Plugins.AptkAma
         }
 
         /// <summary>
-        /// AptkAma Plugin configuration constructor
-        /// </summary>
-        /// <param name="amsUrl">Azure Mobile Apps URL</param>
-        /// <param name="amsKey">Azure Mobile Apps Key</param>
-        /// <param name="modelAssembly">Model classes hosting Assembly (usually the same)</param>
-        public AptkAmaPluginConfiguration(string amsUrl, string amsKey, Assembly modelAssembly)
-        {
-            AmsUrl = amsUrl;
-            AmsKey = amsKey;
-            ModelAssembly = modelAssembly;
-        }
-
-        /// <summary>
         /// Azure Mobile Apps URL
         /// </summary>
         public string AmsUrl { get; }
-
-        /// <summary>
-        /// Azure Mobile Apps Key
-        /// </summary>
-        public string AmsKey { get; }
 
         /// <summary>
         /// Assembly hosting model classes (usually the same)

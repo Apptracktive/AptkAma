@@ -26,16 +26,6 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// <summary>
         /// Unregister from all Azure Push Notifications
         /// </summary>
-        Task<bool> UnregisterAllAsync();
-
-        /// <summary>
-        /// Unregister from a specific Azure Push Notification
-        /// </summary>
-        Task<bool> UnregisterAsync(IAptkAmaNotificationTemplate notificationTemplate);
-
-        /// <summary>
-        /// Unregister from Azure Push Notifications
-        /// </summary>
-        Task<bool> UnregisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications);
+        Task<bool> UnregisterAsync();
     }
 }

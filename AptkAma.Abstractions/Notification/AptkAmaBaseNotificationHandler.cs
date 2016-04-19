@@ -13,8 +13,7 @@
         /// <summary>
         /// Called after any successful notification registration
         /// </summary>
-        /// <param name="notificationName">Name of the notification</param>
-        public virtual void OnRegistrationSucceeded(string notificationName)
+        public virtual void OnRegistrationSucceeded()
         {
         }
 
@@ -35,8 +34,7 @@
         /// <summary>
         /// Called after any successful notification unregistration
         /// </summary>
-        /// <param name="notificationName">Name of the notification</param>
-        public virtual void OnUnregistrationSucceeded(string notificationName)
+        public virtual void OnUnregistrationSucceeded()
         {
         }
     }

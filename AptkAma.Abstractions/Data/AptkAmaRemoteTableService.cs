@@ -333,11 +333,5 @@ namespace Aptk.Plugins.AptkAma.Data
         public MobileServiceClient MobileServiceClient => _remoteTable.MobileServiceClient;
 
         public string TableName => _remoteTable.TableName;
-
-        public MobileServiceSystemProperties SystemProperties
-        {
-            get { return _remoteTable.SystemProperties; }
-            set { _remoteTable.SystemProperties = value; }
-        }
     }
 }

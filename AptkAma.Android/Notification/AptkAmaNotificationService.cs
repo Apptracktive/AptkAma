@@ -49,7 +49,7 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// <summary>
         /// Unregister from Azure Push Notifications
         /// </summary>
-        public override Task<bool> UnregisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications)
+        public override Task<bool> UnregisterAsync()
         {
             if (Tcs == null)
             {
@@ -58,7 +58,6 @@ namespace Aptk.Plugins.AptkAma.Notification
                 {
                     Initialize();
                 }
-                PendingUnregistrations = notifications;
                 Debug.WriteLine($"Trying to unregister");
                 GcmClient.UnRegister(Context);
             }

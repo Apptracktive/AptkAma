@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using Android.Runtime;
 using Aptk.Plugins.AptkAma.Extensions;
+using Newtonsoft.Json.Linq;
 using Debug = System.Diagnostics.Debug;
 
 namespace Aptk.Plugins.AptkAma.Notification
@@ -30,21 +31,37 @@ namespace Aptk.Plugins.AptkAma.Notification
                 platformNotificationService.RegistrationId = registrationId;
                 var push = ((MobileServiceClient)platformNotificationService.Client).GetPush();
 
+                var templates = new JObject();
+
                 foreach (var pendingRegistration in platformNotificationService.PendingRegistrations)
                 {
                     var template = JsonConvert.SerializeObject(new Dictionary<string, object> { { "data", pendingRegistration } });
-
-                    Application.SynchronizationContext.Post(async _ =>
+                    var body = new JObject
                     {
-                        await push.RegisterTemplateAsync(registrationId, template, pendingRegistration.Name, pendingRegistration.Tags);
+                        ["body"] = template
+                    };
 
-                        Debug.WriteLine($"Notification {pendingRegistration.Name} registered for device {registrationId} with template {template} and tags {pendingRegistration.Tags}");
+                    if (pendingRegistration.Tags != null)
+                    {
+                        var tags = JsonConvert.SerializeObject(pendingRegistration.Tags);
 
-                        platformNotificationService.Configuration.NotificationHandler?.OnRegistrationSucceeded(pendingRegistration.Name);
-                    }, null);
+                        if(tags != null)
+                            body.Add("tags", tags);
+                    }
+
+                    templates.Add(pendingRegistration.Name, body);
                 }
 
-                Application.SynchronizationContext.Post(_ => platformNotificationService.Configuration.CacheService?.SaveRegistrationId(registrationId), null);
+                Application.SynchronizationContext.Post(async _ =>
+                {
+                    await push.RegisterAsync(registrationId, templates);
+
+                    Debug.WriteLine($"{platformNotificationService.PendingRegistrations.Count()} notifications registered for device {registrationId}");
+
+                    platformNotificationService.Configuration.NotificationHandler?.OnRegistrationSucceeded();
+                }, null);
+
+                platformNotificationService.Configuration.CacheService?.SaveRegistrationId(registrationId);
                 platformNotificationService.Tcs.SetResult(true);
             }
             catch (Exception ex)
@@ -93,29 +110,14 @@ namespace Aptk.Plugins.AptkAma.Notification
                 platformNotificationService.RegistrationId = registrationId;
                 var push = ((MobileServiceClient)platformNotificationService.Client).GetPush();
 
-                if (platformNotificationService.PendingUnregistrations != null && platformNotificationService.PendingUnregistrations.Any())
+                Application.SynchronizationContext.Post(async _ =>
                 {
-                    foreach (var pendingUnregistration in platformNotificationService.PendingUnregistrations)
-                    {
-                        Application.SynchronizationContext.Post(async _ =>
-                        {
-                            await push.UnregisterTemplateAsync(pendingUnregistration.Name);
+                    await push.UnregisterAsync();
 
-                            platformNotificationService.Configuration.NotificationHandler?.OnUnregistrationSucceeded(pendingUnregistration.Name);
-                        }, null);
-                    }
-                }
-                else
-                {
-                    Application.SynchronizationContext.Post(async _ =>
-                    {
-                        await push.UnregisterAllAsync(registrationId);
+                    platformNotificationService.Configuration.NotificationHandler?.OnUnregistrationSucceeded();
+                }, null);
 
-                        platformNotificationService.Configuration.NotificationHandler?.OnUnregistrationSucceeded("All");
-                    }, null);
-                }
-
-                Application.SynchronizationContext.Post(_ => platformNotificationService.Configuration.CacheService?.ClearRegistrationId(), null);
+                platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
                 platformNotificationService.Tcs.SetResult(true);
             }
             catch (Exception ex)
@@ -124,7 +126,6 @@ namespace Aptk.Plugins.AptkAma.Notification
             }
             finally
             {
-                platformNotificationService.PendingUnregistrations = null;
                 platformNotificationService.Tcs = null;
             }
         }

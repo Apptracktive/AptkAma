@@ -87,7 +87,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Identity\AptkAmaPlatformIdentityService.cs" />
-    <Compile Include="Notification\AptkAmaNotificationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

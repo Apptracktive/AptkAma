@@ -237,7 +237,7 @@ namespace AptkAma.Sample.WinPhone
 
         private void InitAptkAmaPlugin()
         {
-            var configuration = new AptkAmaPluginConfiguration(Constants.AmsUrl, Constants.AmsKey, Constants.ModelAssembly);
+            var configuration = new AptkAmaPluginConfiguration(Constants.AmsUrl, Constants.ModelAssembly);
 
             // [Optional] Handle expired token to automaticaly ask for login if needed
             var identityHandler = new AptkAmaIdentityHandler(configuration);
@@ -245,9 +245,6 @@ namespace AptkAma.Sample.WinPhone
 
             // [Optional] Handle local caching
             configuration.CacheService = new AptkAmaCacheService();
-
-            // [Optional] Handle notifications
-            configuration.NotificationHandler = new AptkAmaNotificationHandler();
 
             // Init main plugin
             AptkAmaPluginLoader.Init(configuration);

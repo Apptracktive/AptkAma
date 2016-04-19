@@ -10,6 +10,7 @@ using Windows.UI.Core;
 using Aptk.Plugins.AptkAma.Extensions;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Aptk.Plugins.AptkAma.Notification
 {
@@ -36,6 +37,8 @@ namespace Aptk.Plugins.AptkAma.Notification
 
             var push = ((MobileServiceClient)Client).GetPush();
 
+            var templates = new JObject();
+
             // Register for notifications using the new channel
             foreach (var notification in notifications)
             {
@@ -43,13 +46,32 @@ namespace Aptk.Plugins.AptkAma.Notification
                         new XElement("visual",
                             new XElement("binding", new XAttribute("template", notification.Name),
                                 notification.Select(kv => new XElement(kv.Key, kv.Value)))));
-                
-                await push.RegisterTemplateAsync(_currentChannel.Uri, template.ToString(), notification.Name);
 
-                Debug.WriteLine($"Notification {notification.Name} registered with template {template} and tags {notification.Tags}");
+                var body = new JObject
+                {
+                    ["body"] = template.ToString(),
+                    ["headers"] = new JObject
+                    {
+                        ["X-WNS-Type"] = "wns/toast"
+                    }
+                };
 
-                await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Configuration.NotificationHandler?.OnRegistrationSucceeded(notification.Name));
+                if (notification.Tags != null)
+                {
+                    var tags = JsonConvert.SerializeObject(notification.Tags);
+
+                    if (tags != null)
+                        body.Add("tags", tags);
+                }
+
+                templates.Add(notification.Name, body);
             }
+
+            await push.RegisterAsync(_currentChannel.Uri, templates);
+
+            Debug.WriteLine($"{notifications.Count()} notifications registered");
+
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Configuration.NotificationHandler?.OnRegistrationSucceeded());
 
             return true;
         }
@@ -60,7 +82,7 @@ namespace Aptk.Plugins.AptkAma.Notification
                 return;
             
             var xmlNotification = XDocument.Parse(args.ToastNotification.Content.GetXml());
-            var notification = xmlNotification.Descendants("binding").Descendants().ToDictionary(n => n.Name.LocalName, n => n.Value as object).ToNotification();
+            var notification = System.Xml.Linq.Extensions.Descendants(xmlNotification.Descendants("binding")).ToDictionary(n => n.Name.LocalName, n => n.Value as object).ToNotification();
             if (notification == null)
                 return;
 
@@ -71,32 +93,20 @@ namespace Aptk.Plugins.AptkAma.Notification
             await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Configuration.NotificationHandler?.OnNotificationReceived(notification));
         }
 
-        public override async Task<bool> UnregisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications)
+        public override async Task<bool> UnregisterAsync()
         {
             var push = ((MobileServiceClient)Client).GetPush();
 
-            var pendingUnregistrations = notifications as IList<IAptkAmaNotificationTemplate> ?? notifications.ToList();
-            if (notifications != null && pendingUnregistrations.Any())
+            
+            if (_currentChannel != null)
             {
-                foreach (var pendingUnregistration in pendingUnregistrations)
-                {
-                    await push.UnregisterTemplateAsync(pendingUnregistration.Name);
+                await push.UnregisterAsync();
 
-                    await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Configuration.NotificationHandler?.OnUnregistrationSucceeded(pendingUnregistration.Name));
-                }
-            }
-            else
-            {
-                if (_currentChannel != null)
-                {
-                    await push.UnregisterAllAsync(_currentChannel.Uri);
+                _currentChannel.PushNotificationReceived -= OnPushNotificationReceived;
+                _currentChannel.Close();
+                _currentChannel = null;
 
-                    _currentChannel.PushNotificationReceived -= OnPushNotificationReceived;
-                    _currentChannel.Close();
-                    _currentChannel = null;
-
-                    await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Configuration.NotificationHandler?.OnUnregistrationSucceeded("All"));
-                }
+                await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Configuration.NotificationHandler?.OnUnregistrationSucceeded());
             }
 
             return true;

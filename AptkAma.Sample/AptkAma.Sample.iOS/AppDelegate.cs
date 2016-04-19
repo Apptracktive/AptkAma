@@ -31,7 +31,7 @@ namespace AptkAma.Sample.iOS
 
         private void InitAptkAmaPlugin(UIApplication app)
         {
-            var configuration = new AptkAmaPluginConfiguration(Constants.AmsUrl, Constants.AmsKey, Constants.ModelAssembly);
+            var configuration = new AptkAmaPluginConfiguration(Constants.AmsUrl, Constants.ModelAssembly);
 
             // [Optional] Handle expired token to automaticaly ask for login if needed
             var identityHandler = new AptkAmaIdentityHandler(configuration);

@@ -13,7 +13,6 @@ namespace Aptk.Plugins.AptkAma.Notification
         public readonly IAptkAmaPluginConfiguration Configuration;
         public TaskCompletionSource<bool> Tcs;
         public IEnumerable<IAptkAmaNotificationTemplate> PendingRegistrations;
-        public IEnumerable<IAptkAmaNotificationTemplate> PendingUnregistrations;
 
         protected AptkAmaBaseNotificationService(IMobileServiceClient client, IAptkAmaPluginConfiguration configuration)
         {
@@ -39,22 +38,6 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// <summary>
         /// Unregister from all Azure Push Notifications
         /// </summary>
-        public virtual Task<bool> UnregisterAllAsync()
-        {
-            return UnregisterAsync(new List<IAptkAmaNotificationTemplate>());
-        }
-
-        /// <summary>
-        /// Unregister from a specific Azure Push Notification
-        /// </summary>
-        public virtual Task<bool> UnregisterAsync(IAptkAmaNotificationTemplate notificationTemplate)
-        {
-            return UnregisterAsync(new List<IAptkAmaNotificationTemplate> { notificationTemplate });
-        }
-
-        /// <summary>
-        /// Unregister from Azure Push Notifications
-        /// </summary>
-        public abstract Task<bool> UnregisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications);
+        public abstract Task<bool> UnregisterAsync();
     }
 }

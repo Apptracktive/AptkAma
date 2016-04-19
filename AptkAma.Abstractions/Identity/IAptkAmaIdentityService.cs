@@ -90,6 +90,6 @@ namespace Aptk.Plugins.AptkAma.Identity
         /// <summary>
         /// Logs a user out from Azure and clear cache (if exist)
         /// </summary>
-        void Logout();
+        Task LogoutAsync();
     }
 }

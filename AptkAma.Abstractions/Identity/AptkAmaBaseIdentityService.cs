@@ -200,9 +200,9 @@ namespace Aptk.Plugins.AptkAma.Identity
         /// <summary>
         /// Logs a user out from Azure and clear cache (if exist)
         /// </summary>
-        public void Logout()
+        public async Task LogoutAsync()
         {
-            _client.Logout();
+            await _client.LogoutAsync();
             _configuration.CacheService?.ClearCredentials();
         }
 

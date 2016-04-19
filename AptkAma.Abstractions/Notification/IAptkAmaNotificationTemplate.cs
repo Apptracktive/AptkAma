@@ -18,16 +18,5 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// Registration subscription tags
         /// </summary>
         IEnumerable<string> Tags { get; set; }
-
-        /// <summary>
-        /// Notification expiration delay
-        /// </summary>
-        /// <value>90 days</value>
-        TimeSpan ExpiresAfter { get; set; }
-
-        /// <summary>
-        /// Expiration date culture info
-        /// </summary>
-        CultureInfo CultureInfo { get; set; }
     }
 }

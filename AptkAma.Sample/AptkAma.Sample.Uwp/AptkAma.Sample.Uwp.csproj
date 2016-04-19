@@ -127,6 +127,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AptkAma.Abstractions\AptkAma.Abstractions.csproj">
+      <Project>{a6fcef44-d2ba-42c7-b3cb-13667bcd7b54}</Project>
+      <Name>AptkAma.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.csproj">
+      <Project>{6e8df24c-3029-4227-9c81-404bc5c18889}</Project>
+      <Name>AptkAma.LocalStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.Uwp\AptkAma.Uwp.csproj">
+      <Project>{4ee4f673-d674-41ff-b245-dd1b4f0e8cb4}</Project>
+      <Name>AptkAma.Uwp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AptkAma.Sample.Core\AptkAma.Sample.Core.csproj">
       <Project>{e6a4a0f3-0591-441b-98f8-65eb42bcb114}</Project>
       <Name>AptkAma.Sample.Core</Name>

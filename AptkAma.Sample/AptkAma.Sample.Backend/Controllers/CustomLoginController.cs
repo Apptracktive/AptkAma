@@ -40,8 +40,8 @@ namespace AptkAma.Sample.Backend.Controllers
                     TimeSpan.FromHours(24));
                     var customLoginResult = new JObject
                     {
-                        { "authenticationToken", token.RawData },
-                        { "user", new JObject { { "userId", account.Id } } }
+                        { "userId", account.Id },
+                        { "mobileServiceAuthenticationToken", token.RawData }
                     };
                     return this.Request.CreateResponse(HttpStatusCode.OK, customLoginResult);
                 }

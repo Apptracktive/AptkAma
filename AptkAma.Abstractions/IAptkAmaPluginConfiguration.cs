@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Reflection;
-using Aptk.Plugins.AptkAma.Identity;
 using Aptk.Plugins.AptkAma.Notification;
 using Microsoft.WindowsAzure.MobileServices;
 
@@ -15,11 +14,6 @@ namespace Aptk.Plugins.AptkAma
         /// Azure Mobile Apps URL
         /// </summary>
         string AmsUrl { get; }
-
-        /// <summary>
-        /// Azure Mobile Apps Key
-        /// </summary>
-        string AmsKey { get; }
 
         /// <summary>
         /// Assembly hosting model classes (usually the same)
