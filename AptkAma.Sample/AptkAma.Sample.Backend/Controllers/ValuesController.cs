@@ -1,4 +1,6 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Tracing;
+using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Config;
 
 namespace AptkAma.Sample.Backend.Controllers
@@ -11,7 +13,14 @@ namespace AptkAma.Sample.Backend.Controllers
         // GET api/values
         public string Get()
         {
-            return "Hello World!";
+            MobileAppSettingsDictionary settings = this.Configuration.GetMobileAppSettingsProvider().GetMobileAppSettings();
+            ITraceWriter traceWriter = this.Configuration.Services.GetTraceWriter();
+
+            string host = settings.HostName ?? "localhost";
+            string greeting = "Hello from " + host;
+            
+            traceWriter.Info(greeting);
+            return greeting;
         }
 
         // POST api/values

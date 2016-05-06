@@ -7,6 +7,8 @@ using Aptk.Plugins.AptkAma;
 using Aptk.Plugins.AptkAma.Data;
 using Aptk.Plugins.AptkAma.Identity;
 using AptkAma.Sample.Core.Model;
+using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.WindowsAzure.MobileServices.Sync;
 using Xamarin.Forms;
 
 namespace AptkAma.Sample.Core
@@ -89,7 +91,7 @@ namespace AptkAma.Sample.Core
             var success = false;
             try
             {
-                //ToDoItems.ItemsSource = await GetTodoItemsAsync();
+                ToDoItems.ItemsSource = await GetTodoItemsAsync();
                 success = true;
             }
             catch (Exception ex)

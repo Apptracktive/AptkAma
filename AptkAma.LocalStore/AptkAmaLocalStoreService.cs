@@ -106,11 +106,16 @@ namespace Aptk.Plugins.AptkAma.Data
         public async Task PushAsync()
         {
             var cts = new CancellationTokenSource();
-            await Task.WhenAny(InitializationTask, Task.Delay(_localStoreConfiguration.InitTimeout, cts.Token));
+            await PushAsync(cts.Token);
+        }
+
+        public async Task PushAsync(CancellationToken token)
+        {
+            await Task.WhenAny(InitializationTask, Task.Delay(_localStoreConfiguration.InitTimeout, token));
 
             if (InitializationTask.IsCompleted && _client.SyncContext.IsInitialized)
             {
-                await _client.SyncContext.PushAsync(cts.Token);
+                await _client.SyncContext.PushAsync(token);
             }
         }
 

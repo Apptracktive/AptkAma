@@ -10,7 +10,7 @@ namespace AptkAma.Sample.Backend.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.TodoItems",
+                "aptkama.TodoItems",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128,
@@ -63,8 +63,8 @@ namespace AptkAma.Sample.Backend.Migrations
         
         public override void Down()
         {
-            DropIndex("dbo.TodoItems", new[] { "CreatedAt" });
-            DropTable("dbo.TodoItems",
+            DropIndex("aptkama.TodoItems", new[] { "CreatedAt" });
+            DropTable("aptkama.TodoItems",
                 removedColumnAnnotations: new Dictionary<string, IDictionary<string, object>>
                 {
                     {

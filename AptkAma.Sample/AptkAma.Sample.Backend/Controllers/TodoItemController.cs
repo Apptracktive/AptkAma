@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.OData;
-using Microsoft.Azure.Mobile.Server;
 using AptkAma.Sample.Backend.DataObjects;
 using AptkAma.Sample.Backend.Models;
+using Microsoft.Azure.Mobile.Server;
 
 namespace AptkAma.Sample.Backend.Controllers
 {
@@ -14,7 +14,7 @@ namespace AptkAma.Sample.Backend.Controllers
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
-            MobileServiceContext context = new MobileServiceContext();
+            AptkAmaContext context = new AptkAmaContext();
             DomainManager = new EntityDomainManager<TodoItem>(context, Request);
         }
 

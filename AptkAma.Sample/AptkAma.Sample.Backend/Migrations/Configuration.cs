@@ -1,13 +1,11 @@
+using AptkAma.Sample.Backend.Models;
 using Microsoft.Azure.Mobile.Server.Tables;
 
 namespace AptkAma.Sample.Backend.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<AptkAma.Sample.Backend.Models.MobileServiceContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AptkAmaContext>
     {
         public Configuration()
         {
@@ -15,7 +13,7 @@ namespace AptkAma.Sample.Backend.Migrations
             SetSqlGenerator("System.Data.SqlClient", new EntityTableSqlGenerator());
         }
 
-        protected override void Seed(AptkAma.Sample.Backend.Models.MobileServiceContext context)
+        protected override void Seed(AptkAmaContext context)
         {
             //  This method will be called after migrating to the latest version.
 

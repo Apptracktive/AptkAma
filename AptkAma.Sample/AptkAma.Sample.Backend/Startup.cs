@@ -1,7 +1,8 @@
-﻿using Microsoft.Owin;
+using AptkAma.Sample.Backend;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(AptkAma.Sample.Backend.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
 namespace AptkAma.Sample.Backend
 {

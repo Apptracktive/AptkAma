@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Foundation;
 using Microsoft.WindowsAzure.MobileServices;
@@ -24,11 +26,15 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// Register to Azure Push Notifications
         /// </summary>
         /// <param name="notifications">Notifications to register for</param>
-        public override Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications)
+        /// <param name="cancellationToken">Token to cancel registration</param>
+        public override Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications, CancellationToken cancellationToken)
         {
-            if (Tcs == null)
+            if (Tcs == null || Tcs.Task.IsCanceled || Tcs.Task.IsCompleted || Tcs.Task.IsFaulted)
             {
+                Debug.WriteLine(6);
                 Tcs = new TaskCompletionSource<bool>();
+                cancellationToken.Register(() => Tcs.TrySetCanceled(), false);
+
                 PendingRegistrations = notifications;
                 if (DeviceToken == null)
                 {
@@ -51,18 +57,22 @@ namespace Aptk.Plugins.AptkAma.Notification
                     this.RegisteredForRemoteNotifications(DeviceToken);
                 }
             }
+            Debug.WriteLine(7);
             return Tcs.Task;
         }
 
         /// <summary>
         /// Unregister from Azure Push Notifications
         /// </summary>
-        public override Task<bool> UnregisterAsync()
+        /// <param name="cancellationToken">Token to cancel unregistration</param>
+        public override Task<bool> UnregisterAsync(CancellationToken cancellationToken)
         {
-            if (Tcs == null)
+            if (Tcs == null || Tcs.Task.IsCanceled || Tcs.Task.IsCompleted || Tcs.Task.IsFaulted)
             {
                 Tcs = new TaskCompletionSource<bool>();
-                this.Unregister(DeviceToken);
+                cancellationToken.Register(() => Tcs.TrySetCanceled(), false);
+
+                this.Unregister();
             }
             return Tcs.Task;
         }

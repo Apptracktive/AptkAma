@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Aptk.Plugins.AptkAma.Data
 {
@@ -9,6 +10,8 @@ namespace Aptk.Plugins.AptkAma.Data
         IAptkAmaLocalTableService<T> GetLocalTable<T>() where T : ITableData;
         
         Task PushAsync();
+
+        Task PushAsync(CancellationToken token);
 
         long PendingOperations { get; }
     }

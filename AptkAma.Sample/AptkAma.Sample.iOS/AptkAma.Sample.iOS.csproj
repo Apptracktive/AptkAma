@@ -48,7 +48,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignKey>iPhone Developer: Jeremy BRUN-PICARD (4LF4272Q55)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>dc5de74c-179d-47c1-b050-19340a621e8a</CodesignProvision>
+    <CodesignProvision>35b117b5-a87d-4f8e-aaa9-686df65e0b94</CodesignProvision>
     <CodesignResourceRules />
     <CodesignExtraArgs />
   </PropertyGroup>
@@ -111,10 +111,6 @@
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
     <BundleResource Include="Resources\Default-Landscape.png" />
     <BundleResource Include="Resources\Default-Landscape%402x.png" />
-    <Content Include="ToDo-AptkAmaiOS\Identity.txt" />
-    <Content Include="ToDo-AptkAmaiOS\LocalStore.txt" />
-    <Content Include="ToDo-AptkAmaiOS\Notification.txt" />
-    <Content Include="ToDo-AptkAmaiOS\_ToDoFirst.txt" />
     <None Include="app.config" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Info.plist" />

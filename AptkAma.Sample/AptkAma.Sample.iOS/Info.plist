@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>AptkApp</string>
+	<string>AptkAma</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.apptracktive.app</string>
+	<string>com.apptracktive.aptkama</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

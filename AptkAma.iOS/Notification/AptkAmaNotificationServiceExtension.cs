@@ -34,16 +34,18 @@ namespace Aptk.Plugins.AptkAma.Notification
             if(platformNotificationService == null)
                 throw new InvalidCastException("Unable to convert this generic instance into a platform specific one");
 
-            if (platformNotificationService.Tcs == null)
-                return;
-            
+            if (platformNotificationService.Tcs == null ||
+                platformNotificationService.Tcs.Task.IsCanceled ||
+                platformNotificationService.Tcs.Task.IsCompleted ||
+                platformNotificationService.Tcs.Task.IsFaulted)
+                throw new Exception("Notification Task should not be null or terminated. Please open an issue on GitHub");
+
             try
             {
                 platformNotificationService.DeviceToken = deviceToken;
                 var push = ((MobileServiceClient)platformNotificationService.Client).GetPush();
 
                 var templates = new JObject();
-
                 foreach (var pendingRegistration in platformNotificationService.PendingRegistrations)
                 {
                     var template = JsonConvert.SerializeObject(new Dictionary<string, object> { {"aps", pendingRegistration} });
@@ -62,28 +64,22 @@ namespace Aptk.Plugins.AptkAma.Notification
 
                     templates.Add(pendingRegistration.Name, body);
                 }
-
+                platformNotificationService.PendingRegistrations = null;
 
                 UIApplication.SharedApplication.InvokeOnMainThread(async () =>
                 {
                     await push.RegisterAsync(platformNotificationService.DeviceToken, templates);
 
-                    Debug.WriteLine($"{platformNotificationService.PendingRegistrations.Count()} notifications registered");
+                    Debug.WriteLine($"{templates} notifications registered");
 
                     platformNotificationService.Configuration.NotificationHandler?.OnRegistrationSucceeded();
+                    platformNotificationService.Configuration.CacheService?.SaveRegistrationId(deviceToken.ToString());
+                    platformNotificationService.Tcs.SetResult(true);
                 });
-
-                platformNotificationService.Configuration.CacheService?.SaveRegistrationId(deviceToken.ToString());
-                platformNotificationService.Tcs.SetResult(true);
             }
             catch (Exception ex)
             {
                 platformNotificationService.Tcs.SetException(ex);
-            }
-            finally
-            {
-                platformNotificationService.PendingRegistrations = null;
-                platformNotificationService.Tcs = null;
             }
         }
 
@@ -102,12 +98,16 @@ namespace Aptk.Plugins.AptkAma.Notification
             if (platformNotificationService == null)
                 throw new InvalidCastException("Unable to convert this generic instance into a platform specific one");
 
-            if (platformNotificationService.Tcs == null)
-                return;
+            if (platformNotificationService.Tcs == null ||
+                platformNotificationService.Tcs.Task.IsCanceled ||
+                platformNotificationService.Tcs.Task.IsCompleted ||
+                platformNotificationService.Tcs.Task.IsFaulted)
+                throw new Exception("Notification Task should not be null or terminated. Please open an issue on GitHub");
 
-            var sb = new StringBuilder();
+            Exception exception = null;
             try
             {
+                var sb = new StringBuilder();
                 sb.AppendFormat("Error Code:  {0}\r\n", error.Code);
                 sb.AppendFormat("Description: {0}\r\n", error.LocalizedDescription);
                 var userInfo = error.UserInfo;
@@ -115,22 +115,22 @@ namespace Aptk.Plugins.AptkAma.Notification
                 {
                     sb.AppendFormat("[{0}]: {1}\r\n", userInfo.Keys[i], userInfo.Values[i]);
                 }
+                exception = new Exception(sb.ToString());
 
-                platformNotificationService.Tcs.SetException(new Exception(sb.ToString()));
-            }
-            catch (Exception ex)
-            {
-                platformNotificationService.Tcs.SetException(ex);
-            }
-            finally
-            {
                 platformNotificationService.PendingRegistrations = null;
-                platformNotificationService.Tcs = null;
                 UIApplication.SharedApplication.InvokeOnMainThread(() =>
                 {
                     platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
                     platformNotificationService.Configuration.NotificationHandler?.OnRegistrationFailed(sb.ToString());
                 });
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            finally
+            {
+                platformNotificationService.Tcs.SetException(exception);
             }
         }
 
@@ -167,31 +167,21 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// Call this method manualy to unregister from notifications by yourself from platform
         /// </summary>
         /// <param name="notificationService">This notification service</param>
-        /// <param name="deviceToken">The token of the device provided by the platform</param>
         /// <exception cref="ArgumentNullException">deviceToken should not be null</exception>
-        public static void Unregister(this IAptkAmaNotificationService notificationService, NSData deviceToken)
+        public static void Unregister(this IAptkAmaNotificationService notificationService)
         {
             var platformNotificationService = notificationService as AptkAmaNotificationService;
             if (platformNotificationService == null)
                 throw new InvalidCastException("Unable to convert this generic instance into a platform specific one");
-
-            if (platformNotificationService.Tcs == null)
-                return;
-
-            if (deviceToken == null)
-            {
-                var deviceTokenValue = string.Empty;
-                platformNotificationService.Configuration.CacheService?.TryLoadRegistrationId(out deviceTokenValue);
-                
-                if(string.IsNullOrEmpty(deviceTokenValue))
-                    throw new ArgumentNullException(nameof(deviceToken));
-
-                deviceToken = NSData.FromString(deviceTokenValue);
-            }
             
+            if (platformNotificationService.Tcs == null ||
+                platformNotificationService.Tcs.Task.IsCanceled ||
+                platformNotificationService.Tcs.Task.IsCompleted ||
+                platformNotificationService.Tcs.Task.IsFaulted)
+                throw new Exception("Notification Task should not be null or terminated. Please open an issue on GitHub");
+
             try
             {
-                platformNotificationService.DeviceToken = deviceToken;
                 var push = ((MobileServiceClient)platformNotificationService.Client).GetPush();
                 
                 UIApplication.SharedApplication.InvokeOnMainThread(async () =>
@@ -199,18 +189,15 @@ namespace Aptk.Plugins.AptkAma.Notification
                     await push.UnregisterAsync();
 
                     platformNotificationService.Configuration.NotificationHandler?.OnUnregistrationSucceeded();
+                    platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
+                    Debug.WriteLine(1);
+                    platformNotificationService.Tcs.SetResult(true);
                 });
-
-                platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
-                platformNotificationService.Tcs.SetResult(true);
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(2);
                 platformNotificationService.Tcs.SetException(ex);
-            }
-            finally
-            {
-                platformNotificationService.Tcs = null;
             }
         }
     }

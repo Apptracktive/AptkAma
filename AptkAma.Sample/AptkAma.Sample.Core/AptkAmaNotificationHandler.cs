@@ -22,5 +22,15 @@ namespace AptkAma.Sample.Core
             {
             }
         }
+
+        public override void OnUnregistrationSucceeded()
+        {
+            base.OnUnregistrationSucceeded();
+        }
+
+        public override void OnRegistrationSucceeded()
+        {
+            base.OnRegistrationSucceeded();
+        }
     }
 }

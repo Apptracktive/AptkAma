@@ -13,7 +13,7 @@ namespace AptkAma.Sample.Backend.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201604080809276_Init"; }
+            get { return "201605041440275_Init"; }
         }
         
         string IMigrationMetadata.Source

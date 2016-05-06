@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Aptk.Plugins.AptkAma.Data
@@ -56,6 +57,16 @@ namespace Aptk.Plugins.AptkAma.Data
         {
             _dataService = dataService;
             await Instance.PushAsync();
+        }
+
+        /// <summary>
+        /// Push local pending changes to remote Azure tables
+        /// </summary>
+        /// <returns></returns>
+        public static async Task PushAsync(this IAptkAmaDataService dataService, CancellationToken token)
+        {
+            _dataService = dataService;
+            await Instance.PushAsync(token);
         }
 
         /// <summary>

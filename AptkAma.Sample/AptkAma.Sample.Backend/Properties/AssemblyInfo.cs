@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AptkAma.Sample.Backend")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Apptracktive")]
 [assembly: AssemblyProduct("AptkAma.Sample.Backend")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("42b13c97-56b9-4205-a930-83cafef2b5bb")]
+[assembly: Guid("2e8cfaa1-3743-49ef-9e21-2926ca18c058")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Http;
-using Microsoft.Azure.Mobile.Server;
+using AptkAma.Sample.Backend.Models;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
-using AptkAma.Sample.Backend.DataObjects;
-using AptkAma.Sample.Backend.Models;
 using Owin;
 
 namespace AptkAma.Sample.Backend
@@ -19,8 +16,10 @@ namespace AptkAma.Sample.Backend
     {
         public static void ConfigureMobileApp(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
-            config.Routes.MapHttpRoute("CustomLogin", ".auth/login/CustomLogin", new { controller = "CustomLogin" });
+            var config = new HttpConfiguration();
+
+            //For more information on Web API tracing, see http://go.microsoft.com/fwlink/?LinkId=620686 
+            config.EnableSystemDiagnosticsTracing();
 
             new MobileAppConfiguration()
                 .UseDefaultConfiguration()
@@ -43,42 +42,41 @@ namespace AptkAma.Sample.Backend
             }
             if (errorMessage != null) throw new Exception(errorMessage);
 
-            MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
+            var settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
             if (string.IsNullOrEmpty(settings.HostName))
             {
+                // This middleware is intended to be used locally for debugging. By default, HostName will
+                // only have a value when running in an App Service application.
                 app.UseAppServiceAuthentication(new AppServiceAuthenticationOptions
                 {
-                    // This middleware is intended to be used locally for debugging. By default, HostName will
-                    // only have a value when running in an App Service application.
                     SigningKey = ConfigurationManager.AppSettings["SigningKey"],
                     ValidAudiences = new[] { ConfigurationManager.AppSettings["ValidAudience"] },
                     ValidIssuers = new[] { ConfigurationManager.AppSettings["ValidIssuer"] },
                     TokenHandler = config.GetAppServiceTokenHandler()
                 });
             }
-
             app.UseWebApi(config);
         }
     }
 
-    public class MobileServiceInitializer : CreateDatabaseIfNotExists<MobileServiceContext>
+    public class AptkAmaInitializer : CreateDatabaseIfNotExists<AptkAmaContext>
     {
-        /*protected override void Seed(MobileServiceContext context)
+        protected override void Seed(AptkAmaContext context)
         {
-            List<TodoItem> todoItems = new List<TodoItem>
-            {
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
-                new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false }
-            };
+            //List<TodoItem> todoItems = new List<TodoItem>
+            //{
+            //    new TodoItem { Id = Guid.NewGuid().ToString(), Text = "First item", Complete = false },
+            //    new TodoItem { Id = Guid.NewGuid().ToString(), Text = "Second item", Complete = false },
+            //};
 
-            foreach (TodoItem todoItem in todoItems)
-            {
-                context.Set<TodoItem>().Add(todoItem);
-            }
+            //foreach (TodoItem todoItem in todoItems)
+            //{
+            //    context.Set<TodoItem>().Add(todoItem);
+            //}
 
-            base.Seed(context);
-        }*/
+            //base.Seed(context);
+        }
     }
 }
 
