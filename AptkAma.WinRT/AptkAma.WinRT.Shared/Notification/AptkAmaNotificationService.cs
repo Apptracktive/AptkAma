@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Networking.PushNotifications;
@@ -27,7 +28,12 @@ namespace Aptk.Plugins.AptkAma.Notification
             _dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
         }
 
-        public override async Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications)
+        /// <summary>
+        /// Register to Azure Push Notifications
+        /// </summary>
+        /// <param name="templates">Notification templates to register for</param>
+        /// <param name="cancellationToken">Token to cancel registration</param>
+        public override async Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> templates, CancellationToken cancellationToken)
         {
             if (_currentChannel == null)
             {
@@ -37,39 +43,39 @@ namespace Aptk.Plugins.AptkAma.Notification
 
             var push = ((MobileServiceClient)Client).GetPush();
 
-            var templates = new JObject();
+            var xTemplates = new JObject();
 
             // Register for notifications using the new channel
-            foreach (var notification in notifications)
+            foreach (var template in templates)
             {
-                var template = new XElement("toast",
+                var xTemplate = new XElement("toast",
                         new XElement("visual",
-                            new XElement("binding", new XAttribute("template", notification.Name),
-                                notification.Select(kv => new XElement(kv.Key, kv.Value)))));
+                            new XElement("binding", new XAttribute("template", template.Name),
+                                template.Select(kv => new XElement(kv.Key, kv.Value)))));
 
                 var body = new JObject
                 {
-                    ["body"] = template.ToString(),
+                    ["body"] = xTemplate.ToString(),
                     ["headers"] = new JObject
                     {
                         ["X-WNS-Type"] = "wns/toast"
                     }
                 };
 
-                if (notification.Tags != null)
+                if (template.Tags != null)
                 {
-                    var tags = JsonConvert.SerializeObject(notification.Tags);
+                    var tags = JsonConvert.SerializeObject(template.Tags);
 
                     if (tags != null)
                         body.Add("tags", tags);
                 }
 
-                templates.Add(notification.Name, body);
+                xTemplates.Add(template.Name, body);
             }
 
-            await push.RegisterAsync(_currentChannel.Uri, templates);
+            await push.RegisterAsync(_currentChannel.Uri, xTemplates);
 
-            Debug.WriteLine($"{notifications.Count()} notifications registered");
+            Debug.WriteLine($"{xTemplates} notifications registered");
 
             await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Configuration.NotificationHandler?.OnRegistrationSucceeded());
 
@@ -93,7 +99,7 @@ namespace Aptk.Plugins.AptkAma.Notification
             await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Configuration.NotificationHandler?.OnNotificationReceived(notification));
         }
 
-        public override async Task<bool> UnregisterAsync()
+        public override async Task<bool> UnregisterAsync(CancellationToken cancellationToken)
         {
             var push = ((MobileServiceClient)Client).GetPush();
 
