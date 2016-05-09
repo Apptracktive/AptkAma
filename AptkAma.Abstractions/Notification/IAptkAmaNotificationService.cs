@@ -15,28 +15,28 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// <summary>
         /// Register to a specific Azure Push Notification
         /// </summary>
-        /// <param name="notificationTemplate">Notification to register for</param>
-        Task<bool> RegisterAsync(IAptkAmaNotificationTemplate notificationTemplate);
+        /// <param name="template">Notification template to register for</param>
+        Task<bool> RegisterAsync(IAptkAmaNotificationTemplate template);
 
         /// <summary>
         /// Register to a specific Azure Push Notification
         /// </summary>
-        /// <param name="notificationTemplate">Notification to register for</param>
+        /// <param name="template">Notification template to register for</param>
         /// <param name="cancellationToken">Token to cancel registration</param>
-        Task<bool> RegisterAsync(IAptkAmaNotificationTemplate notificationTemplate, CancellationToken cancellationToken);
+        Task<bool> RegisterAsync(IAptkAmaNotificationTemplate template, CancellationToken cancellationToken);
 
         /// <summary>
         /// Register to Azure Push Notifications
         /// </summary>
-        /// <param name="notifications">Notifications to register for</param>
-        Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications);
+        /// <param name="templates">Notification templates to register for</param>
+        Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> templates);
 
         /// <summary>
         /// Register to Azure Push Notifications
         /// </summary>
-        /// <param name="notifications">Notifications to register for</param>
+        /// <param name="templates">Notification templates to register for</param>
         /// <param name="cancellationToken">Token to cancel registration</param>
-        Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications, CancellationToken cancellationToken);
+        Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> templates, CancellationToken cancellationToken);
 
         /// <summary>
         /// Unregister from all Azure Push Notifications

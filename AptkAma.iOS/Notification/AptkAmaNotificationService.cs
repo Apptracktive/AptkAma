@@ -25,9 +25,9 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// <summary>
         /// Register to Azure Push Notifications
         /// </summary>
-        /// <param name="notifications">Notifications to register for</param>
+        /// <param name="templates">Notification templates to register for</param>
         /// <param name="cancellationToken">Token to cancel registration</param>
-        public override Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications, CancellationToken cancellationToken)
+        public override Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> templates, CancellationToken cancellationToken)
         {
             if (Tcs == null || Tcs.Task.IsCanceled || Tcs.Task.IsCompleted || Tcs.Task.IsFaulted)
             {
@@ -35,7 +35,7 @@ namespace Aptk.Plugins.AptkAma.Notification
                 Tcs = new TaskCompletionSource<bool>();
                 cancellationToken.Register(() => Tcs.TrySetCanceled(), false);
 
-                PendingRegistrations = notifications;
+                PendingRegistrations = templates;
                 if (DeviceToken == null)
                 {
                     UIApplication.SharedApplication.InvokeOnMainThread(() => {

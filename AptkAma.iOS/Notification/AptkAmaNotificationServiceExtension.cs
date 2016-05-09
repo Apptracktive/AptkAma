@@ -190,13 +190,11 @@ namespace Aptk.Plugins.AptkAma.Notification
 
                     platformNotificationService.Configuration.NotificationHandler?.OnUnregistrationSucceeded();
                     platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
-                    Debug.WriteLine(1);
                     platformNotificationService.Tcs.SetResult(true);
                 });
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(2);
                 platformNotificationService.Tcs.SetException(ex);
             }
         }

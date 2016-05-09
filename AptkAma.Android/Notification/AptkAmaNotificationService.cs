@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.Content;
 using Gcm;
@@ -25,39 +26,43 @@ namespace Aptk.Plugins.AptkAma.Notification
                 GcmClient.CheckManifest(Context);
                 _isInitialized = true;
         }
-        
+
         /// <summary>
         /// Register to Azure Push Notifications
         /// </summary>
-        /// <param name="notifications">Notifications to register for</param>
-        public override Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications)
+        /// <param name="templates">Notifications to register for</param>
+        /// <param name="cancellationToken">Token to cancel registration</param>
+        public override Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> templates, CancellationToken cancellationToken)
         {
-            if (Tcs == null)
+            if (Tcs == null || Tcs.Task.IsCanceled || Tcs.Task.IsCompleted || Tcs.Task.IsFaulted)
             {
                 Tcs = new TaskCompletionSource<bool>();
+                cancellationToken.Register(() => Tcs.TrySetCanceled(), false);
+
                 if (!_isInitialized)
-                {
                     Initialize();
-                }
-                PendingRegistrations = notifications;
+
+                PendingRegistrations = templates;
                 Debug.WriteLine($"Trying to register for notifications {JsonConvert.SerializeObject(Configuration.NotificationHandler?.GoogleSenderIds)}");
                 GcmClient.Register(Context, Configuration.NotificationHandler?.GoogleSenderIds);
             }
             return Tcs.Task;
         }
-        
+
         /// <summary>
         /// Unregister from Azure Push Notifications
         /// </summary>
-        public override Task<bool> UnregisterAsync()
+        /// <param name="cancellationToken">Token to cancel registration</param>
+        public override Task<bool> UnregisterAsync(CancellationToken cancellationToken)
         {
-            if (Tcs == null)
+            if (Tcs == null || Tcs.Task.IsCanceled || Tcs.Task.IsCompleted || Tcs.Task.IsFaulted)
             {
                 Tcs = new TaskCompletionSource<bool>();
+                cancellationToken.Register(() => Tcs.TrySetCanceled(), false);
+
                 if (!_isInitialized)
-                {
                     Initialize();
-                }
+
                 Debug.WriteLine($"Trying to unregister");
                 GcmClient.UnRegister(Context);
             }

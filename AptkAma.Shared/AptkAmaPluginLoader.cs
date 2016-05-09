@@ -222,7 +222,11 @@ namespace Aptk.Plugins.AptkAma
                 var notificationInstance = LazyNotificationInstance.Value;
                 if (notificationInstance == null)
                 {
+#if WINDOWS_PHONE
+                    throw new PlatformNotSupportedException("Notifications are not supported by Windows Phone Silverlight with Azure Mobile Apps and AptkAma. Consider to upgrade your application to WinRT or UWP or to use Azure Mobile Services with AptkAms");
+#else
                     throw new PlatformNotSupportedException("This functionality is not implemented in the portable version of this assembly.  You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
+#endif
                 }
                 return notificationInstance;
             }
@@ -238,11 +242,11 @@ namespace Aptk.Plugins.AptkAma
             return new AptkAmaNotificationService(_client, _configuration);
 #endif
         }
-        #endregion
+#endregion
 
 #if PORTABLE || WINDOWS_PHONE
 #else
-        #region PushInstance
+#region PushInstance
         /// <summary>
         /// Get platform specific Push instance for custom implementation (Use Notification instead)
         /// </summary>
@@ -252,7 +256,7 @@ namespace Aptk.Plugins.AptkAma
         {
             return ((MobileServiceClient) _client).GetPush();
         }
-        #endregion
+#endregion
 #endif
     }
 }

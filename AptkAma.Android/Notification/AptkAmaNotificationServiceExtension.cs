@@ -23,8 +23,11 @@ namespace Aptk.Plugins.AptkAma.Notification
             if (platformNotificationService == null)
                 throw new InvalidCastException("Unable to convert this generic instance into a platform specific one");
 
-            if (platformNotificationService.Tcs == null)
-                return;
+            if (platformNotificationService.Tcs == null ||
+                platformNotificationService.Tcs.Task.IsCanceled ||
+                platformNotificationService.Tcs.Task.IsCompleted ||
+                platformNotificationService.Tcs.Task.IsFaulted)
+                throw new Exception("Notification Task should not be null or terminated. Please open an issue on GitHub");
 
             try
             {
@@ -51,27 +54,23 @@ namespace Aptk.Plugins.AptkAma.Notification
 
                     templates.Add(pendingRegistration.Name, body);
                 }
+                platformNotificationService.PendingRegistrations = null;
 
                 Application.SynchronizationContext.Post(async _ =>
                 {
                     await push.RegisterAsync(registrationId, templates);
 
-                    Debug.WriteLine($"{platformNotificationService.PendingRegistrations.Count()} notifications registered for device {registrationId}");
+                    Debug.WriteLine($"{templates} notifications registered");
 
                     platformNotificationService.Configuration.NotificationHandler?.OnRegistrationSucceeded();
+                    platformNotificationService.Configuration.CacheService?.SaveRegistrationId(registrationId);
+                    platformNotificationService.Tcs.SetResult(true);
                 }, null);
 
-                platformNotificationService.Configuration.CacheService?.SaveRegistrationId(registrationId);
-                platformNotificationService.Tcs.SetResult(true);
             }
             catch (Exception ex)
             {
                 platformNotificationService.Tcs.SetException(ex);
-            }
-            finally
-            {
-                platformNotificationService.PendingRegistrations = null;
-                platformNotificationService.Tcs = null;
             }
         }
 
@@ -102,8 +101,11 @@ namespace Aptk.Plugins.AptkAma.Notification
             if (platformNotificationService == null)
                 throw new InvalidCastException("Unable to convert this generic instance into a platform specific one");
 
-            if (platformNotificationService.Tcs == null)
-                return;
+            if (platformNotificationService.Tcs == null ||
+                platformNotificationService.Tcs.Task.IsCanceled ||
+                platformNotificationService.Tcs.Task.IsCompleted ||
+                platformNotificationService.Tcs.Task.IsFaulted)
+                throw new Exception("Notification Task should not be null or terminated. Please open an issue on GitHub");
 
             try
             {
@@ -113,20 +115,15 @@ namespace Aptk.Plugins.AptkAma.Notification
                 Application.SynchronizationContext.Post(async _ =>
                 {
                     await push.UnregisterAsync();
-
+                    
                     platformNotificationService.Configuration.NotificationHandler?.OnUnregistrationSucceeded();
+                    platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
+                    platformNotificationService.Tcs.SetResult(true);
                 }, null);
-
-                platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
-                platformNotificationService.Tcs.SetResult(true);
             }
             catch (Exception ex)
             {
                 platformNotificationService.Tcs.SetException(ex);
-            }
-            finally
-            {
-                platformNotificationService.Tcs = null;
             }
         }
 
@@ -139,19 +136,21 @@ namespace Aptk.Plugins.AptkAma.Notification
             if (platformNotificationService == null)
                 throw new InvalidCastException("Unable to convert this generic instance into a platform specific one");
 
-            if (platformNotificationService.Tcs == null)
-                return;
+            if (platformNotificationService.Tcs == null ||
+                platformNotificationService.Tcs.Task.IsCanceled ||
+                platformNotificationService.Tcs.Task.IsCompleted ||
+                platformNotificationService.Tcs.Task.IsFaulted)
+                throw new Exception("Notification Task should not be null or terminated. Please open an issue on GitHub");
 
             var errorMessage = $"Notification error code:  {errorId}";
             Debug.WriteLine(errorMessage);
-            platformNotificationService.Tcs.SetException(new Exception(errorMessage));
-            platformNotificationService.PendingRegistrations = null;
-            platformNotificationService.Tcs = null;
             Application.SynchronizationContext.Post(_ =>
-                {
-                    platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
-                    platformNotificationService.Configuration.NotificationHandler?.OnRegistrationFailed(errorMessage);
-                }, null);
-    }
+            {
+                platformNotificationService.PendingRegistrations = null;
+                platformNotificationService.Configuration.CacheService?.ClearRegistrationId();
+                platformNotificationService.Configuration.NotificationHandler?.OnRegistrationFailed(errorMessage);
+                platformNotificationService.Tcs.SetException(new Exception(errorMessage));
+            }, null);
+        }
     }
 }

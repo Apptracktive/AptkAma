@@ -24,39 +24,39 @@ namespace Aptk.Plugins.AptkAma.Notification
         /// <summary>
         /// Register to a specific Azure Push Notification
         /// </summary>
-        /// <param name="notificationTemplate">Notification to register for</param>
-        public virtual Task<bool> RegisterAsync(IAptkAmaNotificationTemplate notificationTemplate)
+        /// <param name="template">Notification template to register for</param>
+        public virtual Task<bool> RegisterAsync(IAptkAmaNotificationTemplate template)
         {
             var cts = new CancellationTokenSource();
-            return RegisterAsync(notificationTemplate, cts.Token);
+            return RegisterAsync(template, cts.Token);
         }
 
         /// <summary>
         /// Register to a specific Azure Push Notification
         /// </summary>
-        /// <param name="notificationTemplate">Notification to register for</param>
+        /// <param name="template">Notification template to register for</param>
         /// <param name="cancellationToken">Token to cancel registration</param>
-        public virtual Task<bool> RegisterAsync(IAptkAmaNotificationTemplate notificationTemplate, CancellationToken cancellationToken)
+        public virtual Task<bool> RegisterAsync(IAptkAmaNotificationTemplate template, CancellationToken cancellationToken)
         {
-            return RegisterAsync(new List<IAptkAmaNotificationTemplate> { notificationTemplate }, cancellationToken);
+            return RegisterAsync(new List<IAptkAmaNotificationTemplate> { template }, cancellationToken);
         }
 
         /// <summary>
         /// Register to Azure Push Notifications
         /// </summary>
-        /// <param name="notifications">Notifications to register for</param>
-        public virtual Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications)
+        /// <param name="templates">Notification templates to register for</param>
+        public virtual Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> templates)
         {
             var cts = new CancellationTokenSource();
-            return RegisterAsync(notifications, cts.Token);
+            return RegisterAsync(templates, cts.Token);
         }
 
         /// <summary>
         /// Register to Azure Push Notifications
         /// </summary>
-        /// <param name="notifications">Notifications to register for</param>
+        /// <param name="templates">Notification templates to register for</param>
         /// <param name="cancellationToken">Token to cancel registration</param>
-        public abstract Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> notifications, CancellationToken cancellationToken);
+        public abstract Task<bool> RegisterAsync(IEnumerable<IAptkAmaNotificationTemplate> templates, CancellationToken cancellationToken);
 
         /// <summary>
         /// Unregister from all Azure Push Notifications
