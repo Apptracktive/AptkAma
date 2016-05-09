@@ -1,0 +1,21 @@
+//// Setup ////
+
+1. (Optional) If you implemented the AptkAmaBaseNotificationHandler class for notification purpose, add this line BEFORE AptkAmaPluginLoader.Init(configuration, ApplicationContext); :
+
+	configuration.NotificationHandler = new AptkAmaNotificationHandler();
+
+where AptkAmaNotificationHandler is the name of your implementation class.
+
+
+//// Usage ////
+
+See the ToDo-AptkAma's Notification
+
+More details online.
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
+Contact on Twitter @Apptracktive

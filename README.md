@@ -15,7 +15,7 @@ Or:
 	
 Or:
 
-	await _service.Identity.LoginAsync ("CustomLogin", login, password);
+	await _aptkAmaService.Identity.LoginAsync ("CustomLogin", login, password);
 	
 Or:
 
@@ -37,19 +37,19 @@ or ITableData interface if there's another parent class yet.
 
 Add these lines into the OnCreate of the first launching activity (ex MainActivity or SplashScreen) and complete it:
 
-    var configuration = new AptkAmaPluginConfiguration("YOUR URL", "YOUR KEY", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
+    var configuration = new AptkAmaPluginConfiguration("YOUR URL", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
     AptkAmaPluginLoader.Init(configuration, ApplicationContext);
 
 #### iOS
 
 Add these lines into the AppDelegate FinishedLaunching method and complete it:
 
-    var configuration = new AptkAmaPluginConfiguration("YOUR URL", "YOUR KEY", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
+    var configuration = new AptkAmaPluginConfiguration("YOUR URL", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
     AptkAmaPluginLoader.Init(configuration, app);
     
 #### WindowsPhone and Windows (any version)
 
-    var configuration = new AptkAmaPluginConfiguration("YOUR URL", "YOUR KEY", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
+    var configuration = new AptkAmaPluginConfiguration("YOUR URL", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
     AptkAmaPluginLoader.Init(configuration);
 	
 . (Optional) If you plan to use notifications, you can handle its life cycle by implementing the AptkAmaBaseNotificationHandler class like:
@@ -112,7 +112,7 @@ Then still in the AppDelegate, add these overrides:
         AptkAmaPluginLoader.Instance.Notification.ReceivedRemoteNotification(userInfo);
     }
 
-#### WindowsPhone and Windows (any version)
+#### WindowsPhone and Windows (any version except unsupported Silverlight)
 
 Add this line BEFORE AptkAmaPluginLoader.Init(configuration); :
 
@@ -348,10 +348,10 @@ Then, after AptkAmaPluginLoader.Init(...); add:
 
 You can tell the plugin how to store some parameters for further use.
 
-To do so, implement a storage feature of your choice like I did in samples with Xamarin.Settings and then implement the IAptkAmaCredentialCacheService to use it:
+To do so, implement a storage feature of your choice like I did in samples with Xamarin.Settings and then implement the IAptkAmaCacheService to use it:
 
     /// <summary>
-    /// This IAptkAmaCredentialsCacheService implementation is a working example 
+    /// This IAptkAmaCacheService implementation is a working example 
     /// requiring the installation of Xamarin Settings plugin.
     /// </summary>
     public class AptkAmaCacheService : IAptkAmaCacheService
@@ -413,13 +413,15 @@ To do so, implement a storage feature of your choice like I did in samples with 
 
 Note that you'll have to create each property UserId, AuthToken, IdentityProvider and NotificationRegistrationId on the settings feature side.
 
-Also, you have to set this credential cache service implementation to each platform configuration:
+Also, you have to set this cache service implementation to each platform configuration:
 
 Between var configuration = new AptkAmaPluginConfiguration(...); and AptkAmaPluginLoader.Init(...); add:
 
-    configuration.CredentialsCacheService = new AptkAmaCredentialCacheService();
+    configuration.CacheService = new AptkAmaCacheService();
     
 The plugin will deal with each methods by itself before login and after login and logout.
+
+The same with notification registration process.
 
 More details on samples.
 

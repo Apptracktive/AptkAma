@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>Aptk.Plugins.AptkAma.LocalStore</id>
+        <version>1.0.0-beta1</version>
+        <title>AptkAma Plugin LocalStore Extension</title>
+        <authors>Apptracktive</authors>
+        <owners>Apptracktive</owners>
+        <licenseUrl>https://raw.githubusercontent.com/Apptracktive/AptkAms/master/LICENSE.md</licenseUrl>
+        <projectUrl>https://github.com/Apptracktive/AptkAma</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/Apptracktive/AptkAma/master/Logo-64.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>This extension adds local data management features to the AptkAma main plugin.
+
+Tuto available on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
+Twitter @Apptracktive</description>
+        <summary>AptkAma Plugin LocalStore Extension</summary>
+        <releaseNotes>1.0.0-beta1:
+[New] Manage local data
+[New] Manage data synchronization
+Many more...</releaseNotes>
+        <copyright>Copyright © 2016 Apptracktive</copyright>
+        <tags>AptkAma AptkAma.LocalStore Azure Mobile Apps Aptk Ama MvvmCross MvvmLight FreshMvvm MVVM Xamarin Apptracktive iOS Android Uwp SQLite SQLiteStore</tags>
+        <dependencies>
+            <dependency id="Microsoft.Azure.Mobile.Client.SQLiteStore" version="2.0.1" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="DroidContent\ToDo-AptkAmaDroid\LocalStore.txt" target="content\MonoAndroid10\ToDo-AptkAmsDroid\LocalStore.txt" />
+        <file src="CoreContent\ToDo-AptkAma\LocalStore.txt" target="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAms\LocalStore.txt" />
+        <file src="UwpContent\ToDo-AptkAmaUwp\LocalStore.txt" target="content\UAP10\ToDo-AptkAmsUwp\LocalStore.txt" />
+        <file src="WinRTContent\ToDo-AptkAmaWinRT\LocalStore.txt" target="content\win8\ToDo-AptkAmsWinRT\LocalStore.txt" />
+        <file src="WinPhoneContent\ToDo-AptkAmaWinPhone\LocalStore.txt" target="content\wp8\ToDo-AptkAmsWinPhone\LocalStore.txt" />
+        <file src="WinRTContent\ToDo-AptkAmaWinRT\LocalStore.txt" target="content\wpa81\ToDo-AptkAmsWinRT\LocalStore.txt" />
+        <file src="iOSContent\ToDo-AptkAmaiOS\LocalStore.txt" target="content\Xamarin.iOS10\ToDo-AptkAmsiOS\LocalStore.txt" />
+        <file src="..\AptkAma.LocalStore\bin\Release\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.Abstractions.dll" />
+        <file src="..\AptkAma.LocalStore\bin\Release\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.Abstractions.pdb" />
+        <file src="..\AptkAma.LocalStore\bin\Release\Aptk.Plugins.AptkAma.LocalStore.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.LocalStore.dll" />
+        <file src="..\AptkAma.LocalStore\bin\Release\Aptk.Plugins.AptkAma.LocalStore.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.LocalStore.pdb" />
+    </files>
+</package>

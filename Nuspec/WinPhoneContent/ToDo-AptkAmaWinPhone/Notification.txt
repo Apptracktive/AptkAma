@@ -1,0 +1,13 @@
+/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
+
+Notification does not seem to be supported by Azure Mobile Apps with Windows Phone Silverlight.
+That's why it is not implemented in AptkAma.
+Please consider to upgrade your application to WinRT or UWP.
+If you want to stay at a Windows Phone Silverlight level, you should replace AptkAma by AptkAms nuget plugin 
+wich use the fully compatible Azure Mobile Services.
+
+/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
+Contact on Twitter @Apptracktive

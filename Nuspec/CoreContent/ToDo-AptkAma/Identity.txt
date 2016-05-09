@@ -1,0 +1,26 @@
+//// Setup ////
+
+1. (Optional) If you plan to use the custom login and registration methods, you need to create your custom login and registration controllers on your backend 
+(see sample, online documentation and tutorials).
+
+
+//// Usage ////
+
+The main purpose is to access any API functionality by a single line of code from anywhere in the project (PCL or not), like:
+
+    await _aptkAmaService.Identity.LoginAsync(AptkAmaAuthenticationProvider.Facebook);
+	
+or:
+
+	await _aptkAmaService.Identity.LoginAsync ("CustomLogin", login, password);
+
+where _aptkAmaService is resolved from AptkAmaPluginLoader.Instance.
+
+More details online.
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
+Contact on Twitter @Apptracktive
