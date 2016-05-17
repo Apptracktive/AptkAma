@@ -39,6 +39,7 @@ namespace Aptk.Plugins.AptkAma
         /// </summary>
         public static void Init(IAptkAmaPluginConfiguration configuration, Context context)
         {
+            CurrentPlatform.Init();
             _configuration = configuration;
             _client = CreateMobileServiceClient();
             _context = context;
@@ -53,6 +54,7 @@ namespace Aptk.Plugins.AptkAma
         /// </summary>
         public static void Init(IAptkAmaPluginConfiguration configuration, UIApplication application)
         {
+            CurrentPlatform.Init();
             _configuration = configuration;
             _client = CreateMobileServiceClient();
             _application = application;

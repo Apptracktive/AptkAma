@@ -60,6 +60,10 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
+    <Reference Include="Microsoft.Azure.Mobile.Server.Login, Version=0.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Server.Login.0.3.157.1\lib\net45\Microsoft.Azure.Mobile.Server.Login.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
@@ -91,6 +95,7 @@
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Web.Http">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
@@ -156,17 +161,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
+    <Compile Include="Controllers\CustomLoginController.cs" />
+    <Compile Include="Controllers\CustomRegistrationController.cs" />
     <Compile Include="Controllers\TodoItemController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DataObjects\Account.cs" />
+    <Compile Include="DataObjects\LoginRequest.cs" />
+    <Compile Include="DataObjects\RegistrationRequest.cs" />
     <Compile Include="DataObjects\TodoItem.cs" />
     <Compile Include="Migrations\201605041440275_Init.cs" />
     <Compile Include="Migrations\201605041440275_Init.Designer.cs">
       <DependentUpon>201605041440275_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605171035212_CustomLogin.cs" />
+    <Compile Include="Migrations\201605171035212_CustomLogin.Designer.cs">
+      <DependentUpon>201605171035212_CustomLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AptkAmaContext.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\CustomLoginProviderUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -183,6 +198,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605041440275_Init.resx">
       <DependentUpon>201605041440275_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605171035212_CustomLogin.resx">
+      <DependentUpon>201605171035212_CustomLogin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

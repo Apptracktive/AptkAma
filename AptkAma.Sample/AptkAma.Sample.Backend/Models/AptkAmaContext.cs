@@ -24,6 +24,8 @@ namespace AptkAma.Sample.Backend.Models
 
         public DbSet<TodoItem> TodoItems { get; set; }
 
+        public DbSet<Account> Accounts { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema(ConfigurationManager.AppSettings.Get("MS_TableSchema"));
