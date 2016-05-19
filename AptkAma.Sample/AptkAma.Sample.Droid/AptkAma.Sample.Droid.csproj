@@ -166,7 +166,7 @@
       <Project>{56a56f17-7de1-4ca1-9617-bf32e971ac84}</Project>
       <Name>AptkAma.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.csproj">
+    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore\AptkAma.LocalStore.csproj">
       <Project>{6e8df24c-3029-4227-9c81-404bc5c18889}</Project>
       <Name>AptkAma.LocalStore</Name>
     </ProjectReference>

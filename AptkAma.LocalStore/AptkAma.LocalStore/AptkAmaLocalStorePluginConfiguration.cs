@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace Aptk.Plugins.AptkAma.Data
 {
@@ -17,6 +18,17 @@ namespace Aptk.Plugins.AptkAma.Data
         }
 
         /// <summary>
+        /// AptkAma Plugin's Local Store Extension constructor
+        /// </summary>
+        /// <param name="databaseFullPath">Database file full device path</param>
+        /// <param name="localStoreFileService">An instance of the LocalStore File extension</param>
+        public AptkAmaLocalStorePluginConfiguration(string databaseFullPath, IAptkAmaLocalStoreFileService localStoreFileService)
+        {
+            DatabaseFullPath = databaseFullPath;
+            LocalStoreFileService = localStoreFileService;
+        }
+
+        /// <summary>
         /// Database file full device path
         /// </summary>
         public string DatabaseFullPath { get; set; }
@@ -32,5 +44,16 @@ namespace Aptk.Plugins.AptkAma.Data
         /// </summary>
         /// <value>30sec</value>
         public TimeSpan InitTimeout { get; set; } = TimeSpan.FromSeconds(30);
+
+        /// <summary>
+        /// A mobile service sync handler instance
+        /// </summary>
+        /// <value>MobileServiceSyncHandler</value>
+        public IMobileServiceSyncHandler SyncHandler { get; set; } = new MobileServiceSyncHandler();
+
+        /// <summary>
+        /// An instance of the LocalStore File extension
+        /// </summary>
+        public IAptkAmaLocalStoreFileService LocalStoreFileService { get; set; }
     }
 }

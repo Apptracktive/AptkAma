@@ -28,6 +28,10 @@ namespace Aptk.Plugins.AptkAma.Data
         {
             get
             {
+                if (_localStoreConfiguration == null)
+                {
+                    throw new Exception($"You must call {nameof(AptkAmaLocalStorePluginLoader)}'s Init method before accessing Local data.");
+                }
                 var instance = LazyInstance.Value;
                 if (instance == null)
                 {
@@ -77,6 +81,5 @@ namespace Aptk.Plugins.AptkAma.Data
             _dataService = dataService;
             return Instance.PendingOperations;
         }
-
     }
 }

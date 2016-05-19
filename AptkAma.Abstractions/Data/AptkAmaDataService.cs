@@ -14,13 +14,24 @@ namespace Aptk.Plugins.AptkAma.Data
     {
         public readonly IAptkAmaPluginConfiguration Configuration;
         public readonly IMobileServiceClient Client;
-        private Dictionary<Type, object> _remoteTableServices;
+        public readonly List<Type> TableTypes;
+        private Dictionary<Type, object> _remoteTables;
         private bool _isInitilized;
 
         public AptkAmaDataService(IAptkAmaPluginConfiguration configuration, IMobileServiceClient client)
         {
             Configuration = configuration;
             Client = client;
+
+            // Get the list of tables
+            try
+            {
+                TableTypes = Configuration.ModelAssembly.DefinedTypes.Where(type => typeof(ITableData).GetTypeInfo().IsAssignableFrom(type)).Select(t => t.AsType()).ToList();
+            }
+            catch (Exception)
+            {
+                throw new Exception($"AptkAma: Unable to find any class inheriting ITableData or EntityData into {Configuration.ModelAssembly.FullName}.");
+            }
 
             // Init tables
             Initialize();
@@ -30,22 +41,10 @@ namespace Aptk.Plugins.AptkAma.Data
         {
             if (!_isInitilized)
             {
-                _remoteTableServices = new Dictionary<Type, object>();
-
-                // Get the list of tables
-                List<Type> tableTypes;
-                try
-                {
-                    tableTypes = Configuration.ModelAssembly.DefinedTypes.Where(type => typeof(ITableData).GetTypeInfo().IsAssignableFrom(type)).Select(t => t.AsType()).ToList();
-                }
-                catch (Exception)
-                {
-                    Debug.WriteLine("AptkAma: Unable to find any class inheriting ITableData or EntityData into {0}.", Configuration.ModelAssembly.FullName);
-                    return false;
-                }
+                _remoteTables = new Dictionary<Type, object>();
 
                 // Get tables
-                foreach (var tableType in tableTypes)
+                foreach (var tableType in TableTypes)
                 {
                     // Get remote table
                     GetType().GetTypeInfo().GetDeclaredMethod("RemoteTable").MakeGenericMethod(tableType).Invoke(this, null);
@@ -64,12 +63,13 @@ namespace Aptk.Plugins.AptkAma.Data
         public IAptkAmaRemoteTableService<T> RemoteTable<T>() where T : ITableData
         {
             object genericRemoteTable;
-            _remoteTableServices.TryGetValue(typeof(T), out genericRemoteTable);
+            _remoteTables.TryGetValue(typeof(T), out genericRemoteTable);
             if (genericRemoteTable == null)
             {
-                var remoteTable = new AptkAmaRemoteTableService<T>(Client);
+                var table = Client.GetTable<T>();
+                var remoteTable = new AptkAmaRemoteTableService<T>(table);
                 genericRemoteTable = remoteTable;
-                _remoteTableServices.Add(typeof(T), remoteTable);
+                _remoteTables.Add(typeof(T), remoteTable);
             }
 
             return genericRemoteTable as AptkAmaRemoteTableService<T>;

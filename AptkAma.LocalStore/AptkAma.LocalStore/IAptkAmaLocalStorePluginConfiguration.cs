@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace Aptk.Plugins.AptkAma.Data
 {
@@ -23,5 +24,16 @@ namespace Aptk.Plugins.AptkAma.Data
         /// </summary>
         /// <value>30sec</value>
         TimeSpan InitTimeout { get; set; }
+
+        /// <summary>
+        /// A mobile service sync handler instance
+        /// </summary>
+        /// <value>MobileServiceSyncHandler</value>
+        IMobileServiceSyncHandler SyncHandler { get; set; }
+
+        /// <summary>
+        /// An instance of the LocalStore File extension
+        /// </summary>
+        IAptkAmaLocalStoreFileService LocalStoreFileService { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.IO;
+using System.Net.Http;
 using Aptk.Plugins.AptkAma;
 using Aptk.Plugins.AptkAma.Data;
 using Aptk.Plugins.AptkAma.Identity;
@@ -54,8 +55,11 @@ namespace AptkAma.Sample.iOS
             // Init SQLite
             SQLitePCL.CurrentPlatform.Init();
 
+            // Init local store file extension
+            AptkAmaLocalStoreFilePluginLoader.Init(new AptkAmaLocalStoreFilePluginConfiguration(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Files")));
+
             // Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)));
+            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), AptkAmaLocalStoreFilePluginLoader.Instance));
         }
 
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)

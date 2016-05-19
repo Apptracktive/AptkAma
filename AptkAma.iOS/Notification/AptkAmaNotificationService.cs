@@ -31,7 +31,6 @@ namespace Aptk.Plugins.AptkAma.Notification
         {
             if (Tcs == null || Tcs.Task.IsCanceled || Tcs.Task.IsCompleted || Tcs.Task.IsFaulted)
             {
-                Debug.WriteLine(6);
                 Tcs = new TaskCompletionSource<bool>();
                 cancellationToken.Register(() => Tcs.TrySetCanceled(), false);
 
@@ -57,7 +56,6 @@ namespace Aptk.Plugins.AptkAma.Notification
                     this.RegisteredForRemoteNotifications(DeviceToken);
                 }
             }
-            Debug.WriteLine(7);
             return Tcs.Task;
         }
 

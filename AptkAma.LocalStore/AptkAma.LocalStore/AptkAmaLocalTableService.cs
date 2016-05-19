@@ -12,38 +12,26 @@ namespace Aptk.Plugins.AptkAma.Data
     public class AptkAmaLocalTableService<T> : IAptkAmaLocalTableService<T> where T : ITableData
     {
         private readonly IAptkAmaLocalStorePluginConfiguration _localStoreConfiguration;
-        private readonly IMobileServiceClient _client;
+        private readonly IMobileServiceSyncTable<T> _syncTable;
         private readonly IAptkAmaLocalStoreService _localStoreService;
-        private IMobileServiceSyncTable<T> _localTable;
 
         public AptkAmaLocalTableService(IAptkAmaLocalStorePluginConfiguration localStoreConfiguration, 
-            IMobileServiceClient client, 
+            IMobileServiceSyncTable<T> syncTable,
             IAptkAmaLocalStoreService localStoreService)
         {
             _localStoreConfiguration = localStoreConfiguration;
-            _client = client;
+            _syncTable = syncTable;
             _localStoreService = localStoreService;
-            Task.Run(async () => await InitializeAsync());
         }
 
         private async Task<bool> InitializeAsync()
         {
-            var cts = new CancellationTokenSource();
-            try
+            using (var cts = new CancellationTokenSource())
             {
                 await Task.WhenAny(_localStoreService.InitializationTask, Task.Delay(_localStoreConfiguration.InitTimeout, cts.Token));
             }
-            catch (TaskCanceledException)
-            {
-                throw new MobileServiceInvalidOperationException($"Initialization timed out after {_localStoreConfiguration.InitTimeout.TotalSeconds} seconds.", null, null);
-            }
 
-            if (_localStoreService.InitializationTask.IsCompleted && _client.SyncContext.IsInitialized)
-            {
-                _localTable = _client.GetSyncTable<T>();
-            }
-
-            return _localStoreService.InitializationTask.IsCompleted;
+            return MobileServiceClient.SyncContext.IsInitialized;
         }
 
         public async Task<JToken> ReadAsync(string query)
@@ -51,7 +39,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to read data. Initialization failed.", null, null);
 
-            return await _localTable.ReadAsync(query);
+            return await _syncTable.ReadAsync(query);
         }
 
         public async Task<JObject> InsertAsync(JObject instance)
@@ -59,7 +47,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to insert data. Initialization failed.", null, null);
 
-            return await _localTable.InsertAsync(instance);
+            return await _syncTable.InsertAsync(instance);
         }
 
         public async Task UpdateAsync(JObject instance)
@@ -67,7 +55,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to update data. Initialization failed.", null, null);
 
-            await _localTable.UpdateAsync(instance);
+            await _syncTable.UpdateAsync(instance);
         }
 
         public async Task DeleteAsync(JObject instance)
@@ -75,7 +63,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to delete data. Initialization failed.", null, null);
 
-            await _localTable.DeleteAsync(instance);
+            await _syncTable.DeleteAsync(instance);
         }
 
         async Task<T> IMobileServiceSyncTable<T>.LookupAsync(string id)
@@ -83,57 +71,57 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to lookup data. Initialization failed.", null, null);
 
-            return await _localTable.LookupAsync(id);
+            return await _syncTable.LookupAsync(id);
         }
 
         public IMobileServiceTableQuery<T> CreateQuery()
         {
-            return _localTable.CreateQuery();
+            return _syncTable.CreateQuery();
         }
 
         public IMobileServiceTableQuery<T> IncludeTotalCount()
         {
-            return _localTable.IncludeTotalCount();
+            return _syncTable.IncludeTotalCount();
         }
 
         public IMobileServiceTableQuery<T> Where(Expression<Func<T, bool>> predicate)
         {
-            return _localTable.Where(predicate);
+            return _syncTable.Where(predicate);
         }
 
         public IMobileServiceTableQuery<U> Select<U>(Expression<Func<T, U>> selector)
         {
-            return _localTable.Select(selector);
+            return _syncTable.Select(selector);
         }
 
         public IMobileServiceTableQuery<T> OrderBy<TKey>(Expression<Func<T, TKey>> keySelector)
         {
-            return _localTable.OrderBy(keySelector);
+            return _syncTable.OrderBy(keySelector);
         }
 
         public IMobileServiceTableQuery<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> keySelector)
         {
-            return _localTable.OrderByDescending(keySelector);
+            return _syncTable.OrderByDescending(keySelector);
         }
 
         public IMobileServiceTableQuery<T> ThenBy<TKey>(Expression<Func<T, TKey>> keySelector)
         {
-            return _localTable.ThenBy(keySelector);
+            return _syncTable.ThenBy(keySelector);
         }
 
         public IMobileServiceTableQuery<T> ThenByDescending<TKey>(Expression<Func<T, TKey>> keySelector)
         {
-            return _localTable.ThenByDescending(keySelector);
+            return _syncTable.ThenByDescending(keySelector);
         }
 
         public IMobileServiceTableQuery<T> Skip(int count)
         {
-            return _localTable.Skip(count);
+            return _syncTable.Skip(count);
         }
 
         public IMobileServiceTableQuery<T> Take(int count)
         {
-            return _localTable.Take(count);
+            return _syncTable.Take(count);
         }
 
         public async Task<IEnumerable<T>> ToEnumerableAsync()
@@ -141,7 +129,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to retrieve data. Initialization failed.", null, null);
 
-            return await _localTable.ToEnumerableAsync();
+            return await _syncTable.ToEnumerableAsync();
         }
 
         public async Task<List<T>> ToListAsync()
@@ -149,7 +137,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to retrieve data. Initialization failed.", null, null);
 
-            return await _localTable.ToListAsync();
+            return await _syncTable.ToListAsync();
         }
 
         public async Task<IEnumerable<T>> ReadAsync()
@@ -157,7 +145,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to read data. Initialization failed.", null, null);
 
-            return await _localTable.ReadAsync();
+            return await _syncTable.ReadAsync();
         }
 
         public async Task<IEnumerable<U>> ReadAsync<U>(IMobileServiceTableQuery<U> query)
@@ -165,7 +153,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to read data. Initialization failed.", null, null);
 
-            return await _localTable.ReadAsync(query);
+            return await _syncTable.ReadAsync(query);
         }
 
         public async Task RefreshAsync(T instance)
@@ -173,7 +161,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to refresh data. Initialization failed.", null, null);
 
-            await _localTable.RefreshAsync(instance);
+            await _syncTable.RefreshAsync(instance);
         }
 
         public async Task InsertAsync(T instance)
@@ -181,7 +169,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to insert data. Initialization failed.", null, null);
 
-            await _localTable.InsertAsync(instance);
+            await _syncTable.InsertAsync(instance);
         }
 
         public async Task UpdateAsync(T instance)
@@ -189,7 +177,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to update data. Initialization failed.", null, null);
 
-            await _localTable.UpdateAsync(instance);
+            await _syncTable.UpdateAsync(instance);
         }
 
         public async Task DeleteAsync(T instance)
@@ -197,7 +185,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to delete data. Initialization failed.", null, null);
 
-            await _localTable.DeleteAsync(instance);
+            await _syncTable.DeleteAsync(instance);
         }
 
         public async Task PullAsync(string queryId, string query, IDictionary<string, string> parameters, bool pushOtherTables, CancellationToken cancellationToken, PullOptions pullOptions)
@@ -205,7 +193,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(queryId, query, parameters, pushOtherTables, cancellationToken, pullOptions);
+            await _syncTable.PullAsync(queryId, query, parameters, pushOtherTables, cancellationToken, pullOptions);
         }
 
         public async Task PullAsync<U>(string queryId, IMobileServiceTableQuery<U> query, bool pushOtherTables, CancellationToken cancellationToken, PullOptions pullOptions)
@@ -213,7 +201,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(queryId, query, pushOtherTables, cancellationToken, pullOptions);
+            await _syncTable.PullAsync(queryId, query, pushOtherTables, cancellationToken, pullOptions);
         }
 
         public async Task PullAsync(string queryId, bool pushOtherTables, CancellationToken cancellationToken)
@@ -221,7 +209,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(queryId, _localTable.CreateQuery(), pushOtherTables, cancellationToken);
+            await _syncTable.PullAsync(queryId, _syncTable.CreateQuery(), pushOtherTables, cancellationToken);
         }
 
         public async Task PullAsync<U>(string queryId, IMobileServiceTableQuery<U> query, CancellationToken cancellationToken)
@@ -229,7 +217,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(queryId, query, false, cancellationToken);
+            await _syncTable.PullAsync(queryId, query, false, cancellationToken);
         }
 
         public async Task PullAsync<U>(IMobileServiceTableQuery<U> query, bool pushOtherTables, CancellationToken cancellationToken)
@@ -237,7 +225,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(typeof(T).Name, query, pushOtherTables, cancellationToken);
+            await _syncTable.PullAsync(typeof(T).Name, query, pushOtherTables, cancellationToken);
         }
 
         public async Task PullAsync(string queryId, CancellationToken cancellationToken)
@@ -245,7 +233,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(queryId, _localTable.CreateQuery(), false, cancellationToken);
+            await _syncTable.PullAsync(queryId, _syncTable.CreateQuery(), false, cancellationToken);
         }
 
         public async Task PullAsync<U>(IMobileServiceTableQuery<U> query, CancellationToken cancellationToken)
@@ -253,7 +241,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(typeof(T).Name, query, false, cancellationToken);
+            await _syncTable.PullAsync(typeof(T).Name, query, false, cancellationToken);
         }
 
         public async Task PullAsync(bool pushOtherTables, CancellationToken cancellationToken)
@@ -261,7 +249,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(typeof(T).Name, _localTable.CreateQuery(), pushOtherTables, cancellationToken);
+            await _syncTable.PullAsync(typeof(T).Name, _syncTable.CreateQuery(), pushOtherTables, cancellationToken);
         }
 
         public async Task PullAsync(CancellationToken cancellationToken)
@@ -269,7 +257,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to pull data. Initialization failed.", null, null);
 
-            await _localTable.PullAsync(typeof(T).Name, _localTable.CreateQuery(), false, cancellationToken);
+            await _syncTable.PullAsync(typeof(T).Name, _syncTable.CreateQuery(), false, cancellationToken);
         }
 
         public async Task PurgeAsync<U>(string queryId, IMobileServiceTableQuery<U> query, CancellationToken cancellationToken)
@@ -277,7 +265,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to purge data. Initialization failed.", null, null);
 
-            await _localTable.PurgeAsync(queryId, query, cancellationToken);
+            await _syncTable.PurgeAsync(queryId, query, cancellationToken);
         }
 
         public async Task PurgeAsync(string queryId, CancellationToken cancellationToken)
@@ -285,7 +273,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to purge data. Initialization failed.", null, null);
 
-            await _localTable.PurgeAsync(queryId, _localTable.CreateQuery(), cancellationToken);
+            await _syncTable.PurgeAsync(queryId, _syncTable.CreateQuery(), cancellationToken);
         }
 
         public async Task PurgeAsync<U>(IMobileServiceTableQuery<U> query, CancellationToken cancellationToken)
@@ -293,7 +281,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to purge data. Initialization failed.", null, null);
 
-            await _localTable.PurgeAsync(typeof(T).Name, query, cancellationToken);
+            await _syncTable.PurgeAsync(typeof(T).Name, query, cancellationToken);
         }
 
         public async Task PurgeAsync(CancellationToken cancellationToken)
@@ -301,7 +289,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to purge data. Initialization failed.", null, null);
 
-            await _localTable.PurgeAsync(typeof(T).Name, _localTable.CreateQuery(), cancellationToken);
+            await _syncTable.PurgeAsync(typeof(T).Name, _syncTable.CreateQuery(), cancellationToken);
         }
 
         async Task<JObject> IMobileServiceSyncTable.LookupAsync(string id)
@@ -309,7 +297,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to lookup data. Initialization failed.", null, null);
 
-            return await ((IMobileServiceSyncTable) _localTable).LookupAsync(id);
+            return await ((IMobileServiceSyncTable) _syncTable).LookupAsync(id);
         }
 
         public async Task PurgeAsync(string queryId, string query, bool force, CancellationToken cancellationToken)
@@ -317,17 +305,17 @@ namespace Aptk.Plugins.AptkAma.Data
             if (!await InitializeAsync())
                 throw new MobileServiceInvalidOperationException("Unable to purge data. Initialization failed.", null, null);
 
-            await _localTable.PurgeAsync(queryId, query, force, cancellationToken);
+            await _syncTable.PurgeAsync(queryId, query, force, cancellationToken);
         }
 
-        public MobileServiceClient MobileServiceClient => _localTable.MobileServiceClient;
+        public MobileServiceClient MobileServiceClient => _syncTable.MobileServiceClient;
 
-        public string TableName => _localTable.TableName;
+        public string TableName => _syncTable.TableName;
 
         public MobileServiceRemoteTableOptions SupportedOptions
         {
-            get { return _localTable.SupportedOptions; }
-            set { _localTable.SupportedOptions = value; }
+            get { return _syncTable.SupportedOptions; }
+            set { _syncTable.SupportedOptions = value; }
         }
     }
 }

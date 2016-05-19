@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Aptk.Plugins.AptkAma;
@@ -8,7 +9,10 @@ using Aptk.Plugins.AptkAma.Data;
 using Aptk.Plugins.AptkAma.Identity;
 using AptkAma.Sample.Core.Model;
 using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.WindowsAzure.MobileServices.Files;
 using Microsoft.WindowsAzure.MobileServices.Sync;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using Xamarin.Forms;
 
 namespace AptkAma.Sample.Core
@@ -16,12 +20,14 @@ namespace AptkAma.Sample.Core
     public partial class MainPage : ContentPage
     {
         private readonly IAptkAmaService _aptkAmaService;
+        private readonly IMedia _mediaService;
 
         public MainPage()
         {
             InitializeComponent();
 
             _aptkAmaService = AptkAmaPluginLoader.Instance;
+            _mediaService = CrossMedia.Current;
         }
 
         protected override async void OnAppearing()
@@ -35,6 +41,23 @@ namespace AptkAma.Sample.Core
         async Task AddItem(TodoItem item)
         {
             await _aptkAmaService.Data.LocalTable<TodoItem>().InsertAsync(item);
+
+            // File
+            var image = await _mediaService.PickPhotoAsync();
+            if (image != null)
+            {
+                try
+                {
+                    var targetPath = _aptkAmaService.Data.FileManagementService().CopyFileToAppDirectory(item.Id, image.Path);
+                    var fileName = Path.GetFileName(targetPath);
+                    var file = await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(targetPath));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
 
