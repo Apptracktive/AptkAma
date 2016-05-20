@@ -5,11 +5,8 @@ using Aptk.Plugins.AptkAma.Data;
 using Aptk.Plugins.AptkAma.Identity;
 using Aptk.Plugins.AptkAma.Notification;
 using AptkAma.Sample.Core;
-using AptkAma.Sample.Core.Helpers;
 using AptkAma.Sample.Core.Services;
 using Foundation;
-using Microsoft.WindowsAzure.MobileServices;
-using Newtonsoft.Json.Linq;
 using UIKit;
 using Xamarin.Forms;
 
