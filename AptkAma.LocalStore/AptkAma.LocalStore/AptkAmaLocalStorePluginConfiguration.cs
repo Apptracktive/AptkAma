@@ -40,12 +40,6 @@ namespace Aptk.Plugins.AptkAma.Data
         public string DatabaseFileName { get; set; } = "amslocalstore.db";
 
         /// <summary>
-        /// Initialization timeout
-        /// </summary>
-        /// <value>30sec</value>
-        public TimeSpan InitTimeout { get; set; } = TimeSpan.FromSeconds(30);
-
-        /// <summary>
         /// A mobile service sync handler instance
         /// </summary>
         /// <value>MobileServiceSyncHandler</value>

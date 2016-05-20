@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices.Files;
 using Microsoft.WindowsAzure.MobileServices.Files.Metadata;
@@ -22,8 +23,11 @@ namespace Aptk.Plugins.AptkAma.Data
 #if PORTABLE
             throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
 #else
+            Debug.WriteLine($"GetDataSource | FileName: {metadata.FileName}");
             var filePath = _configuration.FileManagementService.GetLocalFilePath(metadata.ParentDataItemId, metadata.FileName);
+            Debug.WriteLine($"GetDataSource | FilePath: {filePath}");
             var fileSource = new PathMobileServiceFileDataSource(filePath) as IMobileServiceFileDataSource;
+            Debug.WriteLine($"GetDataSource | FileSource");
 
             return Task.FromResult(fileSource);
 #endif
@@ -41,7 +45,15 @@ namespace Aptk.Plugins.AptkAma.Data
             else
             {
                 var filePath = _configuration.FileManagementService.GetLocalFilePath(file.ParentId, file.Name);
-                await _table.DownloadFileAsync(file, filePath);
+                Debug.WriteLine($"GetDataSource | FilePath: {filePath}");
+                try
+                {
+                    await _table.DownloadFileAsync(file, filePath);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Download error: {ex.Message} | {ex.StackTrace}");
+                }
             }
 #endif
         }

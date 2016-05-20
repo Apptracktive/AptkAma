@@ -14,45 +14,38 @@ namespace Aptk.Plugins.AptkAma.Data
     {
         public readonly IAptkAmaPluginConfiguration Configuration;
         public readonly IMobileServiceClient Client;
-        public readonly List<Type> TableTypes;
         private Dictionary<Type, object> _remoteTables;
-        private bool _isInitilized;
 
         public AptkAmaDataService(IAptkAmaPluginConfiguration configuration, IMobileServiceClient client)
         {
             Configuration = configuration;
             Client = client;
 
+            // Init tables
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            _remoteTables = new Dictionary<Type, object>();
+
             // Get the list of tables
+            List<Type> tableTypes;
             try
             {
-                TableTypes = Configuration.ModelAssembly.DefinedTypes.Where(type => typeof(ITableData).GetTypeInfo().IsAssignableFrom(type)).Select(t => t.AsType()).ToList();
+                tableTypes = Configuration.ModelAssembly.DefinedTypes.Where(type => typeof(ITableData).GetTypeInfo().IsAssignableFrom(type)).Select(t => t.AsType()).ToList();
             }
             catch (Exception)
             {
                 throw new Exception($"AptkAma: Unable to find any class inheriting ITableData or EntityData into {Configuration.ModelAssembly.FullName}.");
             }
 
-            // Init tables
-            Initialize();
-        }
-
-        private bool Initialize()
-        {
-            if (!_isInitilized)
+            // Get tables
+            foreach (var tableType in tableTypes)
             {
-                _remoteTables = new Dictionary<Type, object>();
-
-                // Get tables
-                foreach (var tableType in TableTypes)
-                {
-                    // Get remote table
-                    GetType().GetTypeInfo().GetDeclaredMethod("RemoteTable").MakeGenericMethod(tableType).Invoke(this, null);
-                }
-
-                _isInitilized = true;
+                // Get remote table
+                GetType().GetTypeInfo().GetDeclaredMethod("RemoteTable").MakeGenericMethod(tableType).Invoke(this, null);
             }
-            return _isInitilized;
         }
 
         /// <summary>

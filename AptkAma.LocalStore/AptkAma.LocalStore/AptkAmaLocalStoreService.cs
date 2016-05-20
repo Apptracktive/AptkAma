@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,48 +15,50 @@ namespace Aptk.Plugins.AptkAma.Data
     {
         private readonly IAptkAmaLocalStorePluginConfiguration _localStoreConfiguration;
         private readonly IAptkAmaPluginConfiguration _configuration;
-        private readonly List<Type> _tableTypes;
-        private readonly MobileServiceSQLiteStore _localStore;
+        private MobileServiceSQLiteStore _localStore;
         private readonly IMobileServiceClient _client;
         private Dictionary<Type, object> _localTables;
 
         public AptkAmaLocalStoreService(IAptkAmaLocalStorePluginConfiguration localStoreConfiguration, IAptkAmaDataService dataService)
         {
             _localStoreConfiguration = localStoreConfiguration;
-            var aptkAmaDataService = (AptkAmaDataService) dataService;
-            _configuration = aptkAmaDataService.Configuration;
-            _tableTypes = aptkAmaDataService.TableTypes;
-            _client = aptkAmaDataService.Client;
-            _localStore = new MobileServiceSQLiteStore(Path.Combine(_localStoreConfiguration.DatabaseFullPath, _localStoreConfiguration.DatabaseFileName));
+            _configuration = ((AptkAmaDataService)dataService).Configuration;
+            _client = ((AptkAmaDataService)dataService).Client;
 
-            InitializationTask = InitializeAsync();
-            Task.Run(async () => await InitializationTask);
+            Initialize();
         }
 
-        public Task<bool> InitializationTask { get; }
-
-        private async Task<bool> InitializeAsync()
+        private void Initialize()
         {
-            if (!_client.SyncContext.IsInitialized)
+            _localTables = new Dictionary<Type, object>();
+
+            // Init local store
+            var fullPath = Path.Combine(_localStoreConfiguration.DatabaseFullPath, _localStoreConfiguration.DatabaseFileName);
+            try
             {
-                _localTables = new Dictionary<Type, object>();
-
-                // Define local tables
-                foreach (var tableType in _tableTypes)
-                {
-                    GetType().GetTypeInfo().GetDeclaredMethod("DefineTable").MakeGenericMethod(tableType).Invoke(this, null);
-                    GetType().GetTypeInfo().GetDeclaredMethod("GetLocalTable").MakeGenericMethod(tableType).Invoke(this, null);
-                }
-
-                // Init local store
-                await _client.SyncContext.InitializeAsync(_localStore, _localStoreConfiguration.SyncHandler);
+                _localStore = new MobileServiceSQLiteStore(fullPath);
             }
-            return _client.SyncContext.IsInitialized;
-        }
+            catch (Exception ex)
+            {
+                throw new Exception($"AptkAma: Unable to create database file {fullPath}. Initialization terminated with error: {ex.Message}");
+            }
 
-        private void DefineTable<T>()
-        {
-            _localStore.DefineTable<T>();
+            // Get the list of tables
+            List<Type> tableTypes;
+            try
+            {
+                tableTypes = _configuration.ModelAssembly.DefinedTypes.Where(typeInfo => typeof(ITableData).GetTypeInfo().IsAssignableFrom(typeInfo)).Select(typeInfo => typeInfo.AsType()).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"AptkAma: Unable to find any class inheriting ITableData or EntityData into {_configuration.ModelAssembly.FullName}. Initialization terminated with error: {ex.Message}");
+            }
+
+            // Define local tables
+            foreach (var tableType in tableTypes)
+            {
+                GetType().GetTypeInfo().GetDeclaredMethod("GetLocalTable").MakeGenericMethod(tableType).Invoke(this, null);
+            }
         }
 
         public IAptkAmaLocalTableService<T> GetLocalTable<T>() where T : ITableData
@@ -63,12 +67,13 @@ namespace Aptk.Plugins.AptkAma.Data
             _localTables.TryGetValue(typeof(T), out genericLocalTable);
             if (genericLocalTable == null)
             {
+                _localStore.DefineTable<T>();
                 var syncTable = _client.GetSyncTable<T>();
-                var localTable = new AptkAmaLocalTableService<T>(_localStoreConfiguration, syncTable, this);
+                var localTable = new AptkAmaLocalTableService<T>(_localStoreConfiguration, _localStore, syncTable);
                 genericLocalTable = localTable;
                 _localTables.Add(typeof(T), localTable);
 
-                _localStoreConfiguration.LocalStoreFileService?.InitializeFileSyncContext(_client, _localStore, localTable);
+                //_localStoreConfiguration.LocalStoreFileService?.InitializeFileSyncContext(_client, _localStore, localTable);
             }
 
             return genericLocalTable as AptkAmaLocalTableService<T>;
@@ -82,15 +87,12 @@ namespace Aptk.Plugins.AptkAma.Data
 
         public async Task PushAsync(CancellationToken token)
         {
-            await Task.WhenAny(InitializationTask, Task.Delay(_localStoreConfiguration.InitTimeout, token));
+            if (!_client.SyncContext.IsInitialized)
+                await _client.SyncContext.InitializeAsync(_localStore, _localStoreConfiguration.SyncHandler);
 
-            if (InitializationTask.IsCompleted && _client.SyncContext.IsInitialized)
-            {
-                await _client.SyncContext.PushAsync(token);
-            }
+            await _client.SyncContext.PushAsync(token);
         }
-
-
+        
         public long PendingOperations => _client.SyncContext.PendingOperations;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,24 +13,22 @@ namespace Aptk.Plugins.AptkAma.Data
     public class AptkAmaLocalTableService<T> : IAptkAmaLocalTableService<T> where T : ITableData
     {
         private readonly IAptkAmaLocalStorePluginConfiguration _localStoreConfiguration;
+        private readonly IMobileServiceLocalStore _store;
         private readonly IMobileServiceSyncTable<T> _syncTable;
-        private readonly IAptkAmaLocalStoreService _localStoreService;
 
-        public AptkAmaLocalTableService(IAptkAmaLocalStorePluginConfiguration localStoreConfiguration, 
-            IMobileServiceSyncTable<T> syncTable,
-            IAptkAmaLocalStoreService localStoreService)
+        public AptkAmaLocalTableService(IAptkAmaLocalStorePluginConfiguration localStoreConfiguration,
+            IMobileServiceLocalStore store,
+            IMobileServiceSyncTable<T> syncTable)
         {
             _localStoreConfiguration = localStoreConfiguration;
+            _store = store;
             _syncTable = syncTable;
-            _localStoreService = localStoreService;
         }
 
         private async Task<bool> InitializeAsync()
         {
-            using (var cts = new CancellationTokenSource())
-            {
-                await Task.WhenAny(_localStoreService.InitializationTask, Task.Delay(_localStoreConfiguration.InitTimeout, cts.Token));
-            }
+            if (!MobileServiceClient.SyncContext.IsInitialized)
+                await MobileServiceClient.SyncContext.InitializeAsync(_store, _localStoreConfiguration.SyncHandler);
 
             return MobileServiceClient.SyncContext.IsInitialized;
         }

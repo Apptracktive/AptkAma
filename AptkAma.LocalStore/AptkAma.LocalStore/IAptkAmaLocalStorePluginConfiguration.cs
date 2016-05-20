@@ -20,12 +20,6 @@ namespace Aptk.Plugins.AptkAma.Data
         string DatabaseFileName { get; set; }
 
         /// <summary>
-        /// Initialization timeout
-        /// </summary>
-        /// <value>30sec</value>
-        TimeSpan InitTimeout { get; set; }
-
-        /// <summary>
         /// A mobile service sync handler instance
         /// </summary>
         /// <value>MobileServiceSyncHandler</value>
