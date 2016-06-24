@@ -17,6 +17,7 @@ namespace AptkAma.Sample.Backend
         public static void ConfigureMobileApp(IAppBuilder app)
         {
             var config = new HttpConfiguration();
+            config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute("CustomLogin", ".auth/login/CustomLogin", new { controller = "CustomLogin" });
 
             //For more information on Web API tracing, see http://go.microsoft.com/fwlink/?LinkId=620686 

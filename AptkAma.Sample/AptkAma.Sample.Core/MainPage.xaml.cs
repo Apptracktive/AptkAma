@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Aptk.Plugins.AptkAma;
@@ -35,6 +36,8 @@ namespace AptkAma.Sample.Core
             base.OnAppearing();
 
             await _aptkAmaService.Data.LocalTable<TodoItem>().PullAsync(new CancellationToken());
+            var items = await _aptkAmaService.Data.LocalTable<TodoItem>().ToListAsync();
+            await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(items.First());
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
 
@@ -42,14 +45,13 @@ namespace AptkAma.Sample.Core
         {
             await _aptkAmaService.Data.LocalTable<TodoItem>().InsertAsync(item);
 
-            // File
+            //File
             var image = await _mediaService.PickPhotoAsync();
             if (image != null)
             {
                 try
                 {
                     var targetPath = _aptkAmaService.Data.FileManagementService().CopyFileToAppDirectory(item.Id, image.Path);
-                    var fileName = Path.GetFileName(targetPath);
                     var file = await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(targetPath));
                 }
                 catch (Exception ex)
@@ -131,6 +133,7 @@ namespace AptkAma.Sample.Core
         public async void OnSync(object sender, EventArgs e)
         {
             await _aptkAmaService.Data.PushAsync();
+            await _aptkAmaService.Data.LocalTable<TodoItem>().PushFileChangesAsync();
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
 
@@ -143,7 +146,13 @@ namespace AptkAma.Sample.Core
         {
             if (!_aptkAmaService.Identity.EnsureLoggedIn())
             {
-                await _aptkAmaService.Identity.LoginAsync("CustomLogin", "Your login here", "Your password here");
+                try
+                {
+                    await _aptkAmaService.Identity.LoginAsync(AptkAmaAuthenticationProvider.Facebook);
+                }
+                catch (Exception)
+                {
+                }
             }
         }
     }

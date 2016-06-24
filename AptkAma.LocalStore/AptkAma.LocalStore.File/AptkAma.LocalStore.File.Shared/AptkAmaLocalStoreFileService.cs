@@ -20,25 +20,15 @@ namespace Aptk.Plugins.AptkAma.Data
 #if PORTABLE
             throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
 #else
-            Debug.WriteLine(("Activator"));
             var tInstance = Activator.CreateInstance<T>() as IFileSyncTableData;
             if (tInstance == null)
                 return;
             
             var triggerFactory = tInstance.SpecificFileSyncTriggerFactory ?? _configuration.GlobalFileSyncTriggerFactory;
             if (triggerFactory != null)
-            {
-                Debug.WriteLine("trigger null");
-                client.InitializeFileSyncContext(new AptkAmaLocalStoreFileSyncHandler<T>(_configuration, table), store,
-                    triggerFactory);
-                Debug.WriteLine("trigger initialized");
-            }
+                client.InitializeFileSyncContext(new AptkAmaLocalStoreFileSyncHandler<T>(_configuration, table), store, triggerFactory);
             else
-            {
-                Debug.WriteLine("trigger not null");
                 client.InitializeFileSyncContext(new AptkAmaLocalStoreFileSyncHandler<T>(_configuration, table), store);
-                Debug.WriteLine("trigger initialized");
-            }
 #endif
         }
     }

@@ -20,10 +20,12 @@ namespace Aptk.Plugins.AptkAma.Data
 
         public Task<IMobileServiceFileDataSource> GetDataSource(MobileServiceFileMetadata metadata)
         {
+            Debug.WriteLine("GetDataSource");
 #if PORTABLE
+            Debug.WriteLine("PORTABLE");
             throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
 #else
-            Debug.WriteLine($"GetDataSource | FileName: {metadata.FileName}");
+            Debug.WriteLine($"GetDataSource | ItemId: {metadata.ParentDataItemId}, FileName: {metadata.FileName}");
             var filePath = _configuration.FileManagementService.GetLocalFilePath(metadata.ParentDataItemId, metadata.FileName);
             Debug.WriteLine($"GetDataSource | FilePath: {filePath}");
             var fileSource = new PathMobileServiceFileDataSource(filePath) as IMobileServiceFileDataSource;
@@ -35,7 +37,9 @@ namespace Aptk.Plugins.AptkAma.Data
 
         public async Task ProcessFileSynchronizationAction(MobileServiceFile file, FileSynchronizationAction action)
         {
+            Debug.WriteLine("ProcessFileSynchronizationAction");
 #if PORTABLE
+            Debug.WriteLine("PORTABLE");
             throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
 #else
             if (action == FileSynchronizationAction.Delete)

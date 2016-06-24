@@ -73,7 +73,7 @@ namespace Aptk.Plugins.AptkAma.Data
                 genericLocalTable = localTable;
                 _localTables.Add(typeof(T), localTable);
 
-                //_localStoreConfiguration.LocalStoreFileService?.InitializeFileSyncContext(_client, _localStore, localTable);
+                _localStoreConfiguration.LocalStoreFileService?.InitializeFileSyncContext(_client, _localStore, localTable);
             }
 
             return genericLocalTable as AptkAmaLocalTableService<T>;
