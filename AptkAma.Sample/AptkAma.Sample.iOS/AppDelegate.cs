@@ -49,14 +49,8 @@ namespace AptkAma.Sample.iOS
             // [Optional] If AptkAmaIdentityHandler is used, give it an instance of the plugin after Init
             identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
 
-            // Init SQLite
-            SQLitePCL.CurrentPlatform.Init();
-
-            // Init local store file extension
-            AptkAmaLocalStoreFilePluginLoader.Init(new AptkAmaLocalStoreFilePluginConfiguration(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "Files")));
-
             // Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), AptkAmaLocalStoreFilePluginLoader.Instance));
+            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaLocalStoreFilePluginLoader.Instance));
         }
 
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
