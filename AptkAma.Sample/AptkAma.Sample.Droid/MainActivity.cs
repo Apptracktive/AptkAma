@@ -47,7 +47,7 @@ namespace AptkAma.Sample.Droid
             identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
             
             // Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)));
+            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaLocalStoreFilePluginLoader.Instance));
         }
     }
 }
