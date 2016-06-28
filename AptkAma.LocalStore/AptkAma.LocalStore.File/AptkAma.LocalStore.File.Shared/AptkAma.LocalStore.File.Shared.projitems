@@ -6,7 +6,7 @@
     <SharedGUID>c828a783-0783-48c5-9784-0a496c84d4d1</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>AptkAma.LocalStore.File.Shared</Import_RootNamespace>
+    <Import_RootNamespace>Aptk.Plugins.AptkAma.Data</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AptkAmaFileManagementService.cs" />

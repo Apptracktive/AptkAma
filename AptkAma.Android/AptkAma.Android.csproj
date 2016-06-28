@@ -83,13 +83,11 @@
     <Compile Include="Notification\AptkAmaNotificationBaseBroadcastReceiver.cs" />
     <Compile Include="Notification\AptkAmaNotificationServiceExtension.cs" />
     <Compile Include="Notification\AptkAmaNotificationBroadcastReceiver.cs" />
-    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AptkAma.Abstractions\AptkAma.Abstractions.csproj">

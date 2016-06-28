@@ -7,6 +7,6 @@ namespace Aptk.Plugins.AptkAma.Data
         string FilePath { get; }
         string CopyFileToAppDirectory(string itemId, string filePath);
         string GetLocalFilePath(string itemId, string fileName);
-        void DeleteLocalFile(MobileServiceFile file);
+        void DeleteLocalFile(string itemId, string fileName);
     }
 }

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AptkAmaLocalStorePluginConfiguration.cs" />
+    <Compile Include="AptkAmaLocalStoreService.cs" />
     <Compile Include="AptkAmaLocalTableService.cs" />
     <Compile Include="IAptkAmaLocalStoreFileService.cs" />
     <Compile Include="IAptkAmaLocalStorePluginConfiguration.cs" />

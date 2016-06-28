@@ -26,10 +26,6 @@ namespace AptkAma.Sample.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::AptkAma.LocalStore.Android.Resource.String.ApplicationName = global::AptkAma.Sample.Droid.Resource.String.ApplicationName;
-			global::AptkAma.LocalStore.Android.Resource.String.Hello = global::AptkAma.Sample.Droid.Resource.String.Hello;
-			global::AptkAma.LocalStore.File.Android.Resource.String.ApplicationName = global::AptkAma.Sample.Droid.Resource.String.ApplicationName;
-			global::AptkAma.LocalStore.File.Android.Resource.String.Hello = global::AptkAma.Sample.Droid.Resource.String.Hello;
 			global::Microsoft.WindowsAzure.Mobile.Files.Resource.String.ApplicationName = global::AptkAma.Sample.Droid.Resource.String.ApplicationName;
 			global::Microsoft.WindowsAzure.Mobile.Files.Resource.String.Hello = global::AptkAma.Sample.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::AptkAma.Sample.Droid.Resource.Attribute.actionBarSize;

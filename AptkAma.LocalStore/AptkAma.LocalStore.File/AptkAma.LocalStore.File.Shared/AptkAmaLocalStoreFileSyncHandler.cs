@@ -44,7 +44,7 @@ namespace Aptk.Plugins.AptkAma.Data
 #else
             if (action == FileSynchronizationAction.Delete)
             {
-                _configuration.FileManagementService.DeleteLocalFile(file);
+                _configuration.FileManagementService.DeleteLocalFile(file.ParentId, file.Name);
             }
             else
             {

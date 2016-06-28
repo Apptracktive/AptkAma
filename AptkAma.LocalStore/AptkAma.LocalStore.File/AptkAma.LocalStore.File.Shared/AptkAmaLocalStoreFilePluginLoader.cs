@@ -29,7 +29,7 @@ namespace Aptk.Plugins.AptkAma.Data
 #endif
 
             if (configuration.FileManagementService == null)
-                configuration.FileManagementService = new AptkAmaFileManagementService(_configuration.SyncFilesFullPath);
+                configuration.FileManagementService = new AptkAmaFileManagementService(configuration.SyncFilesFullPath);
 
             _configuration = configuration;
         }

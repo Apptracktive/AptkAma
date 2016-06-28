@@ -10,6 +10,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AptkAmaLocalStorePluginLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AptkAmaLocalStoreService.cs" />
   </ItemGroup>
 </Project>

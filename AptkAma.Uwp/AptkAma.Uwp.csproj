@@ -16,6 +16,7 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -108,7 +109,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AptkAma.WinRT\AptkAma.WinRT.Shared\Notification\AptkAmaNotificationService.cs">
+    <Compile Include="..\AptkAma.WinRT.Shared\Notification\AptkAmaNotificationService.cs">
       <Link>Notification\AptkAmaNotificationService.cs</Link>
     </Compile>
     <Compile Include="Identity\AptkAmaPlatformIdentityService.cs" />

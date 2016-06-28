@@ -130,7 +130,7 @@ namespace AptkAma.Sample.Uwp
             identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
 
             //// Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(Windows.Storage.ApplicationData.Current.LocalFolder.Path));
+            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaLocalStoreFilePluginLoader.Instance));
         }
     }
 }

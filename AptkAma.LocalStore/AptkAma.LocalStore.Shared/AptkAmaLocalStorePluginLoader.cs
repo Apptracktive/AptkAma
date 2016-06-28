@@ -17,6 +17,7 @@ namespace Aptk.Plugins.AptkAma.Data
             throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
 #elif __IOS__
             SQLitePCL.CurrentPlatform.Init();
+
             if (localStoreConfiguration == null)
                 localStoreConfiguration = new AptkAmaLocalStorePluginConfiguration(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal));
             
