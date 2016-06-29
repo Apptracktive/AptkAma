@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -37,7 +38,10 @@ namespace AptkAma.Sample.Core
 
             await _aptkAmaService.Data.LocalTable<TodoItem>().PullAsync(new CancellationToken());
             var items = await _aptkAmaService.Data.LocalTable<TodoItem>().ToListAsync();
-            await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(items.First());
+
+            // Culture hack
+            await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(items.First()), new CultureInfo("en-US"));
+            
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
 
@@ -52,7 +56,8 @@ namespace AptkAma.Sample.Core
                 try
                 {
                     var targetPath = _aptkAmaService.Data.FileManagementService().CopyFileToAppDirectory(item.Id, image.Path);
-                    var file = await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(targetPath));
+
+                    await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(targetPath)), new CultureInfo("en-US"));
                 }
                 catch (Exception ex)
                 {
@@ -133,7 +138,7 @@ namespace AptkAma.Sample.Core
         public async void OnSync(object sender, EventArgs e)
         {
             await _aptkAmaService.Data.PushAsync();
-            await _aptkAmaService.Data.LocalTable<TodoItem>().PushFileChangesAsync();
+            await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().PushFileChangesAsync(), new CultureInfo("en-US"));
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
 
@@ -153,6 +158,31 @@ namespace AptkAma.Sample.Core
                 catch (Exception)
                 {
                 }
+            }
+        }
+
+        /// <summary>
+        /// Hack for culture handling with file sync, see https://github.com/Azure/azure-mobile-apps-net-files-client/issues/8
+        /// </summary>
+        /// <param name="action">Action to call with specific culture</param>
+        /// <param name="cultureInfo">Culture</param>
+        /// <returns></returns>
+        private async Task ExecWithSpecificCultureAsync(Func<Task> action, CultureInfo cultureInfo)
+        {
+            var userCulture = CultureInfo.CurrentCulture;
+
+            try
+            {
+                CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+                await action();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Calling action with culture {CultureInfo.DefaultThreadCurrentCulture.Name} failed with message: {ex.Message}");
+            }
+            finally
+            {
+                CultureInfo.DefaultThreadCurrentCulture = userCulture;
             }
         }
     }
