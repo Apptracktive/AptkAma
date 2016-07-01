@@ -232,13 +232,13 @@
       <Project>{ac6dfc35-70f7-45bf-8f0f-c6b0af2b6af6}</Project>
       <Name>AptkAma.LocalStore.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.File\AptkAma.LocalStore.File.Abstractions\AptkAma.LocalStore.File.Abstractions.csproj">
+    <ProjectReference Include="..\..\AptkAma.File\AptkAma.File.Abstractions\AptkAma.FileStore.Abstractions.csproj">
       <Project>{15018465-f2cf-485d-b685-456123e035ef}</Project>
-      <Name>AptkAma.LocalStore.File.Abstractions</Name>
+      <Name>AptkAma.FileStore.Abstractions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.File\AptkAma.LocalStore.File.Android\AptkAma.LocalStore.File.Android.csproj">
+    <ProjectReference Include="..\..\AptkAma.File\AptkAma.File.Android\AptkAma.FileStore.Android.csproj">
       <Project>{1525aec8-a648-4d67-a6a0-80a716796ba9}</Project>
-      <Name>AptkAma.LocalStore.File.Android</Name>
+      <Name>AptkAma.FileStore.Android</Name>
     </ProjectReference>
     <ProjectReference Include="..\AptkAma.Sample.Core\AptkAma.Sample.Core.csproj">
       <Project>{e6a4a0f3-0591-441b-98f8-65eb42bcb114}</Project>

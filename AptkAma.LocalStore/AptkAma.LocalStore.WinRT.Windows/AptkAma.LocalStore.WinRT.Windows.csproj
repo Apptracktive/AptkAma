@@ -118,12 +118,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="Microsoft.VCLibs, version=12.0">
-      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
-    </SDKReference>
-  </ItemGroup>
-  <Import Project="..\AptkAma.LocalStore.WinRT.Shared\AptkAma.LocalStore.WinRT.Shared.projitems" Label="Shared" />
   <Import Project="..\AptkAma.LocalStore.Shared\AptkAma.LocalStore.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

@@ -20,21 +20,21 @@ namespace Aptk.Plugins.AptkAma.Data
         /// <summary>
         /// AptkAma Plugin's Local Store Extension constructor
         /// </summary>
-        /// <param name="localStoreFileService">An instance of the LocalStore File extension</param>
-        public AptkAmaLocalStorePluginConfiguration(IAptkAmaLocalStoreFileService localStoreFileService)
+        /// <param name="fileStoreService">An instance of the FileStore extension</param>
+        public AptkAmaLocalStorePluginConfiguration(IAptkAmaFileStoreService fileStoreService)
         {
-            LocalStoreFileService = localStoreFileService;
+            FileStoreService = fileStoreService;
         }
 
         /// <summary>
         /// AptkAma Plugin's Local Store Extension constructor
         /// </summary>
         /// <param name="databaseFullPath">Database file full device path</param>
-        /// <param name="localStoreFileService">An instance of the LocalStore File extension</param>
-        public AptkAmaLocalStorePluginConfiguration(string databaseFullPath, IAptkAmaLocalStoreFileService localStoreFileService)
+        /// <param name="fileStoreService">An instance of the FileStore extension</param>
+        public AptkAmaLocalStorePluginConfiguration(string databaseFullPath, IAptkAmaFileStoreService fileStoreService)
         {
             DatabaseFullPath = databaseFullPath;
-            LocalStoreFileService = localStoreFileService;
+            FileStoreService = fileStoreService;
         }
 
         /// <summary>
@@ -57,6 +57,6 @@ namespace Aptk.Plugins.AptkAma.Data
         /// <summary>
         /// An instance of the LocalStore File extension
         /// </summary>
-        public IAptkAmaLocalStoreFileService LocalStoreFileService { get; set; }
+        public IAptkAmaFileStoreService FileStoreService { get; set; }
     }
 }

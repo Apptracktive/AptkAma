@@ -55,9 +55,9 @@ namespace AptkAma.Sample.Core
             {
                 try
                 {
-                    var targetPath = _aptkAmaService.Data.FileManagementService().CopyFileToAppDirectory(item.Id, image.Path);
+                    await _aptkAmaService.Data.CopyFileToStoreAsync(item.Id, image.Path);
 
-                    await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(targetPath)), new CultureInfo("en-US"));
+                    await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(image.Path)), new CultureInfo("en-US"));
                 }
                 catch (Exception ex)
                 {

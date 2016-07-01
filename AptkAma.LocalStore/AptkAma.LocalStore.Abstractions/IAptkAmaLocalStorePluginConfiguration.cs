@@ -26,8 +26,8 @@ namespace Aptk.Plugins.AptkAma.Data
         IMobileServiceSyncHandler SyncHandler { get; set; }
 
         /// <summary>
-        /// An instance of the LocalStore File extension
+        /// An instance of the FileStore extension
         /// </summary>
-        IAptkAmaLocalStoreFileService LocalStoreFileService { get; set; }
+        IAptkAmaFileStoreService FileStoreService { get; set; }
     }
 }

@@ -44,7 +44,7 @@
     <Compile Include="AptkAmaLocalStorePluginConfiguration.cs" />
     <Compile Include="AptkAmaLocalStoreService.cs" />
     <Compile Include="AptkAmaLocalTableService.cs" />
-    <Compile Include="IAptkAmaLocalStoreFileService.cs" />
+    <Compile Include="IAptkAmaFileStoreService.cs" />
     <Compile Include="IAptkAmaLocalStorePluginConfiguration.cs" />
     <Compile Include="IAptkAmaLocalStoreService.cs" />
     <Compile Include="IAptkAmaLocalTableService.cs" />

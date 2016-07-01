@@ -232,13 +232,13 @@
       <Project>{12dfd58a-5cf9-486d-923f-99ca4732a9e9}</Project>
       <Name>AptkAma.LocalStore.Abstractions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.File\AptkAma.LocalStore.File.Abstractions\AptkAma.LocalStore.File.Abstractions.csproj">
+    <ProjectReference Include="..\..\AptkAma.File\AptkAma.File.Abstractions\AptkAma.FileStore.Abstractions.csproj">
       <Project>{15018465-f2cf-485d-b685-456123e035ef}</Project>
-      <Name>AptkAma.LocalStore.File.Abstractions</Name>
+      <Name>AptkAma.FileStore.Abstractions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.File\AptkAma.LocalStore.File.iOS\AptkAma.LocalStore.File.iOS.csproj">
+    <ProjectReference Include="..\..\AptkAma.File\AptkAma.File.iOS\AptkAma.FileStore.iOS.csproj">
       <Project>{1fad03f2-29b8-4002-9d63-e1cce8e8251b}</Project>
-      <Name>AptkAma.LocalStore.File.iOS</Name>
+      <Name>AptkAma.FileStore.iOS</Name>
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>

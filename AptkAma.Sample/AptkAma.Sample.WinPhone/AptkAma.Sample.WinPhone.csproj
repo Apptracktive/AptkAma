@@ -156,18 +156,6 @@
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AptkAma.Abstractions\AptkAma.Abstractions.csproj">
-      <Project>{a6fcef44-d2ba-42c7-b3cb-13667bcd7b54}</Project>
-      <Name>AptkAma.Abstractions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore\AptkAma.LocalStore.csproj">
-      <Project>{6e8df24c-3029-4227-9c81-404bc5c18889}</Project>
-      <Name>AptkAma.LocalStore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.WindowsPhone\AptkAma.WindowsPhone.csproj">
-      <Project>{5876144b-47dd-4c4e-b421-bc03f191b996}</Project>
-      <Name>AptkAma.WindowsPhone</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AptkAma.Sample.Core\AptkAma.Sample.Core.csproj">
       <Project>{e6a4a0f3-0591-441b-98f8-65eb42bcb114}</Project>
       <Name>AptkAma.Sample.Core</Name>
@@ -196,6 +184,14 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.Media, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.2.3.0\lib\wp8\Plugin.Media.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.Media.Abstractions, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.2.3.0\lib\wp8\Plugin.Media.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Plugin.Settings, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">

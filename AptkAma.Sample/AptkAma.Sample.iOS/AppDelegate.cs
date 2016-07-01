@@ -50,7 +50,7 @@ namespace AptkAma.Sample.iOS
             identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
 
             // Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaLocalStoreFilePluginLoader.Instance));
+            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaFileStorePluginLoader.Instance));
         }
 
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)

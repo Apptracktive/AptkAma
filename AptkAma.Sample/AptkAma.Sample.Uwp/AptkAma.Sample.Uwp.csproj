@@ -136,13 +136,13 @@
       <Project>{12dfd58a-5cf9-486d-923f-99ca4732a9e9}</Project>
       <Name>AptkAma.LocalStore.Abstractions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.File\AptkAma.LocalStore.File.Abstractions\AptkAma.LocalStore.File.Abstractions.csproj">
+    <ProjectReference Include="..\..\AptkAma.File\AptkAma.File.Abstractions\AptkAma.FileStore.Abstractions.csproj">
       <Project>{15018465-f2cf-485d-b685-456123e035ef}</Project>
-      <Name>AptkAma.LocalStore.File.Abstractions</Name>
+      <Name>AptkAma.FileStore.Abstractions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.File\AptkAma.LocalStore.File.Uwp\AptkAma.LocalStore.File.Uwp.csproj">
+    <ProjectReference Include="..\..\AptkAma.File\AptkAma.File.Uwp\AptkAma.FileStore.Uwp.csproj">
       <Project>{5c021893-768e-4c62-9b3a-0f8c9aabdd91}</Project>
-      <Name>AptkAma.LocalStore.File.Uwp</Name>
+      <Name>AptkAma.FileStore.Uwp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.Uwp\AptkAma.LocalStore.Uwp.csproj">
       <Project>{655c50a6-833e-4bc5-ac89-a9a0072a4363}</Project>
