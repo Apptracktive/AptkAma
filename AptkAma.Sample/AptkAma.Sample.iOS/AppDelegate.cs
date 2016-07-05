@@ -22,35 +22,9 @@ namespace AptkAma.Sample.iOS
         {
             Forms.Init();
 
-            InitAptkAmaPlugin(app);
-
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
-        }
-
-        private void InitAptkAmaPlugin(UIApplication app)
-        {
-            var configuration = new AptkAmaPluginConfiguration(Constants.AmsUrl, Constants.ModelAssembly);
-
-            // [Optional] Handle expired token to automaticaly ask for login if needed
-            var identityHandler = new AptkAmaIdentityHandler(configuration);
-            configuration.HttpHandlers = new HttpMessageHandler[] { identityHandler };
-
-            // [Optional] Manage local caching
-            configuration.CacheService = new AptkAmaCacheService();
-
-            // [Optional] Handle notifications
-            configuration.NotificationHandler = new AptkAmaNotificationHandler();
-
-            // Init main plugin
-            AptkAmaPluginLoader.Init(configuration);
-
-            // [Optional] If AptkAmaIdentityHandler is used, give it an instance of the plugin after Init
-            identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
-
-            // Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaFileStorePluginLoader.Instance));
         }
 
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)

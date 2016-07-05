@@ -80,9 +80,6 @@ namespace AptkAma.Sample.WinRT
                 // Init Xamarin Forms
                 Forms.Init(e);
 
-                // Init Ams plugin
-                InitAptkAmaPlugin();
-
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     // TODO: chargez l'état de l'application précédemment suspendue
@@ -149,30 +146,6 @@ namespace AptkAma.Sample.WinRT
 
             // TODO: enregistrez l'état de l'application et arrêtez toute activité en arrière-plan
             deferral.Complete();
-        }
-        
-        private void InitAptkAmaPlugin()
-        {
-            var configuration = new AptkAmaPluginConfiguration(Constants.AmsUrl, Constants.ModelAssembly);
-
-            // [Optional] Handle expired token to automaticaly ask for login if needed
-            var identityHandler = new AptkAmaIdentityHandler(configuration);
-            configuration.HttpHandlers = new HttpMessageHandler[] { identityHandler };
-
-            // [Optional] Handle local caching
-            configuration.CacheService = new AptkAmaCacheService();
-
-            // [Optional] Handle notifications
-            configuration.NotificationHandler = new AptkAmaNotificationHandler();
-
-            // Init main plugin
-            AptkAmaPluginLoader.Init(configuration);
-
-            // [Optional] If AptkAmaIdentityHandler is used, give it an instance of the plugin after Init
-            identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
-
-            //// Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(Windows.Storage.ApplicationData.Current.LocalFolder.Path));
         }
     }
 }
