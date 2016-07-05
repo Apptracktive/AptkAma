@@ -32,6 +32,7 @@ namespace Aptk.Plugins.AptkAma.Data
         /// <param name="globalFileSyncTriggerFactory">Global file sync trigger</param>
         public AptkAmaFileStorePluginConfiguration(IAptkAmaFileManagementService fileManagementService, IFileSyncTriggerFactory globalFileSyncTriggerFactory)
         {
+            FileManagementService = fileManagementService;
             GlobalFileSyncTriggerFactory = globalFileSyncTriggerFactory;
         }
 

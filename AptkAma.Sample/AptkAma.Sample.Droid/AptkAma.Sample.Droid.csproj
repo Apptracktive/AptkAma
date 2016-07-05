@@ -89,6 +89,14 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PCLStorage, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PCLStorage.1.0.2\lib\monoandroid\PCLStorage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PCLStorage.1.0.2\lib\monoandroid\PCLStorage.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Plugin.CurrentActivity, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Plugin.CurrentActivity.1.0.1\lib\MonoAndroid10\Plugin.CurrentActivity.dll</HintPath>
       <Private>True</Private>
@@ -232,11 +240,11 @@
       <Project>{ac6dfc35-70f7-45bf-8f0f-c6b0af2b6af6}</Project>
       <Name>AptkAma.LocalStore.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.File\AptkAma.File.Abstractions\AptkAma.FileStore.Abstractions.csproj">
+    <ProjectReference Include="..\..\AptkAma.FileStore\AptkAma.FileStore.Abstractions\AptkAma.FileStore.Abstractions.csproj">
       <Project>{15018465-f2cf-485d-b685-456123e035ef}</Project>
       <Name>AptkAma.FileStore.Abstractions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.File\AptkAma.File.Android\AptkAma.FileStore.Android.csproj">
+    <ProjectReference Include="..\..\AptkAma.FileStore\AptkAma.FileStore.Android\AptkAma.FileStore.Android.csproj">
       <Project>{1525aec8-a648-4d67-a6a0-80a716796ba9}</Project>
       <Name>AptkAma.FileStore.Android</Name>
     </ProjectReference>

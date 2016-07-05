@@ -32,45 +32,18 @@ namespace Aptk.Plugins.AptkAma
         private static IMobileServiceClient _client;
 
         #region Init
-#if __ANDROID__
 
         /// <summary>
         /// Initialize Android plugin
         /// </summary>
-        public static void Init(IAptkAmaPluginConfiguration configuration, Context context)
-        {
-            CurrentPlatform.Init();
-            _configuration = configuration;
-            _client = CreateMobileServiceClient();
-            _context = context;
-        }
-
-        private static Context _context;
-
-#elif __IOS__
-
-        /// <summary>
-        /// Initialize iOS plugin
-        /// </summary>
-        public static void Init(IAptkAmaPluginConfiguration configuration, UIApplication application)
-        {
-            CurrentPlatform.Init();
-            _configuration = configuration;
-            _client = CreateMobileServiceClient();
-            _application = application;
-        }
-
-        private static UIApplication _application;
-
-#else
-
         public static void Init(IAptkAmaPluginConfiguration configuration)
         {
+#if __ANDROID__ || __IOS__
+            CurrentPlatform.Init();
+#endif
             _configuration = configuration;
             _client = CreateMobileServiceClient();
         }
-
-#endif
 
         private static IMobileServiceClient CreateMobileServiceClient()
         {
@@ -200,10 +173,6 @@ namespace Aptk.Plugins.AptkAma
         {
 #if PORTABLE
             return null;
-#elif __ANDROID__
-            return new AptkAmaPlatformIdentityService(_client, _context);
-#elif __IOS__
-            return new AptkAmaPlatformIdentityService(_client, _application);
 #else
             return new AptkAmaPlatformIdentityService(_client);
 #endif
@@ -238,8 +207,6 @@ namespace Aptk.Plugins.AptkAma
         {
 #if PORTABLE || WINDOWS_PHONE
             return null;
-#elif __ANDROID__
-            return new AptkAmaNotificationService(_client, _configuration, _context);
 #else
             return new AptkAmaNotificationService(_client, _configuration);
 #endif

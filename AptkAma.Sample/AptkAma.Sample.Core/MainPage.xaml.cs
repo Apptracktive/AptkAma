@@ -155,7 +155,7 @@ namespace AptkAma.Sample.Core
                 {
                     await _aptkAmaService.Identity.LoginAsync(AptkAmaAuthenticationProvider.Facebook);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                 }
             }

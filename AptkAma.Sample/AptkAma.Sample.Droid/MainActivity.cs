@@ -41,13 +41,13 @@ namespace AptkAma.Sample.Droid
             configuration.NotificationHandler = new AptkAmaNotificationHandler();
 
             // Init main plugin
-            AptkAmaPluginLoader.Init(configuration, ApplicationContext);
+            AptkAmaPluginLoader.Init(configuration);
 
             // [Optional] If AptkAmaIdentityHandler is used, give it an instance of the plugin after Init
             identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
             
             // Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaLocalStoreFilePluginLoader.Instance));
+            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaFileStorePluginLoader.Instance));
         }
     }
 }

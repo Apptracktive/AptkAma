@@ -9,9 +9,9 @@
     <Import_RootNamespace>Aptk.Plugins.AptkAma.Data</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AptkAmaFileManagementService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AptkAmaFileStorePluginLoader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AptkAmaFileStoreService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AptkAmaFileSyncHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AptkAmaBaseFileManagementService.cs" />
   </ItemGroup>
 </Project>

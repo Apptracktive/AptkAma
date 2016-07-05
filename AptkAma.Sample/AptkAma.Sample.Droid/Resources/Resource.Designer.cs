@@ -28,6 +28,8 @@ namespace AptkAma.Sample.Droid
 		{
 			global::Microsoft.WindowsAzure.Mobile.Files.Resource.String.ApplicationName = global::AptkAma.Sample.Droid.Resource.String.ApplicationName;
 			global::Microsoft.WindowsAzure.Mobile.Files.Resource.String.Hello = global::AptkAma.Sample.Droid.Resource.String.Hello;
+			global::PCLStorage.Resource.String.ApplicationName = global::AptkAma.Sample.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::AptkAma.Sample.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::AptkAma.Sample.Droid.Resource.Attribute.actionBarSize;
 		}
 		

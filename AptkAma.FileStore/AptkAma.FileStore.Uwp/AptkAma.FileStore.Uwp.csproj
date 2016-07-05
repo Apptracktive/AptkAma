@@ -134,7 +134,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\AptkAma.FileStore.Shared\AptkAma.FileStore.Shared.projitems" Label="Shared" />
-  <Import Project="..\AptkAma.FileStore.Storage.Shared\AptkAma.FileStore.Storage.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

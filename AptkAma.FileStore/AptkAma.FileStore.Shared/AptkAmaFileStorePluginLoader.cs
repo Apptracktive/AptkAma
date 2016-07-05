@@ -12,6 +12,9 @@ namespace Aptk.Plugins.AptkAma.Data
 
         public static void Init(IAptkAmaFileStorePluginConfiguration configuration)
         {
+#if PORTABLE
+            throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
+#else
             if (configuration == null)
                 configuration = new AptkAmaFileStorePluginConfiguration(new AptkAmaFileManagementService());
 
@@ -19,6 +22,7 @@ namespace Aptk.Plugins.AptkAma.Data
                 configuration.FileManagementService = new AptkAmaFileManagementService();
             
             _configuration = configuration;
+#endif
         }
 
         private static IAptkAmaFileStoreService CreateAptkAmaFileService()

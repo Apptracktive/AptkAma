@@ -149,30 +149,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AptkAma.LocalStore.WindowsP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AptkAma.FileStore.WindowsPhone", "AptkAma.FileStore\AptkAma.FileStore.WindowsPhone\AptkAma.FileStore.WindowsPhone.csproj", "{0D0D3704-0044-468B-BEDC-81A7178EBAB6}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AptkAma.FileStore.IO.Shared", "AptkAma.FileStore\AptkAma.FileStore.IO.Shared\AptkAma.FileStore.IO.Shared.shproj", "{36EFA83F-EC00-4FC7-B6D9-0B9CC0BC9A0F}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AptkAma.FileStore.Storage.Shared", "AptkAma.FileStore\AptkAma.FileStore.Storage.Shared\AptkAma.FileStore.Storage.Shared.shproj", "{3CC69D26-B1C8-4830-97AA-C72A64C61105}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		AptkAma.FileStore\AptkAma.FileStore.IO.Shared\AptkAma.File.IO.Shared.projitems*{0d0d3704-0044-468b-bedc-81a7178ebab6}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.File.Shared.projitems*{0d0d3704-0044-468b-bedc-81a7178ebab6}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.IO.Shared\AptkAma.File.IO.Shared.projitems*{1525aec8-a648-4d67-a6a0-80a716796ba9}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.File.Shared.projitems*{1525aec8-a648-4d67-a6a0-80a716796ba9}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.IO.Shared\AptkAma.File.IO.Shared.projitems*{1fad03f2-29b8-4002-9d63-e1cce8e8251b}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.File.Shared.projitems*{1fad03f2-29b8-4002-9d63-e1cce8e8251b}*SharedItemsImports = 4
+		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.FileStore.Shared.projitems*{0d0d3704-0044-468b-bedc-81a7178ebab6}*SharedItemsImports = 4
+		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.FileStore.Shared.projitems*{1525aec8-a648-4d67-a6a0-80a716796ba9}*SharedItemsImports = 4
+		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.FileStore.Shared.projitems*{1fad03f2-29b8-4002-9d63-e1cce8e8251b}*SharedItemsImports = 4
 		AptkAma.Shared\AptkAma.Shared.projitems*{2882aeeb-d4cd-4eb9-8a6c-6653b33681f0}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.IO.Shared\AptkAma.File.IO.Shared.projitems*{36efa83f-ec00-4fc7-b6d9-0b9cc0bc9a0f}*SharedItemsImports = 13
 		AptkAma.Shared\AptkAma.Shared.projitems*{3bc9b55f-f2f3-4cc5-932b-088ef9acb768}*SharedItemsImports = 13
-		AptkAma.FileStore\AptkAma.FileStore.Storage.Shared\AptkAma.File.Storage.Shared.projitems*{3cc69d26-b1c8-4830-97aa-c72a64c61105}*SharedItemsImports = 13
 		AptkAma.Shared\AptkAma.Shared.projitems*{4d073c1d-c46c-4b18-92cc-d3729e11dc88}*SharedItemsImports = 4
 		AptkAma.Shared\AptkAma.Shared.projitems*{4ee4f673-d674-41ff-b245-dd1b4f0e8cb4}*SharedItemsImports = 4
 		AptkAma.Shared\AptkAma.Shared.projitems*{56a56f17-7de1-4ca1-9617-bf32e971ac84}*SharedItemsImports = 4
 		AptkAma.Shared\AptkAma.Shared.projitems*{5876144b-47dd-4c4e-b421-bc03f191b996}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.File.Shared.projitems*{5c021893-768e-4c62-9b3a-0f8c9aabdd91}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.Storage.Shared\AptkAma.File.Storage.Shared.projitems*{5c021893-768e-4c62-9b3a-0f8c9aabdd91}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.File.Shared.projitems*{6278cde8-eef1-4bd4-9b43-aff0b6cba9a1}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.Storage.Shared\AptkAma.File.Storage.Shared.projitems*{6278cde8-eef1-4bd4-9b43-aff0b6cba9a1}*SharedItemsImports = 4
+		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.FileStore.Shared.projitems*{5c021893-768e-4c62-9b3a-0f8c9aabdd91}*SharedItemsImports = 4
+		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.FileStore.Shared.projitems*{6278cde8-eef1-4bd4-9b43-aff0b6cba9a1}*SharedItemsImports = 4
 		AptkAma.LocalStore\AptkAma.LocalStore.Shared\AptkAma.LocalStore.Shared.projitems*{655c50a6-833e-4bc5-ac89-a9a0072a4363}*SharedItemsImports = 4
 		AptkAma.LocalStore\AptkAma.LocalStore.Shared\AptkAma.LocalStore.Shared.projitems*{6e8df24c-3029-4227-9c81-404bc5c18889}*SharedItemsImports = 4
 		AptkAma.Sample\AptkAma.Sample.WinRT.Shared\AptkAma.Sample.WinRT.Shared.projitems*{70c4a28c-a8d4-43c4-871f-9161dfb1b93e}*SharedItemsImports = 4
@@ -185,14 +174,13 @@ Global
 		AptkAma.LocalStore\AptkAma.LocalStore.Shared\AptkAma.LocalStore.Shared.projitems*{a91cc3ea-c89d-40c1-b03a-9b87088f5a89}*SharedItemsImports = 4
 		AptkAma.LocalStore\AptkAma.LocalStore.Shared\AptkAma.LocalStore.Shared.projitems*{ac6dfc35-70f7-45bf-8f0f-c6b0af2b6af6}*SharedItemsImports = 4
 		AptkAma.Sample\AptkAma.Sample.WinRT.Shared\AptkAma.Sample.WinRT.Shared.projitems*{b535a7a2-98bf-42f0-98ab-7701de58c2f7}*SharedItemsImports = 13
-		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.File.Shared.projitems*{bed62112-99d7-4e03-bcad-0f495de738eb}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.File.Shared.projitems*{c828a783-0783-48c5-9784-0a496c84d4d1}*SharedItemsImports = 13
+		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.FileStore.Shared.projitems*{bed62112-99d7-4e03-bcad-0f495de738eb}*SharedItemsImports = 4
+		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.FileStore.Shared.projitems*{c828a783-0783-48c5-9784-0a496c84d4d1}*SharedItemsImports = 13
 		AptkAma.Shared\AptkAma.Shared.projitems*{ed9a4ca1-c04c-457d-9a2e-7995ccf12356}*SharedItemsImports = 4
 		AptkAma.WinRT.Shared\AptkAma.WinRT.Shared.projitems*{ed9a4ca1-c04c-457d-9a2e-7995ccf12356}*SharedItemsImports = 4
 		AptkAma.LocalStore\AptkAma.LocalStore.Shared\AptkAma.LocalStore.Shared.projitems*{eda4b563-b395-4d67-87e5-53f088d99a8c}*SharedItemsImports = 4
 		AptkAma.WinRT.Shared\AptkAma.WinRT.Shared.projitems*{f1fbd5f6-e337-4254-b116-2bb99f83970c}*SharedItemsImports = 13
-		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.File.Shared.projitems*{fa6555d0-df36-4b17-a818-845320746ff1}*SharedItemsImports = 4
-		AptkAma.FileStore\AptkAma.FileStore.Storage.Shared\AptkAma.File.Storage.Shared.projitems*{fa6555d0-df36-4b17-a818-845320746ff1}*SharedItemsImports = 4
+		AptkAma.FileStore\AptkAma.FileStore.Shared\AptkAma.FileStore.Shared.projitems*{fa6555d0-df36-4b17-a818-845320746ff1}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Android = Ad-Hoc|Android
@@ -3090,7 +3078,5 @@ Global
 		{6278CDE8-EEF1-4BD4-9B43-AFF0B6CBA9A1} = {FB46FB30-4145-4132-87A3-40311DEFDB2F}
 		{A425EAA4-4504-47D3-AA26-82476C28AA61} = {A8921E15-48E9-4673-A8F2-87B6EB2643EF}
 		{0D0D3704-0044-468B-BEDC-81A7178EBAB6} = {FB46FB30-4145-4132-87A3-40311DEFDB2F}
-		{36EFA83F-EC00-4FC7-B6D9-0B9CC0BC9A0F} = {FB46FB30-4145-4132-87A3-40311DEFDB2F}
-		{3CC69D26-B1C8-4830-97AA-C72A64C61105} = {FB46FB30-4145-4132-87A3-40311DEFDB2F}
 	EndGlobalSection
 EndGlobal

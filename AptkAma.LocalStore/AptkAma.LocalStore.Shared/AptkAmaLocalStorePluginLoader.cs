@@ -11,7 +11,7 @@ namespace Aptk.Plugins.AptkAma.Data
         private static IAptkAmaLocalStorePluginConfiguration _localStoreConfiguration;
         private static IAptkAmaDataService _dataService;
 
-        public static void Init(IAptkAmaLocalStorePluginConfiguration localStoreConfiguration = null)
+        public static void Init(IAptkAmaLocalStorePluginConfiguration localStoreConfiguration)
         {
 #if PORTABLE
             throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
@@ -42,10 +42,14 @@ namespace Aptk.Plugins.AptkAma.Data
 
         private static IAptkAmaLocalStoreService CreateAptkAmaLocalStoreService()
         {
+#if PORTABLE
+            return null;
+#else
             if (_localStoreConfiguration == null)
-                Init();
+                Init(null);
 
             return new AptkAmaLocalStoreService(_localStoreConfiguration, _dataService);
+#endif
         }
 
         /// <summary>
