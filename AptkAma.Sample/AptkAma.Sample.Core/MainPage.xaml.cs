@@ -40,7 +40,16 @@ namespace AptkAma.Sample.Core
             var items = await _aptkAmaService.Data.LocalTable<TodoItem>().ToListAsync();
 
             // Culture hack
-            if(items.Any()) await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(items.First()), new CultureInfo("en-US"));
+            if(items.Any())
+            {
+                await ExecWithSpecificCultureAsync(async () =>
+                {
+                    foreach (var item in items)
+                    {
+                        await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(item); 
+                    }
+                }, new CultureInfo("en-US"));
+            }
             
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
