@@ -1,6 +1,22 @@
 //// Setup ////
 
-1. (Optional) If you plan to use the custom login and registration methods, you need to create your custom login and registration controllers on your backend 
+Nothing.
+
+
+These steps are optional:
+
+1. (Optional) If you want to handle expired authentication token automaticaly, add these lines BEFORE AptkAmaPluginLoader.Init(configuration); :
+
+	var identityHandler = new AptkAmaIdentityHandler(configuration);
+    configuration.HttpHandlers = new HttpMessageHandler[] { identityHandler };
+
+and AFTER AptkAmaPluginLoader.Init(configuration); add this line:
+
+	identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
+
+Note that you can provide a callback action if user is logged out like navigating to the login view.
+
+2. (Optional) If you want to use the custom login and registration methods, you need to create your custom login and registration controllers on your backend 
 (see sample, online documentation and tutorials).
 
 

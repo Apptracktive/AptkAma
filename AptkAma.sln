@@ -36,6 +36,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToDo-AptkAma", "ToDo-AptkAma", "{BCE040BE-86C0-48C3-80A6-97AC179EA1FC}"
 	ProjectSection(SolutionItems) = preProject
 		Nuspec\CoreContent\ToDo-AptkAma\_ToDoFirst.txt = Nuspec\CoreContent\ToDo-AptkAma\_ToDoFirst.txt
+		Nuspec\CoreContent\ToDo-AptkAma\FileStore.txt = Nuspec\CoreContent\ToDo-AptkAma\FileStore.txt
 		Nuspec\CoreContent\ToDo-AptkAma\Identity.txt = Nuspec\CoreContent\ToDo-AptkAma\Identity.txt
 		Nuspec\CoreContent\ToDo-AptkAma\LocalStore.txt = Nuspec\CoreContent\ToDo-AptkAma\LocalStore.txt
 		Nuspec\CoreContent\ToDo-AptkAma\Notification.txt = Nuspec\CoreContent\ToDo-AptkAma\Notification.txt
@@ -46,6 +47,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToDo-AptkAmaiOS", "ToDo-AptkAmaiOS", "{0F212323-6A51-4795-B52D-E60C7AC4097F}"
 	ProjectSection(SolutionItems) = preProject
 		Nuspec\iOSContent\ToDo-AptkAmaiOS\_ToDoFirst.txt = Nuspec\iOSContent\ToDo-AptkAmaiOS\_ToDoFirst.txt
+		Nuspec\iOSContent\ToDo-AptkAmaiOS\FileStore.txt = Nuspec\iOSContent\ToDo-AptkAmaiOS\FileStore.txt
 		Nuspec\iOSContent\ToDo-AptkAmaiOS\Identity.txt = Nuspec\iOSContent\ToDo-AptkAmaiOS\Identity.txt
 		Nuspec\iOSContent\ToDo-AptkAmaiOS\LocalStore.txt = Nuspec\iOSContent\ToDo-AptkAmaiOS\LocalStore.txt
 		Nuspec\iOSContent\ToDo-AptkAmaiOS\Notification.txt = Nuspec\iOSContent\ToDo-AptkAmaiOS\Notification.txt
@@ -62,6 +64,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToDo-AptkAmaDroid", "ToDo-AptkAmaDroid", "{21EF0016-B1BB-4DC6-B7FF-91C9C6749160}"
 	ProjectSection(SolutionItems) = preProject
 		Nuspec\DroidContent\ToDo-AptkAmaDroid\_ToDoFirst.txt = Nuspec\DroidContent\ToDo-AptkAmaDroid\_ToDoFirst.txt
+		Nuspec\DroidContent\ToDo-AptkAmaDroid\FileStore.txt = Nuspec\DroidContent\ToDo-AptkAmaDroid\FileStore.txt
 		Nuspec\DroidContent\ToDo-AptkAmaDroid\Identity.txt = Nuspec\DroidContent\ToDo-AptkAmaDroid\Identity.txt
 		Nuspec\DroidContent\ToDo-AptkAmaDroid\LocalStore.txt = Nuspec\DroidContent\ToDo-AptkAmaDroid\LocalStore.txt
 		Nuspec\DroidContent\ToDo-AptkAmaDroid\Notification.txt = Nuspec\DroidContent\ToDo-AptkAmaDroid\Notification.txt
@@ -70,6 +73,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToDo-AptkAmaUwp", "ToDo-AptkAmaUwp", "{D70D2DFA-1A0E-417A-B9B5-8C3CC484725A}"
 	ProjectSection(SolutionItems) = preProject
 		Nuspec\UwpContent\ToDo-AptkAmaUwp\_ToDoFirst.txt = Nuspec\UwpContent\ToDo-AptkAmaUwp\_ToDoFirst.txt
+		Nuspec\UwpContent\ToDo-AptkAmaUwp\FileStore.txt = Nuspec\UwpContent\ToDo-AptkAmaUwp\FileStore.txt
 		Nuspec\UwpContent\ToDo-AptkAmaUwp\Identity.txt = Nuspec\UwpContent\ToDo-AptkAmaUwp\Identity.txt
 		Nuspec\UwpContent\ToDo-AptkAmaUwp\LocalStore.txt = Nuspec\UwpContent\ToDo-AptkAmaUwp\LocalStore.txt
 		Nuspec\UwpContent\ToDo-AptkAmaUwp\Notification.txt = Nuspec\UwpContent\ToDo-AptkAmaUwp\Notification.txt
@@ -78,6 +82,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToDo-AptkAmaWinPhone", "ToDo-AptkAmaWinPhone", "{CA799030-D66F-45E7-9C75-C9AB963C369E}"
 	ProjectSection(SolutionItems) = preProject
 		Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\_ToDoFirst.txt = Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\_ToDoFirst.txt
+		Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\FileStore.txt = Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\FileStore.txt
 		Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\Identity.txt = Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\Identity.txt
 		Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\LocalStore.txt = Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\LocalStore.txt
 		Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\Notification.txt = Nuspec\WinPhoneContent\ToDo-AptkAmaWinPhone\Notification.txt
@@ -86,6 +91,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToDo-AptkAmaWinRT", "ToDo-AptkAmaWinRT", "{E33C3E4D-CAFA-4368-85A7-CE5D98DE13CB}"
 	ProjectSection(SolutionItems) = preProject
 		Nuspec\WinRTContent\ToDo-AptkAmaWinRT\_ToDoFirst.txt = Nuspec\WinRTContent\ToDo-AptkAmaWinRT\_ToDoFirst.txt
+		Nuspec\WinRTContent\ToDo-AptkAmaWinRT\FileStore.txt = Nuspec\WinRTContent\ToDo-AptkAmaWinRT\FileStore.txt
 		Nuspec\WinRTContent\ToDo-AptkAmaWinRT\Identity.txt = Nuspec\WinRTContent\ToDo-AptkAmaWinRT\Identity.txt
 		Nuspec\WinRTContent\ToDo-AptkAmaWinRT\LocalStore.txt = Nuspec\WinRTContent\ToDo-AptkAmaWinRT\LocalStore.txt
 		Nuspec\WinRTContent\ToDo-AptkAmaWinRT\Notification.txt = Nuspec\WinRTContent\ToDo-AptkAmaWinRT\Notification.txt

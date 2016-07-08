@@ -1,12 +1,6 @@
 //// Setup ////
 
-1. (Optional) If you implemented the AptkAmaBaseNotificationHandler class for notification purpose, add this line BEFORE AptkAmaPluginLoader.Init(configuration, app); :
-
-	configuration.NotificationHandler = new AptkAmaNotificationHandler();
-
-where AptkAmaNotificationHandler is the name of your implementation class.
-
-Then still in the AppDelegate, add these overrides:
+1. Into the AppDelegate, add these overrides:
 
 	public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
     {

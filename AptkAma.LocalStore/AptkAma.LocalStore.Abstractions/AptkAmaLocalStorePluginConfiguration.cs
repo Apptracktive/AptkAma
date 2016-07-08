@@ -45,8 +45,8 @@ namespace Aptk.Plugins.AptkAma.Data
         /// <summary>
         /// Database file name with db extension
         /// </summary>
-        /// <value>amslocalstore.db</value>
-        public string DatabaseFileName { get; set; } = "amslocalstore.db";
+        /// <value>amalocalstore.db</value>
+        public string DatabaseFileName { get; set; } = "amalocalstore.db";
 
         /// <summary>
         /// A mobile service sync handler instance

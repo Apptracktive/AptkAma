@@ -2,7 +2,6 @@
 using Aptk.Plugins.AptkAma;
 using Aptk.Plugins.AptkAma.Data;
 using Aptk.Plugins.AptkAma.Identity;
-using AptkAma.Sample.Core.Helpers;
 using AptkAma.Sample.Core.Services;
 using Xamarin.Forms;
 
@@ -25,7 +24,7 @@ namespace AptkAma.Sample.Core
         {
             base.OnStart();
             //await _aptkAmaService.Notification.UnregisterAsync();
-            //var success = await _aptkAmaService.Notification.RegisterAsync(AptkAmaNotificationHandler.TestNotificationTemplate);
+            var success = await _aptkAmaService.Notification.RegisterAsync(AptkAmaNotificationHandler.TestNotificationTemplate);
         }
 
         private void InitAptkAmaPlugin()

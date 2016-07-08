@@ -40,7 +40,7 @@ namespace AptkAma.Sample.Core
             var items = await _aptkAmaService.Data.LocalTable<TodoItem>().ToListAsync();
 
             // Culture hack
-            await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(items.First()), new CultureInfo("en-US"));
+            if(items.Any()) await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(items.First()), new CultureInfo("en-US"));
             
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
@@ -55,7 +55,7 @@ namespace AptkAma.Sample.Core
             {
                 try
                 {
-                    await _aptkAmaService.Data.CopyFileToStoreAsync(item.Id, image.Path);
+                    await _aptkAmaService.Data.FileManagementService().CopyFileToStoreAsync(item.Id, image.Path);
 
                     await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(image.Path)), new CultureInfo("en-US"));
                 }
@@ -144,7 +144,17 @@ namespace AptkAma.Sample.Core
 
         async Task<List<TodoItem>> GetTodoItemsAsync()
         {
-            return await _aptkAmaService.Data.LocalTable<TodoItem>().Where(i => !i.Complete).ToListAsync();
+            var items = await _aptkAmaService.Data.LocalTable<TodoItem>().Where(i => !i.Complete).ToListAsync();
+            foreach (var item in items)
+            {
+                var files = await _aptkAmaService.Data.LocalTable<TodoItem>().GetFilesAsync(item);
+                if (files != null && files.Any())
+                {
+                    item.ImagePath = _aptkAmaService.Data.FileManagementService().GetFullPath(Path.Combine(item.Id, files.First().Name));
+                }
+            }
+
+            return items;
         }
 
         public async void OnLog(object sender, EventArgs e)

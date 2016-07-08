@@ -53,9 +53,9 @@ namespace Aptk.Plugins.AptkAma.Data
             }
         }
 
-        public static async Task CopyFileToStoreAsync(this IAptkAmaDataService dataService, string itemId, string sourceFileFullPath)
+        public static IAptkAmaFileManagementService FileManagementService(this IAptkAmaDataService dataService)
         {
-            await _configuration.FileManagementService.CopyFileToStoreAsync(itemId, sourceFileFullPath);
+            return _configuration.FileManagementService;
         }
     }
 }

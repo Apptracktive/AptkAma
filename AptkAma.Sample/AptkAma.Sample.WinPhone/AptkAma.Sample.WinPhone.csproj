@@ -145,10 +145,6 @@
     <Content Include="SplashScreenImage.screen-720p.jpg" />
     <Content Include="SplashScreenImage.screen-WVGA.jpg" />
     <Content Include="SplashScreenImage.screen-WXGA.jpg" />
-    <Content Include="ToDo-AptkAmaWinPhone\Identity.txt" />
-    <Content Include="ToDo-AptkAmaWinPhone\LocalStore.txt" />
-    <Content Include="ToDo-AptkAmaWinPhone\Notification.txt" />
-    <Content Include="ToDo-AptkAmaWinPhone\_ToDoFirst.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
@@ -156,12 +152,44 @@
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AptkAma.Abstractions\AptkAma.Abstractions.csproj">
+      <Project>{a6fcef44-d2ba-42c7-b3cb-13667bcd7b54}</Project>
+      <Name>AptkAma.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.FileStore\AptkAma.FileStore.Abstractions\AptkAma.FileStore.Abstractions.csproj">
+      <Project>{15018465-f2cf-485d-b685-456123e035ef}</Project>
+      <Name>AptkAma.FileStore.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.FileStore\AptkAma.FileStore.WindowsPhone\AptkAma.FileStore.WindowsPhone.csproj">
+      <Project>{0d0d3704-0044-468b-bedc-81a7178ebab6}</Project>
+      <Name>AptkAma.FileStore.WindowsPhone</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.Abstractions\AptkAma.LocalStore.Abstractions.csproj">
+      <Project>{12dfd58a-5cf9-486d-923f-99ca4732a9e9}</Project>
+      <Name>AptkAma.LocalStore.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.WindowsPhone\AptkAma.LocalStore.WindowsPhone.csproj">
+      <Project>{a425eaa4-4504-47d3-aa26-82476c28aa61}</Project>
+      <Name>AptkAma.LocalStore.WindowsPhone</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.WindowsPhone\AptkAma.WindowsPhone.csproj">
+      <Project>{5876144b-47dd-4c4e-b421-bc03f191b996}</Project>
+      <Name>AptkAma.WindowsPhone</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AptkAma.Sample.Core\AptkAma.Sample.Core.csproj">
       <Project>{e6a4a0f3-0591-441b-98f8-65eb42bcb114}</Project>
       <Name>AptkAma.Sample.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Acr.UserDialogs.5.0.0\lib\wp8\Acr.UserDialogs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Acr.UserDialogs.Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Acr.UserDialogs.5.0.0\lib\wp8\Acr.UserDialogs.Interface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <HintPath>..\..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
       <Private>True</Private>
@@ -208,6 +236,10 @@
     </Reference>
     <Reference Include="Plugin.Settings.Abstractions, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugins.Settings.2.1.0\lib\wp8\Plugin.Settings.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Splat.1.6.2\lib\wp8\Splat.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SQLitePCL, Version=3.8.7.2, Culture=neutral, PublicKeyToken=bddade01e9c850c5, processorArchitecture=MSIL">

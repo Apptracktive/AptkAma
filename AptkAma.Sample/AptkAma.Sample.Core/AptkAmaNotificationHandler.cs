@@ -1,4 +1,7 @@
-﻿using Aptk.Plugins.AptkAma.Notification;
+﻿using System.Diagnostics;
+using Acr.UserDialogs;
+using Aptk.Plugins.AptkAma.Notification;
+using Newtonsoft.Json;
 
 namespace AptkAma.Sample.Core
 {
@@ -18,8 +21,10 @@ namespace AptkAma.Sample.Core
 
         public override void OnNotificationReceived(IAptkAmaNotification notification)
         {
+            Debug.WriteLine($"OnNotificationReceived fired for: {JsonConvert.SerializeObject(notification)}");
             if (notification.IsTypeOf(TestNotificationTemplate))
             {
+                UserDialogs.Instance.Alert(notification["alert"].ToString());
             }
         }
 

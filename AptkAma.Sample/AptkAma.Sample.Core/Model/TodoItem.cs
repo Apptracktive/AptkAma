@@ -1,4 +1,5 @@
 ﻿using Aptk.Plugins.AptkAma.Data;
+using Newtonsoft.Json;
 
 namespace AptkAma.Sample.Core.Model
 {
@@ -8,6 +9,9 @@ namespace AptkAma.Sample.Core.Model
         public new string Id { get; set; }
         public string Text { get; set; }
         public bool Complete { get; set; }
+
+        [JsonIgnore]
+        public string ImagePath { get; set; }
 
         // If you want to set specific file sync trigger strategy for this table
         //public override IFileSyncTriggerFactory SpecificFileSyncTriggerFactory

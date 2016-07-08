@@ -21,7 +21,7 @@ namespace Aptk.Plugins.AptkAma.Data
 
         public Task<IMobileServiceFileDataSource> GetDataSource(MobileServiceFileMetadata metadata)
         {
-#if PORTABLE || WINDOWS_PHONE
+#if PORTABLE
             throw new ArgumentException("This functionality is not implemented in this version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
 #else
             var source = new PathMobileServiceFileDataSource(GetFileFullPath(metadata.ParentDataItemId, metadata.FileName)) as IMobileServiceFileDataSource;
@@ -32,7 +32,7 @@ namespace Aptk.Plugins.AptkAma.Data
 
         public async Task ProcessFileSynchronizationAction(MobileServiceFile file, FileSynchronizationAction action)
         {
-#if PORTABLE || WINDOWS_PHONE
+#if PORTABLE
             throw new ArgumentException("This functionality is not implemented in this version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
 #else
             if (action == FileSynchronizationAction.Delete)
@@ -43,6 +43,7 @@ namespace Aptk.Plugins.AptkAma.Data
             {
                 try
                 {
+                    await _configuration.FileManagementService.EnsureFolderExistsAsync(file.ParentId);
                     await _table.DownloadFileAsync(file, GetFileFullPath(file.ParentId, file.Name));
                 }
                 catch (Exception ex)

@@ -1,6 +1,6 @@
 //// Setup ////
 
-1. (Optional) If you plan to use notifications, you can handle its life cycle by implementing the AptkAmaBaseNotificationHandler class like:
+1. If you plan to use notifications, you should handle its life cycle by implementing the AptkAmaBaseNotificationHandler class like:
 
     public class AptkAmaNotificationHandler : AptkAmaBaseNotificationHandler
     {
@@ -24,12 +24,18 @@
         }
     }
 
-where TestNotificationTemplate is an example of a notification custom template.
+where TestNotificationTemplate is an example of a notification custom template and GoogleSenderIds your Google project id.
+
+Then, add this line BEFORE AptkAmaPluginLoader.Init(configuration); :
+
+	configuration.NotificationHandler = new AptkAmaNotificationHandler();
+
+where AptkAmaNotificationHandler is the name of your implementation class.
 
 
 //// Usage ////
 
-The main purpose is to access any API functionality by a single line of code from anywhere in the project (PCL or not), like:
+The main purpose is to access any API functionality by a single line of code from anywhere in the app (PCL or platform project), like:
 
 	await _aptkAmaService.Notification.RegisterAsync(AptkAmaNotificationHandler.TestNotificationTemplate);
 
@@ -40,7 +46,7 @@ or:
 where _aptkAmaService is resolved from AptkAmaPluginLoader.Instance.
 
 On the handler side, the OnNotificationReceived method will be called as soon as a notification (you registered for) comes in.
-From here, you can check the type of the incoming notification thanks to the IsTypeOf method with any template you registered for.
+From here, you can check the type of the incoming notification thanks to the IsTypeOf extension method with any template you registered for.
 You could then for example ask for a local notification thanks to the LocalNotification plugin for Xamarin & Windows.
 
 More details online.

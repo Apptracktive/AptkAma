@@ -1,6 +1,13 @@
 //// Setup ////
 
-1. Install this AptkAma Plugin Local Store Extension nuget package on your platform(s) project(s) to configure and initialize the plugin before using it
+Nothing.
+
+
+These steps are optional:
+
+1. (Optional) If you want to specify your own database file path, add this line AFTER AptkAmaPluginLoader.Init(configuration); and complete it:
+
+		AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration("YOUR CUSTOM SHORT PATH"));
 
 
 //// Usage ////
