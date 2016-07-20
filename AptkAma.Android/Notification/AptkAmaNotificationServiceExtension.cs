@@ -80,8 +80,8 @@ namespace Aptk.Plugins.AptkAma.Notification
                 throw new ArgumentNullException(nameof(intent));
 
             var platformNotificationService = notificationService as AptkAmaNotificationService;
-            if (platformNotificationService == null)
-                throw new InvalidCastException("Unable to convert this generic instance into a platform specific one");
+            if (platformNotificationService?.Configuration?.NotificationHandler == null)
+                throw new NullReferenceException("NotificationHandler could not be null when working with notifications");
 
             var notification = intent.Extras.KeySet().Where(k => k != "from" && k != "collapse_key").ToDictionary<string, string, object>(key => key, key => intent.Extras.Get(key).ToString()).ToNotification();
             if (notification == null)
@@ -89,7 +89,7 @@ namespace Aptk.Plugins.AptkAma.Notification
 
             Debug.WriteLine($"Notification received: {JsonConvert.SerializeObject(notification)}");
 
-            Application.SynchronizationContext.Post(_ => platformNotificationService.Configuration.NotificationHandler?.OnNotificationReceived(notification), null);
+            Application.SynchronizationContext.Post(_ => platformNotificationService.Configuration.NotificationHandler.OnNotificationReceived(notification), null);
         }
 
         internal static void OnUnRegistered(this IAptkAmaNotificationService notificationService, Context context, string registrationId)

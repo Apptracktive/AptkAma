@@ -1,12 +1,6 @@
 //// Setup ////
 
-1. Add this line AFTER AptkAmaPluginLoader.Init(configuration, ApplicationContext); and complete it:
-
-		AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaPluginLoader.Instance, System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)));
-
-If you use it with Xamarin.Forms, be sure to paste it just before LoadApplication(...)
-
-2. (Optional) There are many other optional settings to configure (like database name, init timeout, etc...) so please refer to online documentation and tutorials
+Nothing.
 
 
 //// Usage ////

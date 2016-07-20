@@ -16,6 +16,7 @@ namespace Aptk.Plugins.AptkAma.Identity
         private readonly Action _onLoggedOut;
         private IAptkAmaCredentials _credentials;
         public IAptkAmaService AptkAmaService;
+        private bool _isResfreshingUser;
 
         public AptkAmaIdentityHandler(IAptkAmaPluginConfiguration configuration, Action onLoggedOut = null)
         {
@@ -27,7 +28,7 @@ namespace Aptk.Plugins.AptkAma.Identity
         {
             var response = await base.SendAsync(request, cancellationToken);
 
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            if (response.StatusCode == HttpStatusCode.Unauthorized && !_isResfreshingUser)
             {
                 // Resolve IMvxAmsService if not yet defined
                 if (AptkAmaService == null)
@@ -53,6 +54,21 @@ namespace Aptk.Plugins.AptkAma.Identity
 
                     // Resend the request
                     response = await base.SendAsync(clonedRequest, cancellationToken);
+
+                    // Refresh the token
+                    if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        _isResfreshingUser = true;
+                        await AptkAmaService.Identity.RefreshUserAsync();
+                        _isResfreshingUser = false;
+
+                        clonedRequest.Headers.Remove("X-ZUMO-AUTH");
+                        // Set the authentication header
+                        clonedRequest.Headers.Add("X-ZUMO-AUTH", _credentials.User.MobileServiceAuthenticationToken);
+
+                        // Resend the request
+                        response = await base.SendAsync(clonedRequest, cancellationToken);
+                    }
                 }
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized

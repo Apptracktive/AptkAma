@@ -1,0 +1,11 @@
+/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
+
+File sync does not seem to be supported by Azure Mobile Apps with Windows Phone Silverlight so it is not implemented in AptkAma.
+Please consider to upgrade your application to WinRT or UWP.
+
+/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
+Contact on Twitter @Apptracktive

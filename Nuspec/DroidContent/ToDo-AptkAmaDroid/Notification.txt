@@ -1,10 +1,6 @@
 //// Setup ////
 
-1. (Optional) If you implemented the AptkAmaBaseNotificationHandler class for notification purpose, add this line BEFORE AptkAmaPluginLoader.Init(configuration, ApplicationContext); :
-
-	configuration.NotificationHandler = new AptkAmaNotificationHandler();
-
-where AptkAmaNotificationHandler is the name of your implementation class.
+Nothing.
 
 
 //// Usage ////

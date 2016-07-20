@@ -21,33 +21,7 @@ namespace AptkAma.Sample.Droid
 
             Forms.Init(this, bundle);
 
-            InitAptkAmaPlugin();
-
             this.LoadApplication(new App());
-        }
-
-        private void InitAptkAmaPlugin()
-        {
-            var configuration = new AptkAmaPluginConfiguration(Constants.AmsUrl, Constants.ModelAssembly);
-
-            // [Optional] Handle expired token to automaticaly ask for login if needed
-            var identityHandler = new AptkAmaIdentityHandler(configuration);
-            configuration.HttpHandlers = new HttpMessageHandler[] { identityHandler };
-
-            // [Optional] Manage local caching
-            configuration.CacheService = new AptkAmaCacheService();
-
-            // [Optional] Handle notifications
-            configuration.NotificationHandler = new AptkAmaNotificationHandler();
-
-            // Init main plugin
-            AptkAmaPluginLoader.Init(configuration, ApplicationContext);
-
-            // [Optional] If AptkAmaIdentityHandler is used, give it an instance of the plugin after Init
-            identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
-            
-            // Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)));
         }
     }
 }

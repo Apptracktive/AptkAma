@@ -132,9 +132,6 @@ namespace AptkAma.Sample.WinPhone
             // Init Xamarin Forms
             Forms.Init();
 
-            // Init Ams plugin
-            InitAptkAmaPlugin();
-
             // Gérer les requêtes de réinitialisation pour effacer la pile arrière
             RootFrame.Navigated += CheckForResetNavigation;
 
@@ -219,7 +216,7 @@ namespace AptkAma.Sample.WinPhone
                 /*FlowDirection flow = (FlowDirection)Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
                 RootFrame.FlowDirection = flow;*/
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Si une exception est détectée ici, elle est probablement due au fait que
                 // ResourceLanguage n'est pas correctement défini sur un code de langue pris en charge
@@ -233,27 +230,6 @@ namespace AptkAma.Sample.WinPhone
 
                 throw;
             }
-        }
-
-        private void InitAptkAmaPlugin()
-        {
-            var configuration = new AptkAmaPluginConfiguration(Constants.AmsUrl, Constants.ModelAssembly);
-
-            // [Optional] Handle expired token to automaticaly ask for login if needed
-            var identityHandler = new AptkAmaIdentityHandler(configuration);
-            configuration.HttpHandlers = new HttpMessageHandler[] { identityHandler };
-
-            // [Optional] Handle local caching
-            configuration.CacheService = new AptkAmaCacheService();
-
-            // Init main plugin
-            AptkAmaPluginLoader.Init(configuration);
-
-            // [Optional] If AptkAmaIdentityHandler is used, give it an instance of the plugin after Init
-            identityHandler.AptkAmaService = AptkAmaPluginLoader.Instance;
-
-            //// Init local store extension
-            AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(Windows.Storage.ApplicationData.Current.LocalFolder.Path));
         }
     }
 }

@@ -151,16 +151,19 @@ namespace Aptk.Plugins.AptkAma.Notification
                 return;
 
             var platformNotificationService = notificationService as AptkAmaNotificationService;
-            if (platformNotificationService == null)
-                throw new InvalidCastException("Unable to convert this generic instance into a platform specific one");
+            if (platformNotificationService?.Configuration?.NotificationHandler == null)
+                throw new NullReferenceException("NotificationHandler could not be null when working with notifications");
 
             var notification = (userInfo.ObjectForKey(new NSString("aps")) as NSDictionary)?.ToDictionary(n => n.Key.ToString(), n => n.Value.ToObject()).ToNotification();
             if (notification == null)
+            {
+                Debug.WriteLine($"Notification convertion failed for: {userInfo}");
                 return;
-            
+            }
+
             Debug.WriteLine($"Notification received: {JsonConvert.SerializeObject(notification)}");
 
-            UIApplication.SharedApplication.InvokeOnMainThread(() => platformNotificationService.Configuration.NotificationHandler?.OnNotificationReceived(notification));
+            UIApplication.SharedApplication.InvokeOnMainThread(() => platformNotificationService.Configuration.NotificationHandler.OnNotificationReceived(notification));
         }
 
         /// <summary>

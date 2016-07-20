@@ -2,28 +2,26 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Android.Content;
 using Gcm;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
+using Plugin.CurrentActivity;
 
 namespace Aptk.Plugins.AptkAma.Notification
 {
     public class AptkAmaNotificationService : AptkAmaBaseNotificationService
     {
-        public readonly Context Context;
         private bool _isInitialized;
         public string RegistrationId;
 
-        public AptkAmaNotificationService(IMobileServiceClient client, IAptkAmaPluginConfiguration configuration, Context context) : base(client, configuration)
+        public AptkAmaNotificationService(IMobileServiceClient client, IAptkAmaPluginConfiguration configuration) : base(client, configuration)
         {
-            Context = context;
         }
 
         private void Initialize()
         {
-                GcmClient.CheckDevice(Context);
-                GcmClient.CheckManifest(Context);
+                GcmClient.CheckDevice(CrossCurrentActivity.Current.Activity);
+                GcmClient.CheckManifest(CrossCurrentActivity.Current.Activity);
                 _isInitialized = true;
         }
 
@@ -44,7 +42,7 @@ namespace Aptk.Plugins.AptkAma.Notification
 
                 PendingRegistrations = templates;
                 Debug.WriteLine($"Trying to register for notifications {JsonConvert.SerializeObject(Configuration.NotificationHandler?.GoogleSenderIds)}");
-                GcmClient.Register(Context, Configuration.NotificationHandler?.GoogleSenderIds);
+                GcmClient.Register(CrossCurrentActivity.Current.Activity, Configuration.NotificationHandler?.GoogleSenderIds);
             }
             return Tcs.Task;
         }
@@ -64,7 +62,7 @@ namespace Aptk.Plugins.AptkAma.Notification
                     Initialize();
 
                 Debug.WriteLine($"Trying to unregister");
-                GcmClient.UnRegister(Context);
+                GcmClient.UnRegister(CrossCurrentActivity.Current.Activity);
             }
             return Tcs.Task;
         }

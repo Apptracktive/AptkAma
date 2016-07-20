@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A91CC3EA-C89D-40C1-B03A-9B87088F5A89}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Aptk.Plugins.AptkAma.Data</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>Aptk.Plugins.AptkAma.LocalStore</AssemblyName>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SQLitePCL, Version=3.8.7.2, Culture=neutral, PublicKeyToken=bddade01e9c850c5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLitePCL.3.8.7.2\lib\Xamarin.iOS10\SQLitePCL.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLitePCL.Ext, Version=3.8.7.2, Culture=neutral, PublicKeyToken=bddade01e9c850c5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SQLitePCL.3.8.7.2\lib\Xamarin.iOS10\SQLitePCL.Ext.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AptkAma.Abstractions\AptkAma.Abstractions.csproj">
+      <Project>{a6fcef44-d2ba-42c7-b3cb-13667bcd7b54}</Project>
+      <Name>AptkAma.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.iOS\AptkAma.iOS.csproj">
+      <Project>{2882aeeb-d4cd-4eb9-8a6c-6653b33681f0}</Project>
+      <Name>AptkAma.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
+    <ProjectReference Include="..\AptkAma.LocalStore.Abstractions\AptkAma.LocalStore.Abstractions.csproj">
+      <Project>{12dfd58a-5cf9-486d-923f-99ca4732a9e9}</Project>
+      <Name>AptkAma.LocalStore.Abstractions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\AptkAma.LocalStore.Shared\AptkAma.LocalStore.Shared.projitems" Label="Shared" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Aptk.Plugins.AptkAma;
@@ -8,7 +11,10 @@ using Aptk.Plugins.AptkAma.Data;
 using Aptk.Plugins.AptkAma.Identity;
 using AptkAma.Sample.Core.Model;
 using Microsoft.WindowsAzure.MobileServices;
+using Microsoft.WindowsAzure.MobileServices.Files;
 using Microsoft.WindowsAzure.MobileServices.Sync;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using Xamarin.Forms;
 
 namespace AptkAma.Sample.Core
@@ -16,12 +22,14 @@ namespace AptkAma.Sample.Core
     public partial class MainPage : ContentPage
     {
         private readonly IAptkAmaService _aptkAmaService;
+        private readonly IMedia _mediaService;
 
         public MainPage()
         {
             InitializeComponent();
 
             _aptkAmaService = AptkAmaPluginLoader.Instance;
+            _mediaService = CrossMedia.Current;
         }
 
         protected override async void OnAppearing()
@@ -29,12 +37,43 @@ namespace AptkAma.Sample.Core
             base.OnAppearing();
 
             await _aptkAmaService.Data.LocalTable<TodoItem>().PullAsync(new CancellationToken());
+            var items = await _aptkAmaService.Data.LocalTable<TodoItem>().ToListAsync();
+
+            // Culture hack
+            if(items.Any())
+            {
+                await ExecWithSpecificCultureAsync(async () =>
+                {
+                    foreach (var item in items)
+                    {
+                        await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(item); 
+                    }
+                }, new CultureInfo("en-US"));
+            }
+            
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
 
         async Task AddItem(TodoItem item)
         {
             await _aptkAmaService.Data.LocalTable<TodoItem>().InsertAsync(item);
+
+            //File
+            var image = await _mediaService.PickPhotoAsync();
+            if (image != null)
+            {
+                try
+                {
+                    await _aptkAmaService.Data.FileManagementService().CopyFileToStoreAsync(item.Id, image.Path);
+
+                    await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(image.Path)), new CultureInfo("en-US"));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
 
@@ -108,19 +147,61 @@ namespace AptkAma.Sample.Core
         public async void OnSync(object sender, EventArgs e)
         {
             await _aptkAmaService.Data.PushAsync();
+            await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().PushFileChangesAsync(), new CultureInfo("en-US"));
             ToDoItems.ItemsSource = await GetTodoItemsAsync();
         }
 
         async Task<List<TodoItem>> GetTodoItemsAsync()
         {
-            return await _aptkAmaService.Data.LocalTable<TodoItem>().Where(i => !i.Complete).ToListAsync();
+            var items = await _aptkAmaService.Data.LocalTable<TodoItem>().Where(i => !i.Complete).ToListAsync();
+            foreach (var item in items)
+            {
+                var files = await _aptkAmaService.Data.LocalTable<TodoItem>().GetFilesAsync(item);
+                if (files != null && files.Any())
+                {
+                    item.ImagePath = _aptkAmaService.Data.FileManagementService().GetFullPath(Path.Combine(item.Id, files.First().Name));
+                }
+            }
+
+            return items;
         }
 
         public async void OnLog(object sender, EventArgs e)
         {
-            if (!_aptkAmaService.Identity.EnsureLoggedIn())
+            if (!_aptkAmaService.Identity.EnsureLoggedIn(true))
             {
-                await _aptkAmaService.Identity.LoginAsync("CustomLogin", "Your login here", "Your password here");
+                try
+                {
+                    await _aptkAmaService.Identity.LoginAsync(AptkAmaAuthenticationProvider.Facebook);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+
+        /// <summary>
+        /// Hack for culture handling with file sync, see https://github.com/Azure/azure-mobile-apps-net-files-client/issues/8
+        /// </summary>
+        /// <param name="action">Action to call with specific culture</param>
+        /// <param name="cultureInfo">Culture</param>
+        /// <returns></returns>
+        private async Task ExecWithSpecificCultureAsync(Func<Task> action, CultureInfo cultureInfo)
+        {
+            var userCulture = CultureInfo.CurrentCulture;
+
+            try
+            {
+                CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+                await action();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Calling action with culture {CultureInfo.DefaultThreadCurrentCulture.Name} failed with message: {ex.Message}");
+            }
+            finally
+            {
+                CultureInfo.DefaultThreadCurrentCulture = userCulture;
             }
         }
     }

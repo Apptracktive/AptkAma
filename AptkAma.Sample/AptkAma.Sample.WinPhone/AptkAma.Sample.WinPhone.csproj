@@ -145,10 +145,6 @@
     <Content Include="SplashScreenImage.screen-720p.jpg" />
     <Content Include="SplashScreenImage.screen-WVGA.jpg" />
     <Content Include="SplashScreenImage.screen-WXGA.jpg" />
-    <Content Include="ToDo-AptkAmaWinPhone\Identity.txt" />
-    <Content Include="ToDo-AptkAmaWinPhone\LocalStore.txt" />
-    <Content Include="ToDo-AptkAmaWinPhone\Notification.txt" />
-    <Content Include="ToDo-AptkAmaWinPhone\_ToDoFirst.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
@@ -160,9 +156,21 @@
       <Project>{a6fcef44-d2ba-42c7-b3cb-13667bcd7b54}</Project>
       <Name>AptkAma.Abstractions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.csproj">
-      <Project>{6e8df24c-3029-4227-9c81-404bc5c18889}</Project>
-      <Name>AptkAma.LocalStore</Name>
+    <ProjectReference Include="..\..\AptkAma.FileStore\AptkAma.FileStore.Abstractions\AptkAma.FileStore.Abstractions.csproj">
+      <Project>{15018465-f2cf-485d-b685-456123e035ef}</Project>
+      <Name>AptkAma.FileStore.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.FileStore\AptkAma.FileStore.WindowsPhone\AptkAma.FileStore.WindowsPhone.csproj">
+      <Project>{0d0d3704-0044-468b-bedc-81a7178ebab6}</Project>
+      <Name>AptkAma.FileStore.WindowsPhone</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.Abstractions\AptkAma.LocalStore.Abstractions.csproj">
+      <Project>{12dfd58a-5cf9-486d-923f-99ca4732a9e9}</Project>
+      <Name>AptkAma.LocalStore.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AptkAma.LocalStore\AptkAma.LocalStore.WindowsPhone\AptkAma.LocalStore.WindowsPhone.csproj">
+      <Project>{a425eaa4-4504-47d3-aa26-82476c28aa61}</Project>
+      <Name>AptkAma.LocalStore.WindowsPhone</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\AptkAma.WindowsPhone\AptkAma.WindowsPhone.csproj">
       <Project>{5876144b-47dd-4c4e-b421-bc03f191b996}</Project>
@@ -174,28 +182,52 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Acr.UserDialogs.5.3.0\lib\wp8\Acr.UserDialogs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Acr.UserDialogs.Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Acr.UserDialogs.5.3.0\lib\wp8\Acr.UserDialogs.Interface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <HintPath>..\..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Mobile">
-      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.2.0.1\lib\wp8\Microsoft.WindowsAzure.Mobile.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Mobile, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.2.1.0\lib\wp8\Microsoft.WindowsAzure.Mobile.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Mobile.Ext">
-      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.2.0.1\lib\wp8\Microsoft.WindowsAzure.Mobile.Ext.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Mobile.Ext, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.2.1.0\lib\wp8\Microsoft.WindowsAzure.Mobile.Ext.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Mobile.SQLiteStore">
-      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.SQLiteStore.2.0.1\lib\portable-win+net45+wp8+wpa81+monotouch+monoandroid\Microsoft.WindowsAzure.Mobile.SQLiteStore.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Mobile.SQLiteStore, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.SQLiteStore.2.1.0\lib\portable-win+net45+wp8+wpa81+monotouch+monoandroid\Microsoft.WindowsAzure.Mobile.SQLiteStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Mobile.UI">
-      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.2.0.1\lib\wp8\Microsoft.WindowsAzure.Mobile.UI.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Mobile.UI, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.2.1.0\lib\wp8\Microsoft.WindowsAzure.Mobile.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PCLStorage, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PCLStorage.1.0.2\lib\wp8\PCLStorage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PCLStorage.1.0.2\lib\wp8\PCLStorage.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.Media, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.2.3.0\lib\wp8\Plugin.Media.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.Media.Abstractions, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xam.Plugin.Media.2.3.0\lib\wp8\Plugin.Media.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Plugin.Settings, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -204,6 +236,10 @@
     </Reference>
     <Reference Include="Plugin.Settings.Abstractions, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugins.Settings.2.1.0\lib\wp8\Plugin.Settings.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Splat.1.6.2\lib\wp8\Splat.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SQLitePCL, Version=3.8.7.2, Culture=neutral, PublicKeyToken=bddade01e9c850c5, processorArchitecture=MSIL">
@@ -227,19 +263,19 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.1.0.6529\lib\WP80\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.3.0.107\lib\WP80\Xamarin.Forms.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.1.0.6529\lib\WP80\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.3.0.107\lib\WP80\Xamarin.Forms.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform.WP8, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.1.0.6529\lib\WP80\Xamarin.Forms.Platform.WP8.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.3.0.107\lib\WP80\Xamarin.Forms.Platform.WP8.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.1.0.6529\lib\WP80\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.3.0.107\lib\WP80\Xamarin.Forms.Xaml.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -268,9 +304,9 @@
     <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
     <Error Condition="!Exists('..\..\packages\SQLitePCL.3.8.7.2\build\wp8\SQLitePCL.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SQLitePCL.3.8.7.2\build\wp8\SQLitePCL.props'))" />
     <Error Condition="!Exists('..\..\packages\SQLitePCL.3.8.7.2\build\wp8\SQLitePCL.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SQLitePCL.3.8.7.2\build\wp8\SQLitePCL.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.3.0.107\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.3.0.107\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets'))" />
   </Target>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\..\packages\SQLitePCL.3.8.7.2\build\wp8\SQLitePCL.targets" Condition="Exists('..\..\packages\SQLitePCL.3.8.7.2\build\wp8\SQLitePCL.targets')" />
-  <Import Project="..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
+  <Import Project="..\..\packages\Xamarin.Forms.2.3.0.107\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.0.107\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
 </Project>

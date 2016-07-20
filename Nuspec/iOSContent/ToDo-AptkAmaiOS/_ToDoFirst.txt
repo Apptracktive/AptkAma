@@ -1,21 +1,6 @@
 //// Setup ////
 
-1. Add these lines into the AppDelegate FinishedLaunching method and complete it:
-
-        var configuration = new AptkAmaPluginConfiguration("YOUR URL", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
-        AptkAmaPluginLoader.Init(configuration, app);
-
-If you use it with Xamarin.Forms, be sure to paste it just before LoadApplication(...)
-
-2. (Optional) Registering an intance of this plugin with IoC is a better way to use it than calling the static AptkAmaPluginLoader.Instance each time.
-Please look at MvvmCross, MvvmLight, FreshMvvm or any Mvvm/IoC framework of your choice and see online documentation and tutorials
-
-3. (Optional) If you implemented the IAptkAmaCacheService interface for local caching purpose, 
-add this line BEFORE AptkAmaPluginLoader.Init(configuration, app); :
-
-	configuration.CacheService = new AptkAmaCacheService();
-
-where AptkAmaCacheService is the name of your implementatation class.
+Nothing.
 
 
 //// Usage ////
@@ -25,10 +10,6 @@ See the ToDo-AptkAma's _ToDoFirst
 More details online.
 
 Enjoy!
-
-
-/!\ 1: If you want to manage local data thanks to LocalTable<T> and other methods
-you have to install the AptkAma Plugin LocalStore Extension nuget package
 
 
 Tutorials on http://www.apptracktive.com

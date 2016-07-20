@@ -42,18 +42,22 @@
     <Reference Include="Microsoft.WindowsAzure.Messaging.Android">
       <HintPath>..\Components\azure-messaging-1.1.5.6\lib\android\Microsoft.WindowsAzure.Messaging.Android.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Mobile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.Client.2.0.1\lib\monoandroid\Microsoft.WindowsAzure.Mobile.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Mobile, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Mobile.Client.2.1.0\lib\monoandroid\Microsoft.WindowsAzure.Mobile.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Mobile.Ext, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.Client.2.0.1\lib\monoandroid\Microsoft.WindowsAzure.Mobile.Ext.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Mobile.Ext, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.Mobile.Client.2.1.0\lib\monoandroid\Microsoft.WindowsAzure.Mobile.Ext.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.CurrentActivity, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Plugin.CurrentActivity.1.0.1\lib\MonoAndroid10\Plugin.CurrentActivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -83,13 +87,11 @@
     <Compile Include="Notification\AptkAmaNotificationBaseBroadcastReceiver.cs" />
     <Compile Include="Notification\AptkAmaNotificationServiceExtension.cs" />
     <Compile Include="Notification\AptkAmaNotificationBroadcastReceiver.cs" />
-    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AptkAma.Abstractions\AptkAma.Abstractions.csproj">

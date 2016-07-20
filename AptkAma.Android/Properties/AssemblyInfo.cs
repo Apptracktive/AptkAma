@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AzureMobileServices.Plugin.Android")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Aptk.Plugins.AptkAma.Android")]
+[assembly: AssemblyDescription("AptkAma Plugin for Xamarin.Android")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AzureMobileServices.Plugin.Android")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Apptracktive")]
+[assembly: AssemblyProduct("Aptk.Plugins.AptkAma.Android")]
+[assembly: AssemblyCopyright("Copyright © 2016 Apptracktive")]
+[assembly: AssemblyTrademark("Apptracktive")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
