@@ -84,8 +84,15 @@ namespace Aptk.Plugins.AptkAma.Identity
         /// <summary>
         /// Check if user is logged in or silent logs in with stored credentials (if exist)
         /// </summary>
+        /// <param name="controlTokenExpiration">Check if token expired</param>
         /// <returns>True if logged in</returns>
-        bool EnsureLoggedIn();
+        bool EnsureLoggedIn(bool controlTokenExpiration);
+
+        /// <summary>
+        /// Refreshes access token with the identity provider for the logged in user.
+        /// </summary>
+        /// <returns>An authenticated Azure user</returns>
+        Task<MobileServiceUser> RefreshUserAsync();
 
         /// <summary>
         /// Logs a user out from Azure and clear cache (if exist)

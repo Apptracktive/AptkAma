@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="40585Aptk.AptkAma" Publisher="CN=86D9829E-886F-4FEA-B73A-B519B466D34C" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="7db5edff-2e4d-4d12-bd7f-0364bea73d83" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="AptkAma" Publisher="CN=86D9829E-886F-4FEA-B73A-B519B466D34C" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="23c4ccbf-3dcd-46f7-bea0-a3e3b5c385fb" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>AptkAma</DisplayName>
     <PublisherDisplayName>Aptk</PublisherDisplayName>

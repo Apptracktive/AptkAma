@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using PCLStorage;
@@ -24,7 +25,8 @@ namespace Aptk.Plugins.AptkAma.Data
             _rootFullPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #endif
 
-            _baseFullPath = Path.Combine(_rootFullPath, _baseShortPath);
+            _baseFullPath = _rootFullPath;
+            Debug.WriteLine($"File folder:{_baseFullPath}");
         }
 
         public AptkAmaFileManagementService(string baseShortPath)
@@ -39,7 +41,8 @@ namespace Aptk.Plugins.AptkAma.Data
             _rootFullPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #endif
 
-            _baseFullPath = Path.Combine(_rootFullPath, _baseShortPath);
+            _baseFullPath = string.IsNullOrEmpty(_baseShortPath) ? _rootFullPath : Path.Combine(_rootFullPath, _baseShortPath);
+            Debug.WriteLine($"File folder:{_baseFullPath}");
         }
 
         public virtual string GetFullPath(string path)

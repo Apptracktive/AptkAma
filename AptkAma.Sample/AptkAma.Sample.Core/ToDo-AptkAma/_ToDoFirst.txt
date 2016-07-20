@@ -1,0 +1,50 @@
+//// Setup ////
+
+Only 2 steps mandatory:
+
+1. Update/Create your Model classes so that they all inherit from EntityData abstract class 
+or ITableData interface if there's another parent class yet.
+
+2. Configure the plugin from any first called class in the app (PCL or platform project) with at list:
+
+    var configuration = new AptkAmaPluginConfiguration("YOUR URL", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
+    AptkAmaPluginLoader.Init(configuration);
+
+
+These steps are optional:
+	
+3. (Optional) Registering an intance of this plugin with IoC is a better way to use it than calling the static AptkAmaPluginLoader.Instance each time.
+Please look at MvvmCross, MvvmLight, FreshMvvm or any Mvvm/IoC framework of your choice and see online documentation and tutorials
+
+4. (Optional) If you want to manage local data thanks to LocalTable<T> and other methods
+you have to install the AptkAma Plugin LocalStore Extension nuget package.
+
+5. (Optional) If you want to manage file sync for offline access
+you have to install the AptkAma Plugin FileStore Extension nuget package.
+
+6. (Optional) You can save some parameters with local caching by implementing the IAptkAmaCacheService interface. 
+If so, add this line BEFORE AptkAmaPluginLoader.Init(configuration); :
+
+	configuration.CacheService = new AptkAmaCacheService();
+
+where AptkAmaCacheService is the name of your implementatation class.
+
+It is useful when trying to handle authentication token expiration, auto-login or notification auto-register (see samples, online documentation and tutorials).
+
+
+//// Usage ////
+
+The main purpose is to access any Azure Mobile Apps API functionality by a single line of code from anywhere in the app (PCL or platform project), like:
+
+    var openItems = await _aptkAmaService.Data.RemoteTable<TodoItem>().Where(t => !t.Complete).ToListAsync();
+
+where _aptkAmaService is resolved from AptkAmaPluginLoader.Instance.
+
+More details online.
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Project, samples and documentation on https://github.com/Apptracktive/AptkAma
+Contact on Twitter @Apptracktive

@@ -10,7 +10,7 @@
         <projectUrl>https://github.com/Apptracktive/AptkAma</projectUrl>
         <iconUrl>https://raw.githubusercontent.com/Apptracktive/AptkAma/master/Logo-64.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>AptkAma Plugin for Xamarin &amp; Windows let you work with Azure Mobile Apps with almost one line of code (including from PCL).
+        <description>AptkAma Plugin for Xamarin &amp;amp; Windows let you work with Azure Mobile Apps with almost one line of code (including from PCL).
 You'll be able to:
 . Manage remote data
 . Manage local data*
@@ -51,38 +51,42 @@ Many more...</releaseNotes>
         </dependencies>
     </metadata>
     <files>
-        <file src="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAma\Identity.txt" target="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAma\Identity.txt" />
-        <file src="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAma\Notification.txt" target="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAma\Notification.txt" />
-        <file src="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAma\_ToDoFirst.txt" target="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAma\_ToDoFirst.txt" />
-        <file src="content\wp8\ToDo-AptkAmaWinPhone\Notification.txt" target="content\wp8\ToDo-AptkAmaWinPhone\Notification.txt" />
-        <file src="content\Xamarin.iOS10\ToDo-AptkAmaiOS\Notification.txt" target="content\Xamarin.iOS10\ToDo-AptkAmaiOS\Notification.txt" />
-        <file src="lib\MonoAndroid10\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.Abstractions.dll" />
-        <file src="lib\MonoAndroid10\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.Abstractions.pdb" />
-        <file src="lib\MonoAndroid10\Aptk.Plugins.AptkAma.dll" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.dll" />
-        <file src="lib\MonoAndroid10\Aptk.Plugins.AptkAma.pdb" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.pdb" />
-        <file src="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.Abstractions.dll" />
-        <file src="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.Abstractions.pdb" />
-        <file src="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.dll" />
-        <file src="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.pdb" />
-        <file src="lib\UAP10\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\UAP10\Aptk.Plugins.AptkAma.Abstractions.dll" />
-        <file src="lib\UAP10\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\UAP10\Aptk.Plugins.AptkAma.Abstractions.pdb" />
-        <file src="lib\UAP10\Aptk.Plugins.AptkAma.dll" target="lib\UAP10\Aptk.Plugins.AptkAma.dll" />
-        <file src="lib\UAP10\Aptk.Plugins.AptkAma.pdb" target="lib\UAP10\Aptk.Plugins.AptkAma.pdb" />
-        <file src="lib\win8\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\win8\Aptk.Plugins.AptkAma.Abstractions.dll" />
-        <file src="lib\win8\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\win8\Aptk.Plugins.AptkAma.Abstractions.pdb" />
-        <file src="lib\win8\Aptk.Plugins.AptkAma.dll" target="lib\win8\Aptk.Plugins.AptkAma.dll" />
-        <file src="lib\win8\Aptk.Plugins.AptkAma.pdb" target="lib\win8\Aptk.Plugins.AptkAma.pdb" />
-        <file src="lib\wp8\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\wp8\Aptk.Plugins.AptkAma.Abstractions.dll" />
-        <file src="lib\wp8\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\wp8\Aptk.Plugins.AptkAma.Abstractions.pdb" />
-        <file src="lib\wp8\Aptk.Plugins.AptkAma.dll" target="lib\wp8\Aptk.Plugins.AptkAma.dll" />
-        <file src="lib\wp8\Aptk.Plugins.AptkAma.pdb" target="lib\wp8\Aptk.Plugins.AptkAma.pdb" />
-        <file src="lib\wpa81\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\wpa81\Aptk.Plugins.AptkAma.Abstractions.dll" />
-        <file src="lib\wpa81\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\wpa81\Aptk.Plugins.AptkAma.Abstractions.pdb" />
-        <file src="lib\wpa81\Aptk.Plugins.AptkAma.dll" target="lib\wpa81\Aptk.Plugins.AptkAma.dll" />
-        <file src="lib\wpa81\Aptk.Plugins.AptkAma.pdb" target="lib\wpa81\Aptk.Plugins.AptkAma.pdb" />
-        <file src="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.Abstractions.dll" />
-        <file src="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.Abstractions.pdb" />
-        <file src="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.dll" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.dll" />
-        <file src="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.pdb" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.pdb" />
+        <file src="content\MonoAndroid10\_._" target="content\MonoAndroid10\_._" />
+        <file src="CoreContent\ToDo-AptkAma\Identity.txt" target="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAma\Identity.txt" />
+        <file src="CoreContent\ToDo-AptkAma\Notification.txt" target="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAma\Notification.txt" />
+        <file src="CoreContent\ToDo-AptkAma\_ToDoFirst.txt" target="content\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\ToDo-AptkAma\_ToDoFirst.txt" />
+        <file src="content\UAP10\_._" target="content\UAP10\_._" />
+        <file src="content\win8\_._" target="content\win8\_._" />
+        <file src="WinPhoneContent\ToDo-AptkAmaWinPhone\Notification.txt" target="content\wp8\ToDo-AptkAmaWinPhone\Notification.txt" />
+        <file src="content\wpa81\_._" target="content\wpa81\_._" />
+        <file src="iOSContent\ToDo-AptkAmaiOS\Notification.txt" target="content\Xamarin.iOS10\ToDo-AptkAmaiOS\Notification.txt" />
+        <file src="..\AptkAma.Android\bin\Release\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.Abstractions.dll" />
+        <file src="..\AptkAma.Android\bin\Release\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.Abstractions.pdb" />
+        <file src="..\AptkAma.Android\bin\Release\Aptk.Plugins.AptkAma.dll" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.dll" />
+        <file src="..\AptkAma.Android\bin\Release\Aptk.Plugins.AptkAma.pdb" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.pdb" />
+        <file src="..\AptkAma\bin\Release\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.Abstractions.dll" />
+        <file src="..\AptkAma\bin\Release\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.Abstractions.pdb" />
+        <file src="..\AptkAma\bin\Release\Aptk.Plugins.AptkAma.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.dll" />
+        <file src="..\AptkAma\bin\Release\Aptk.Plugins.AptkAma.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.pdb" />
+        <file src="..\AptkAma.Uwp\bin\Release\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\UAP10\Aptk.Plugins.AptkAma.Abstractions.dll" />
+        <file src="..\AptkAma.Uwp\bin\Release\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\UAP10\Aptk.Plugins.AptkAma.Abstractions.pdb" />
+        <file src="..\AptkAma.Uwp\bin\Release\Aptk.Plugins.AptkAma.dll" target="lib\UAP10\Aptk.Plugins.AptkAma.dll" />
+        <file src="..\AptkAma.Uwp\bin\Release\Aptk.Plugins.AptkAma.pdb" target="lib\UAP10\Aptk.Plugins.AptkAma.pdb" />
+        <file src="..\AptkAma.WinRT.Windows\bin\Release\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\win8\Aptk.Plugins.AptkAma.Abstractions.dll" />
+        <file src="..\AptkAma.WinRT.Windows\bin\Release\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\win8\Aptk.Plugins.AptkAma.Abstractions.pdb" />
+        <file src="..\AptkAma.WinRT.Windows\bin\Release\Aptk.Plugins.AptkAma.dll" target="lib\win8\Aptk.Plugins.AptkAma.dll" />
+        <file src="..\AptkAma.WinRT.Windows\bin\Release\Aptk.Plugins.AptkAma.pdb" target="lib\win8\Aptk.Plugins.AptkAma.pdb" />
+        <file src="..\AptkAma.WindowsPhone\Bin\Release\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\wp8\Aptk.Plugins.AptkAma.Abstractions.dll" />
+        <file src="..\AptkAma.WindowsPhone\Bin\Release\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\wp8\Aptk.Plugins.AptkAma.Abstractions.pdb" />
+        <file src="..\AptkAma.WindowsPhone\Bin\Release\Aptk.Plugins.AptkAma.dll" target="lib\wp8\Aptk.Plugins.AptkAma.dll" />
+        <file src="..\AptkAma.WindowsPhone\Bin\Release\Aptk.Plugins.AptkAma.pdb" target="lib\wp8\Aptk.Plugins.AptkAma.pdb" />
+        <file src="..\AptkAma.WinRT.WindowsPhone\bin\Release\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\wpa81\Aptk.Plugins.AptkAma.Abstractions.dll" />
+        <file src="..\AptkAma.WinRT.WindowsPhone\bin\Release\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\wpa81\Aptk.Plugins.AptkAma.Abstractions.pdb" />
+        <file src="..\AptkAma.WinRT.WindowsPhone\bin\Release\Aptk.Plugins.AptkAma.dll" target="lib\wpa81\Aptk.Plugins.AptkAma.dll" />
+        <file src="..\AptkAma.WinRT.WindowsPhone\bin\Release\Aptk.Plugins.AptkAma.pdb" target="lib\wpa81\Aptk.Plugins.AptkAma.pdb" />
+        <file src="..\AptkAma.iOS\bin\iPhone\Release\Aptk.Plugins.AptkAma.Abstractions.dll" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.Abstractions.dll" />
+        <file src="..\AptkAma.iOS\bin\iPhone\Release\Aptk.Plugins.AptkAma.Abstractions.pdb" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.Abstractions.pdb" />
+        <file src="..\AptkAma.iOS\bin\iPhone\Release\Aptk.Plugins.AptkAma.dll" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.dll" />
+        <file src="..\AptkAma.iOS\bin\iPhone\Release\Aptk.Plugins.AptkAma.pdb" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.pdb" />
     </files>
 </package>

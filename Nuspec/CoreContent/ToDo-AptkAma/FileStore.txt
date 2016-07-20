@@ -14,7 +14,7 @@ or IFileSyncTableData interface if there's another parent class yet (previous En
 
     public new string Id { get; set; }
 
-4. Non US culture info is not yet supported by the file sync process, so please add these lines:
+4. Non US culture info are not yet supported by the file sync process, so please add these lines:
 
     private async Task ExecWithSpecificCultureAsync(Func<Task> action, CultureInfo cultureInfo)
     {
@@ -58,11 +58,11 @@ by initializing the FileStore plugin extension with this line (before initializi
 
 The main purpose is to access any API functionality by a single line of code from anywhere in the app (PCL or platform project), like:
 
-    await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(image.Path))
+    await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(image.Path));
 	
 or:
 
-	await _aptkAmaService.Data.LocalTable<TodoItem>().PushFileChangesAsync()
+	await _aptkAmaService.Data.LocalTable<TodoItem>().PushFileChangesAsync();
 
 where _aptkAmaService is resolved from AptkAmaPluginLoader.Instance.
 

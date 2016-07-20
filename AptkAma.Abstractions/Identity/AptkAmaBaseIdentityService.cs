@@ -178,12 +178,13 @@ namespace Aptk.Plugins.AptkAma.Identity
         /// <summary>
         /// Check if user is logged in or silent logs in with stored credentials (if exist)
         /// </summary>
+        /// <param name="controlTokenExpiration"></param>
         /// <returns>True if logged in</returns>
-        public bool EnsureLoggedIn()
+        public bool EnsureLoggedIn(bool controlTokenExpiration)
         {
             if (_client.CurrentUser != null)
             {
-                return ControlToken(_client.CurrentUser.MobileServiceAuthenticationToken);
+                return !controlTokenExpiration || ControlToken(_client.CurrentUser.MobileServiceAuthenticationToken);
             }
 
             IAptkAmaCredentials credentials;
@@ -191,10 +192,30 @@ namespace Aptk.Plugins.AptkAma.Identity
             {
                 _client.CurrentUser = credentials.User;
 
-                return ControlToken(_client.CurrentUser.MobileServiceAuthenticationToken);
+                return !controlTokenExpiration || ControlToken(_client.CurrentUser.MobileServiceAuthenticationToken);
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Refreshes access token with the identity provider for the logged in user.
+        /// </summary>
+        /// <returns>An authenticated Azure user</returns>
+        public async Task<MobileServiceUser> RefreshUserAsync()
+        {
+            if (_client.CurrentUser == null && !EnsureLoggedIn(false))
+                return null;
+
+            var user = await _client.RefreshUserAsync();
+
+            IAptkAmaCredentials credentials;
+            if (_configuration.CacheService != null && _configuration.CacheService.TryLoadCredentials(out credentials))
+            {
+                _configuration.CacheService.SaveCredentials(new AptkAmaCredentials(credentials.Provider, user));
+            }
+
+            return user;
         }
 
         /// <summary>

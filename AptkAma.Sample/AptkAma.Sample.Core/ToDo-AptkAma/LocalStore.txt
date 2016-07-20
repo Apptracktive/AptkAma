@@ -1,0 +1,32 @@
+//// Setup ////
+
+Nothing.
+
+
+These steps are optional:
+
+1. (Optional) If you want to specify your own database file path, add this line AFTER AptkAmaPluginLoader.Init(configuration); and complete it:
+
+		AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration("YOUR CUSTOM SHORT PATH"));
+
+
+//// Usage ////
+
+The main purpose is to access any API functionality by a single line of code from anywhere in the project (PCL or not), like:
+
+	await _aptkAmaService.Data.LocalTable<TodoItem>().PullAsync();
+
+or:
+
+    var openItems = await _aptkAmaService.Data.LocalTable<TodoItem>().Where(t => !t.Complete).ToListAsync();
+
+where _aptkAmaService is resolved from AptkAmaPluginLoader.Instance.
+
+More details online.
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
+Contact on Twitter @Apptracktive

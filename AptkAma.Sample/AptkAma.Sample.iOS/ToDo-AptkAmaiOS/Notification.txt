@@ -1,0 +1,32 @@
+//// Setup ////
+
+1. Into the AppDelegate, add these overrides:
+
+	public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+    {
+        AptkAmaPluginLoader.Instance.Notification.RegisteredForRemoteNotifications(deviceToken);
+    }
+
+    public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
+    {
+        AptkAmaPluginLoader.Instance.Notification.FailedToRegisterForRemoteNotifications(error);
+    }
+
+    public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
+    {
+        AptkAmaPluginLoader.Instance.Notification.ReceivedRemoteNotification(userInfo);
+    }
+
+
+//// Usage ////
+
+See the ToDo-AptkAma's Notification
+
+More details online.
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
+Contact on Twitter @Apptracktive

@@ -358,13 +358,13 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>40585Aptk.AptkAma</MainPackageIdentityName>
+    <MainPackageIdentityName>AptkAma</MainPackageIdentityName>
     <ReservedNames>
       <ReservedName>AptkAma</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
-    <MainPackageIdentityName>40585Aptk.AptkApp</MainPackageIdentityName>
+    <MainPackageIdentityName>AptkApp</MainPackageIdentityName>
   </AccountPackageIdentityNames>
   <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH4N064" />
 </StoreAssociation>

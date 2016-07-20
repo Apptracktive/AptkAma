@@ -1,60 +1,71 @@
 # AptkAma 
 ### aka Azure Mobile Apps Plugin for Xamarin & Windows
 
-The main purpose is to access any Azure Mobile Apps API functionality by a single line of code from anywhere in the project (PCL or not), like:
-
-    var openItems = await _aptkAmaService.Data.RemoteTable<TodoItem>().Where(t => !t.Complete).ToListAsync();
-
-Or:
-
+The main purpose is to access any Azure Mobile Apps API functionality by a single line of code from anywhere in the solution (PCL or platform project), like for example:
+	
+	// Getting data from Azure
+    await _aptkAmaService.Data.RemoteTable<TodoItem>().Where(t => !t.Complete).ToListAsync();
+	
+	// Syncing data for offline use
 	await _aptkAmaService.Data.LocalTable<TodoItem>().PullAsync();
 
-Or:
+	// Syncing files for offline use
+	await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(item);
 
+	// Asking user to log in with Facebook
     await _aptkAmaService.Identity.LoginAsync(AptkAmaAuthenticationProvider.Facebook);
 	
-Or:
-
+	// Asking user to log in with credentials
 	await _aptkAmaService.Identity.LoginAsync ("CustomLogin", login, password);
 	
-Or:
-
+	// Registering for push notifications
 	await _aptkAmaService.Notification.RegisterAsync(AptkAmaNotificationHandler.TestNotificationTemplate);
-
 	
+
+Everything available everywhere from IAptkAmaService.
+	
+
 ## Setup
 
-Just install the AptkAma package from nuget and then follow the ToDo-AptkAma instructions.
+Only 2 steps mandatory:
 
-Basic configuration:
-
-. Update/Create your Model classes so that they all inherit from EntityData abstract class 
+1. Update/Create your Model classes so that they all inherit from EntityData abstract class 
 or ITableData interface if there's another parent class yet.
 
-. Install, configure, initialize and optionaly register the plugin on each platform:
-
-#### Android
-
-Add these lines into the OnCreate of the first launching activity (ex MainActivity or SplashScreen) and complete it:
-
-    var configuration = new AptkAmaPluginConfiguration("YOUR URL", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
-    AptkAmaPluginLoader.Init(configuration, ApplicationContext);
-
-#### iOS
-
-Add these lines into the AppDelegate FinishedLaunching method and complete it:
-
-    var configuration = new AptkAmaPluginConfiguration("YOUR URL", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
-    AptkAmaPluginLoader.Init(configuration, app);
-    
-#### WindowsPhone and Windows (any version)
+2. Configure the plugin from any first called class in the app (PCL or platform project) with at list:
 
     var configuration = new AptkAmaPluginConfiguration("YOUR URL", typeof("ONE OF YOUR MODEL CLASS").GetTypeInfo().Assembly);
     AptkAmaPluginLoader.Init(configuration);
-	
-. (Optional) If you plan to use notifications, you can handle its life cycle by implementing the AptkAmaBaseNotificationHandler class like:
 
-    public class AptkAmaNotificationHandler : AptkAmaBaseNotificationHandler
+
+## These steps are optional:
+	
+3. (Optional) Registering an intance of this plugin with IoC is a better way to use it than calling the static AptkAmaPluginLoader.Instance each time.
+Please look at MvvmCross, MvvmLight, FreshMvvm or any Mvvm/IoC framework of your choice and see online documentation and tutorials
+
+4. (Optional) If you want to manage local data thanks to LocalTable<T> and other methods
+you have to install the AptkAma Plugin LocalStore Extension nuget package.
+
+5. (Optional) If you want to manage file sync for offline access
+you have to install the AptkAma Plugin FileStore Extension nuget package.
+
+6. (Optional) You can save some parameters with local caching by implementing the IAptkAmaCacheService interface. 
+If so, add this line BEFORE AptkAmaPluginLoader.Init(configuration); :
+
+	configuration.CacheService = new AptkAmaCacheService();
+
+where AptkAmaCacheService is the name of your implementatation class.
+
+It is useful when trying to handle authentication token expiration, auto-login or notification auto-register (see samples, online documentation and tutorials).
+	
+7. (Optional) If you plan to use notifications, you can handle its life cycle by implementing the AptkAmaBaseNotificationHandler class.
+If so, add this line BEFORE AptkAmaPluginLoader.Init(configuration); :
+
+	configuration.NotificationHandler = new AptkAmaNotificationHandler();
+
+where AptkAmaNotificationHandler is the name of your implementation class, wich could be like:
+
+	public class AptkAmaNotificationHandler : AptkAmaBaseNotificationHandler
     {
         public static IAptkAmaNotificationTemplate TestNotificationTemplate = new AptkAmaNotificationTemplate("MyTemplate")
         {
@@ -76,26 +87,9 @@ Add these lines into the AppDelegate FinishedLaunching method and complete it:
         }
     }
 
-where TestNotificationTemplate is an example of a notification custom template.
-Then you'll have to configure each platform:
+where TestNotificationTemplate is an example of a notification custom template and GoogleSenderIds your Google project id.
 
-#### Android
-
-Add this line BEFORE AptkAmaPluginLoader.Init(configuration, ApplicationContext); :
-
-	configuration.NotificationHandler = new AptkAmaNotificationHandler();
-
-where AptkAmaNotificationHandler is the name of your implementation class.
-
-#### iOS
-
-Add this line BEFORE AptkAmaPluginLoader.Init(configuration, app); :
-
-	configuration.NotificationHandler = new AptkAmaNotificationHandler();
-
-where AptkAmaNotificationHandler is the name of your implementation class.
-
-Then still in the AppDelegate, add these overrides:
+Also, for notifications to work with iOS, into the AppDelegate, add these overrides:
 
 	public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
     {
@@ -112,32 +106,6 @@ Then still in the AppDelegate, add these overrides:
         AptkAmaPluginLoader.Instance.Notification.ReceivedRemoteNotification(userInfo);
     }
 
-#### WindowsPhone and Windows (any version except unsupported Silverlight)
-
-Add this line BEFORE AptkAmaPluginLoader.Init(configuration); :
-
-	configuration.NotificationHandler = new AptkAmaNotificationHandler();
-
-where AptkAmaNotificationHandler is the name of your implementation class.
-
-
-## MVVM
-
-After plugin installed and configured, you'd better register an instance of it to then resolve it when needed or use dependency injection.
-Here are some examples:
-
-#### MVVMCross
-
-    Mvx.RegisterSingleton(AptkAmaPluginLoader.Instance);
-
-#### FreshMVVM
-
-    FreshIOC.Container.Register<IAptkAmaService>(AptkAmaPluginLoader.Instance);
-
-#### MvvmLight
-
-    SimpleIoc.Default.Register<IAptkAmaService>(AptkAmaPluginLoader.Instance);
-    
 	
 ## Usage
 
@@ -146,7 +114,7 @@ An instance of the plugin give you access by default to:
 #### Data
 
 Data give you access by default to RemoteTable< T >() where T could be one of your Model class.
-From there, you can do what you used to with standard MobileServiceTable and manage online Azure data (please refer to Azure Mobile Services documentation or see samples), like this:
+From there, you can do what you used to with standard MobileServiceTable and manage online Azure data (please refer to Azure Mobile Apps documentation or see samples), like this:
 
     var openItems = await _aptkAmaService.Data.RemoteTable<TodoItem>().Where(t => !t.Complete).ToListAsync();
 
@@ -208,130 +176,18 @@ You can specify custom handlers.
 One thing you can do with handler is automaticaly use cached token to authenticate unauthorized request and then ask user to log in again if his token expired or if not yet logged in thanks to callback action.
 Here is this handler provided by the plugin:
 
-    /// <summary>
-    /// DelegatingHandler to automaticaly log in user again if its auth token expired
-    /// </summary>
-    public class AptkAmaIdentityHandler : DelegatingHandler
-    {
-        private readonly IAptkAmaPluginConfiguration _configuration;
-        private readonly Action _onLoggedOut;
-        private IAptkAmaCredentials _credentials;
-        public IAptkAmaService AptkAmaService;
-
-        public AptkAmaIdentityHandler(IAptkAmaPluginConfiguration configuration, Action onLoggedOut = null)
-        {
-            _configuration = configuration;
-            _onLoggedOut = onLoggedOut;
-        }
-
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            var response = await base.SendAsync(request, cancellationToken);
-
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                // Resolve IMvxAmsService if not yet defined
-                if (AptkAmaService == null)
-                {
-                    throw new InvalidOperationException("Make sure to configure AptkAma plugin properly before using it.");
-                }
-
-                // Cloning the request
-                var clonedRequest = await CloneRequest(request);
-
-                // Load saved user if possible
-                if (_configuration.CacheService != null
-                    && _configuration.CacheService.TryLoadCredentials(out _credentials)
-                    && (AptkAmaService.Identity.CurrentUser == null
-                    || (AptkAmaService.Identity.CurrentUser.UserId != _credentials.User.UserId
-                    && AptkAmaService.Identity.CurrentUser.MobileServiceAuthenticationToken != _credentials.User.MobileServiceAuthenticationToken)))
-                {
-                    AptkAmaService.Identity.CurrentUser = _credentials.User;
-
-                    clonedRequest.Headers.Remove("X-ZUMO-AUTH");
-                    // Set the authentication header
-                    clonedRequest.Headers.Add("X-ZUMO-AUTH", _credentials.User.MobileServiceAuthenticationToken);
-
-                    // Resend the request
-                    response = await base.SendAsync(clonedRequest, cancellationToken);
-                }
-
-                if (response.StatusCode == HttpStatusCode.Unauthorized
-                    && _credentials != null
-                    && _credentials.Provider != AptkAmaAuthenticationProvider.None
-                    && _credentials.Provider != AptkAmaAuthenticationProvider.Custom)
-                {
-                    try
-                    {
-                        // Login user again
-                        var user = await AptkAmaService.Identity.LoginAsync(_credentials.Provider);
-
-                        // Save the user if possible
-                        if (_credentials == null) _credentials = new AptkAmaCredentials(_credentials.Provider, user);
-                        _configuration.CacheService?.SaveCredentials(_credentials);
-
-                        clonedRequest.Headers.Remove("X-ZUMO-AUTH");
-                        // Set the authentication header
-                        clonedRequest.Headers.Add("X-ZUMO-AUTH", user.MobileServiceAuthenticationToken);
-
-                        // Resend the request
-                        response = await base.SendAsync(clonedRequest, cancellationToken);
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        // user cancelled auth, so lets return the original response
-                        return response;
-                    }
-                }
-
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    _onLoggedOut?.Invoke();
-                }
-            }
-
-            return response;
-        }
-
-        private async Task<HttpRequestMessage> CloneRequest(HttpRequestMessage request)
-        {
-            var result = new HttpRequestMessage(request.Method, request.RequestUri);
-            foreach (var header in request.Headers)
-            {
-                result.Headers.Add(header.Key, header.Value);
-            }
-
-            if (request.Content != null && request.Content.Headers.ContentType != null)
-            {
-                var requestBody = await request.Content.ReadAsStringAsync();
-                var mediaType = request.Content.Headers.ContentType.MediaType;
-                result.Content = new StringContent(requestBody, Encoding.UTF8, mediaType);
-                foreach (var header in request.Content.Headers)
-                {
-                    if (!header.Key.Equals("Content-Type", StringComparison.OrdinalIgnoreCase))
-                    {
-                        result.Content.Headers.Add(header.Key, header.Value);
-                    }
-                }
-            }
-
-            return result;
-        }
-    }
-
-
-This code example:
+This code:
 
 1. Send your request to Azure
-2. Check server response and if unauthorized
-3. Load last cached credentials and if exist, resend the request with it
-4. Check server response and if unauthorized
-5. Check last used identity provider and if exist, automaticaly ask your user to log in with it again
-6. If not yet logged in, execute the callback action if defined (like showing an identity provider picker login view for example)
-7. If logged in again, send the original request
-8. If still unauthorized, throw UnauthorizedException
-
-
+2. _Check server response and if unauthorized
+3. _Load last cached credentials and if exist, resend the request with it
+4. __Check server response and if unauthorized
+5. __Try to refresh the token, resend the request with it
+6. ___Check server response and if unauthorized
+7. ___Check last used identity provider and if exist, automaticaly ask your user to log in with it again
+8. _If not yet logged in, execute the callback action if defined (like showing an identity provider picker login view for example)
+9. If logged in again, send the original request
+10. If still unauthorized, throw UnauthorizedException
 
 This handler is not activated by default. If you want to use it, you have to tell the plugin thanks to each platform configuration.
 
@@ -350,66 +206,7 @@ You can tell the plugin how to store some parameters for further use.
 
 To do so, implement a storage feature of your choice like I did in samples with Xamarin.Settings and then implement the IAptkAmaCacheService to use it:
 
-    /// <summary>
-    /// This IAptkAmaCacheService implementation is a working example 
-    /// requiring the installation of Xamarin Settings plugin.
-    /// </summary>
-    public class AptkAmaCacheService : IAptkAmaCacheService
-    {
-        #region Identity
-        public bool TryLoadCredentials(out IAptkAmaCredentials credentials)
-        {
-            credentials = !string.IsNullOrEmpty(Settings.AptkAmaIdentityUserId)
-                          && !string.IsNullOrEmpty(Settings.AptkAmaIdentityAuthToken)
-                          && Settings.AptkAmaIdentityProvider != AptkAmaAuthenticationProvider.None
-                ? new AptkAmaCredentials(Settings.AptkAmaIdentityProvider, new MobileServiceUser(Settings.AptkAmaIdentityUserId)
-                {
-                    MobileServiceAuthenticationToken = Settings.AptkAmaIdentityAuthToken
-                })
-                : null;
 
-            return credentials != null;
-        }
-
-        public void SaveCredentials(IAptkAmaCredentials credentials)
-        {
-            if (credentials == null)
-                return;
-
-            Settings.AptkAmaIdentityProvider = credentials.Provider;
-            Settings.AptkAmaIdentityUserId = credentials.User.UserId;
-            Settings.AptkAmaIdentityAuthToken = credentials.User.MobileServiceAuthenticationToken;
-        }
-
-        public void ClearCredentials()
-        {
-            Settings.AptkAmaIdentityProvider = AptkAmaAuthenticationProvider.None;
-            Settings.AptkAmaIdentityUserId = string.Empty;
-            Settings.AptkAmaIdentityAuthToken = string.Empty;
-        }
-        #endregion
-
-        #region Notification
-        public bool TryLoadRegistrationId(out string registrationId)
-        {
-            registrationId = Settings.AptkAmaNotificationRegistrationId;
-            return !string.IsNullOrEmpty(registrationId);
-        }
-
-        public void SaveRegistrationId(string registrationId)
-        {
-            if (string.IsNullOrEmpty(registrationId))
-                return;
-
-            Settings.AptkAmaNotificationRegistrationId = registrationId;
-        }
-
-        public void ClearRegistrationId()
-        {
-            Settings.AptkAmaNotificationRegistrationId = string.Empty;
-        }
-        #endregion
-    }
 
 Note that you'll have to create each property UserId, AuthToken, IdentityProvider and NotificationRegistrationId on the settings feature side.
 
@@ -433,40 +230,91 @@ You can manage local data and sync by adding the AptkAma Plugin LocalStore Exten
 
 Then you'll get access to LocalTable< T >() extension from Data where T could be one of your Model class and use it as you used to with the standard MobileServiceSyncTable (please refer to Microsoft official documentation) like:
 
-    var openItems = await _aptkAmaService.Data.LocalTable<TodoItem>().Where(t => !t.Complete).ToListAsync();
+	// Getting some local data
+    await _aptkAmaService.Data.LocalTable<TodoItem>().Where(t => !t.Complete).ToListAsync();
 
-Or
-
+	// Pushing data to Azure
     await _aptkAmaService.Data.PushAsync();
     
 	
 ## Setup
 
-Add the AptkAma Plugin LocalStore Extension from Nuget and configure it.
+Nothing mandatory.
 
-Basic configuration:
 
-After AptkAmaPluginLoader.Init(...); add on each platform:
+## These steps are optional
 
-#### Android
+1. (Optional) You can change the database short path
+2. (Optional) You can change the database file name
+3. (Optional) You can set your own IMobileServiceSyncHandler implementation
+4. (Optional) You can set an IAptkAmaFileStoreService instance for file syncing
 
-    AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaPluginLoader.Instance, System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)));
 
-#### iOS
 
-    SQLitePCL.CurrentPlatform.Init();
-    AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaPluginLoader.Instance, System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)));
+# AptkAma Plugin FileStore Extension
 
-#### WindowsPhone & Windows
+You can manage local data and sync by adding the AptkAma Plugin FileStore Extension from Nuget (currently in beta) and then follow the ToDo-AptkAma instructions.
 
-    AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaPluginLoader.Instance, Windows.Storage.ApplicationData.Current.LocalFolder.Path));
+Then you'll get access to file sync extension methods and use it as you used to with the standard MobileServiceSyncTable (please refer to Microsoft official documentation) like:
+
+	// Associating a file with a table item
+	await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(image.Path));
+
+	// Pushing files to Azure
+	await _aptkAmaService.Data.LocalTable<TodoItem>().PushFileChangesAsync();
     
-## MVVM
+	
+## Setup
 
-Nothing to register as it's an extension of the main plugin instance
+1. Update/Create your Model classes used with files, so that they all inherit from FileSyncEntityData abstract class 
+or IFileSyncTableData interface if there's another parent class yet (previous EntityData could be replaced by FileSyncEntityData).
 
-## Advanced
+2. You have to provide a FileStore plugin extension instance to the LocalStore plugin extension with this line :
 
-1. You can change the database path
-2. You can change the database file name (default AptkAma.db)
-3. You can change the initialization timeout (default 30s)
+	AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaFileStorePluginLoader.Instance));
+
+
+/!\ As the File libs from Microsoft are still in beta, here are some workarounds:
+
+3. Id property inherited from a parent class is not yet supported so please add the "new" keyword into each previous class:
+
+    public new string Id { get; set; }
+
+4. Non US culture info are not yet supported by the file sync process, so please add these lines:
+
+    private async Task ExecWithSpecificCultureAsync(Func<Task> action, CultureInfo cultureInfo)
+    {
+        var userCulture = CultureInfo.CurrentCulture;
+
+        try
+        {
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            await action();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Calling action with culture {CultureInfo.DefaultThreadCurrentCulture.Name} failed with message: {ex.Message}");
+        }
+        finally
+        {
+            CultureInfo.DefaultThreadCurrentCulture = userCulture;
+        }
+    }
+
+and use it like so each time you play with files:
+
+	await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(items.First()), new CultureInfo("en-US"));
+
+
+
+## These steps are optional:
+
+5. (Optional) You can set your own files download folder name 
+by initializing the FileStore plugin extension with this line (before initializing LocalStore):
+
+    AptkAmaFileStorePluginLoader.Init(new AptkAmaFileStorePluginConfiguration(new AptkAmaFileManagementService("FOLDER_OF_YOUR_CHOICE")));
+
+6. (Optional) You can set your own IAptkAmaFileManagementService and IFileSyncTriggerFactory implementations 
+by initializing the FileStore plugin extension with this line (before initializing LocalStore):
+
+    AptkAmaFileStorePluginLoader.Init(new AptkAmaFileStorePluginConfiguration(YourCustomFileManagementService, YourCustomTriggerFactory));

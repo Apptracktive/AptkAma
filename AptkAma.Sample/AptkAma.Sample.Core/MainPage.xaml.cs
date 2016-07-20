@@ -168,7 +168,7 @@ namespace AptkAma.Sample.Core
 
         public async void OnLog(object sender, EventArgs e)
         {
-            if (!_aptkAmaService.Identity.EnsureLoggedIn())
+            if (!_aptkAmaService.Identity.EnsureLoggedIn(true))
             {
                 try
                 {
