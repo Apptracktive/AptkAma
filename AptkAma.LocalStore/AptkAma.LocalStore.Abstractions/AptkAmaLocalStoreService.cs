@@ -13,14 +13,16 @@ namespace Aptk.Plugins.AptkAma.Data
 {
     public class AptkAmaLocalStoreService : IAptkAmaLocalStoreService
     {
+        private readonly string _rootPath;
         private readonly IAptkAmaLocalStorePluginConfiguration _localStoreConfiguration;
         private readonly IAptkAmaPluginConfiguration _configuration;
         private MobileServiceSQLiteStore _localStore;
         private readonly IMobileServiceClient _client;
         private Dictionary<Type, object> _localTables;
 
-        public AptkAmaLocalStoreService(IAptkAmaLocalStorePluginConfiguration localStoreConfiguration, IAptkAmaDataService dataService)
+        public AptkAmaLocalStoreService(string rootPath, IAptkAmaLocalStorePluginConfiguration localStoreConfiguration, IAptkAmaDataService dataService)
         {
+            _rootPath = rootPath;
             _localStoreConfiguration = localStoreConfiguration;
             _configuration = ((AptkAmaDataService)dataService).Configuration;
             _client = ((AptkAmaDataService)dataService).Client;
@@ -33,7 +35,8 @@ namespace Aptk.Plugins.AptkAma.Data
             _localTables = new Dictionary<Type, object>();
 
             // Init local store
-            var fullPath = Path.Combine(_localStoreConfiguration.DatabaseFullPath, _localStoreConfiguration.DatabaseFileName);
+            var basePath = string.IsNullOrEmpty(_localStoreConfiguration.DatabaseShortPath) ? _rootPath : Path.Combine(_rootPath, _localStoreConfiguration.DatabaseShortPath);
+            var fullPath = Path.Combine(basePath, _localStoreConfiguration.DatabaseFileName);
             try
             {
                 _localStore = new MobileServiceSQLiteStore(fullPath);

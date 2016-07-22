@@ -1,0 +1,76 @@
+//// Setup ////
+
+1. Update/Create your Model classes used with files, so that they all inherit from FileSyncEntityData abstract class 
+or IFileSyncTableData interface if there's another parent class yet (previous EntityData could be replaced by FileSyncEntityData).
+
+2. You have to provide a FileStore plugin extension instance to the LocalStore plugin extension with this line :
+
+	AptkAmaLocalStorePluginLoader.Init(new AptkAmaLocalStorePluginConfiguration(AptkAmaFileStorePluginLoader.Instance));
+
+
+/!\ As the File libs from Microsoft are still in beta, here are some workarounds:
+
+3. Id property inherited from a parent class is not yet supported so please add the new keyword into each previous class:
+
+    public new string Id { get; set; }
+
+4. Non US culture info is not yet supported by the file sync process, so please add these lines:
+
+    private async Task ExecWithSpecificCultureAsync(Func<Task> action, CultureInfo cultureInfo)
+    {
+        var userCulture = CultureInfo.CurrentCulture;
+
+        try
+        {
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            await action();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Calling action with culture {CultureInfo.DefaultThreadCurrentCulture.Name} failed with message: {ex.Message}");
+        }
+        finally
+        {
+            CultureInfo.DefaultThreadCurrentCulture = userCulture;
+        }
+    }
+
+and use it like so:
+
+	await ExecWithSpecificCultureAsync(async () => await _aptkAmaService.Data.LocalTable<TodoItem>().PullFilesAsync(items.First()), new CultureInfo("en-US"));
+
+
+
+These steps are optional:
+
+5. (Optional) You can set your own files download folder name 
+by initializing the FileStore plugin extension with this line (before initializing LocalStore):
+
+    AptkAmaFileStorePluginLoader.Init(new AptkAmaFileStorePluginConfiguration(new AptkAmaFileManagementService("FOLDER_OF_YOUR_CHOICE")));
+
+6. (Optional) You can set your own IAptkAmaFileManagementService and IFileSyncTriggerFactory implementations 
+by initializing the FileStore plugin extension with this line (before initializing LocalStore):
+
+    AptkAmaFileStorePluginLoader.Init(new AptkAmaFileStorePluginConfiguration(YourCustomFileManagementService, YourCustomTriggerFactory));
+
+
+//// Usage ////
+
+The main purpose is to access any API functionality by a single line of code from anywhere in the app (PCL or platform project), like:
+
+    await _aptkAmaService.Data.LocalTable<TodoItem>().AddFileAsync(item, Path.GetFileName(image.Path))
+	
+or:
+
+	await _aptkAmaService.Data.LocalTable<TodoItem>().PushFileChangesAsync()
+
+where _aptkAmaService is resolved from AptkAmaPluginLoader.Instance.
+
+More details online.
+
+Enjoy!
+
+
+Tutorials on http://www.apptracktive.com
+Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
+Contact on Twitter @Apptracktive

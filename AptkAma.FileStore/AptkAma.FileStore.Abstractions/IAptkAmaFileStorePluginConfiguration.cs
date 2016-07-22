@@ -8,6 +8,11 @@ namespace Aptk.Plugins.AptkAma.Data
     public interface IAptkAmaFileStorePluginConfiguration
     {
         /// <summary>
+        /// Local folder relative path to store files
+        /// </summary>
+        string FileFolderShortPath { get; set; }
+
+        /// <summary>
         /// Local file management service
         /// </summary>
         IAptkAmaFileManagementService FileManagementService { get; set; }

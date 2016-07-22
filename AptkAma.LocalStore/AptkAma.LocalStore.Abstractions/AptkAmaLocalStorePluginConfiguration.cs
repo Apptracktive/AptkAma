@@ -11,10 +11,10 @@ namespace Aptk.Plugins.AptkAma.Data
         /// <summary>
         /// AptkAma Plugin's Local Store Extension constructor
         /// </summary>
-        /// <param name="databaseFullPath">Database file full device path</param>
-        public AptkAmaLocalStorePluginConfiguration(string databaseFullPath)
+        /// <param name="databaseShortPath">Database file short device path</param>
+        public AptkAmaLocalStorePluginConfiguration(string databaseShortPath)
         {
-            DatabaseFullPath = databaseFullPath;
+            DatabaseShortPath = databaseShortPath;
         }
 
         /// <summary>
@@ -29,18 +29,18 @@ namespace Aptk.Plugins.AptkAma.Data
         /// <summary>
         /// AptkAma Plugin's Local Store Extension constructor
         /// </summary>
-        /// <param name="databaseFullPath">Database file full device path</param>
+        /// <param name="databaseShortPath">Database file short device path</param>
         /// <param name="fileStoreService">An instance of the FileStore extension</param>
-        public AptkAmaLocalStorePluginConfiguration(string databaseFullPath, IAptkAmaFileStoreService fileStoreService)
+        public AptkAmaLocalStorePluginConfiguration(string databaseShortPath, IAptkAmaFileStoreService fileStoreService)
         {
-            DatabaseFullPath = databaseFullPath;
+            DatabaseShortPath = databaseShortPath;
             FileStoreService = fileStoreService;
         }
 
         /// <summary>
-        /// Database file full device path
+        /// Database file short device path
         /// </summary>
-        public string DatabaseFullPath { get; set; }
+        public string DatabaseShortPath { get; set; }
 
         /// <summary>
         /// Database file name with db extension

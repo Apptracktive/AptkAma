@@ -10,6 +10,7 @@ namespace Aptk.Plugins.AptkAma.Data
         
         private static IAptkAmaLocalStorePluginConfiguration _localStoreConfiguration;
         private static IAptkAmaDataService _dataService;
+        private static string _rootPath;
 
         public static void Init(IAptkAmaLocalStorePluginConfiguration localStoreConfiguration)
         {
@@ -17,25 +18,16 @@ namespace Aptk.Plugins.AptkAma.Data
             throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
 #elif __IOS__
             SQLitePCL.CurrentPlatform.Init();
+            
+            _rootPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+#elif __ANDROID__
+            _rootPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+#else
+            _rootPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+#endif
 
             if (localStoreConfiguration == null)
-                localStoreConfiguration = new AptkAmaLocalStorePluginConfiguration(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal));
-            
-            if (string.IsNullOrEmpty(localStoreConfiguration.DatabaseFullPath))
-                localStoreConfiguration.DatabaseFullPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-#elif __ANDROID__
-            if (localStoreConfiguration == null)
-                localStoreConfiguration = new AptkAmaLocalStorePluginConfiguration(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal));
-            
-            if (string.IsNullOrEmpty(localStoreConfiguration.DatabaseFullPath))
-                localStoreConfiguration.DatabaseFullPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-#else
-            if (localStoreConfiguration == null)
-                localStoreConfiguration = new AptkAmaLocalStorePluginConfiguration(Windows.Storage.ApplicationData.Current.LocalFolder.Path);
-            
-            if (string.IsNullOrEmpty(localStoreConfiguration.DatabaseFullPath))
-                localStoreConfiguration.DatabaseFullPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#endif
+                localStoreConfiguration = new AptkAmaLocalStorePluginConfiguration(string.Empty);
 
             _localStoreConfiguration = localStoreConfiguration;
         }
@@ -48,7 +40,7 @@ namespace Aptk.Plugins.AptkAma.Data
             if (_localStoreConfiguration == null)
                 Init(null);
 
-            return new AptkAmaLocalStoreService(_localStoreConfiguration, _dataService);
+            return new AptkAmaLocalStoreService(_rootPath, _localStoreConfiguration, _dataService);
 #endif
         }
 

@@ -14,15 +14,25 @@ namespace Aptk.Plugins.AptkAma.Data
         {
 #if PORTABLE
             throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
+#elif __IOS__ || __ANDROID__
+            if (configuration == null)
+                configuration = new AptkAmaFileStorePluginConfiguration(new AptkAmaFileManagementService());
+
+            else if (configuration.FileManagementService == null)
+                configuration.FileManagementService = new AptkAmaFileManagementService();
+
+            configuration.FileManagementService.Init(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), configuration);
 #else
             if (configuration == null)
                 configuration = new AptkAmaFileStorePluginConfiguration(new AptkAmaFileManagementService());
 
             else if (configuration.FileManagementService == null)
                 configuration.FileManagementService = new AptkAmaFileManagementService();
-            
-            _configuration = configuration;
+
+            configuration.FileManagementService.Init(Windows.Storage.ApplicationData.Current.LocalFolder.Path, configuration);
 #endif
+
+            _configuration = configuration;
         }
 
         private static IAptkAmaFileStoreService CreateAptkAmaFileService()
