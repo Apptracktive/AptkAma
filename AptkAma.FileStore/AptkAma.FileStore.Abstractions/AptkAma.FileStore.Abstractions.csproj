@@ -41,6 +41,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AptkAmaFileManagementService.cs" />
     <Compile Include="AptkAmaFilePluginConfiguration.cs" />
     <Compile Include="FileSyncEntityData.cs" />
     <Compile Include="IAptkAmaFileManagementService.cs" />

@@ -9,9 +9,9 @@ namespace Aptk.Plugins.AptkAma.Data
     public interface IAptkAmaLocalStorePluginConfiguration
     {
         /// <summary>
-        /// Database file full device path
+        /// Database file short device path
         /// </summary>
-        string DatabaseFullPath { get; set; }
+        string DatabaseShortPath { get; set; }
 
         /// <summary>
         /// Database file name with db extension

@@ -9,45 +9,19 @@ namespace Aptk.Plugins.AptkAma.Data
 {
     public class AptkAmaFileManagementService : IAptkAmaFileManagementService
     {
-        private readonly string _rootFullPath;
-        private readonly string _baseShortPath;
-        private readonly string _baseFullPath;
+        private string _rootFullPath;
+        private string _fileFolderFullPath;
 
-        public AptkAmaFileManagementService()
+        public void Init(string rootFullPath, IAptkAmaFileStorePluginConfiguration configuration)
         {
-            _baseShortPath = string.Empty;
-
-#if PORTABLE
-            throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
-#elif __IOS__ || __ANDROID__
-            _rootFullPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-#else
-            _rootFullPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#endif
-
-            _baseFullPath = _rootFullPath;
-            Debug.WriteLine($"File folder:{_baseFullPath}");
-        }
-
-        public AptkAmaFileManagementService(string baseShortPath)
-        {
-            _baseShortPath = baseShortPath;
-
-#if PORTABLE
-            throw new ArgumentException("This functionality is not implemented in the portable version of this assembly. You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
-#elif __IOS__ || __ANDROID__
-            _rootFullPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-#else
-            _rootFullPath = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#endif
-
-            _baseFullPath = string.IsNullOrEmpty(_baseShortPath) ? _rootFullPath : Path.Combine(_rootFullPath, _baseShortPath);
-            Debug.WriteLine($"File folder:{_baseFullPath}");
+            _rootFullPath = rootFullPath;
+            _fileFolderFullPath = string.IsNullOrEmpty(configuration.FileFolderShortPath) ? _rootFullPath : Path.Combine(_rootFullPath, configuration.FileFolderShortPath);
+            Debug.WriteLine($"File folder:{_fileFolderFullPath}");
         }
 
         public virtual string GetFullPath(string path)
         {
-            return path.ToLower().Contains(_rootFullPath.ToLower()) ? path : Path.Combine(_baseFullPath, path);
+            return path.ToLower().Contains(_rootFullPath.ToLower()) ? path : Path.Combine(_fileFolderFullPath, path);
         }
 
         public virtual async Task CopyFileToStoreAsync(string itemId, string sourceFileFullPath)

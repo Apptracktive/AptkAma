@@ -10,6 +10,15 @@ namespace Aptk.Plugins.AptkAma.Data
         /// <summary>
         /// FileStore plugin configuration constructor
         /// </summary>
+        /// <param name="fileFolderShortPath">Local folder relative path to store files</param>
+        public AptkAmaFileStorePluginConfiguration(string fileFolderShortPath)
+        {
+            FileFolderShortPath = fileFolderShortPath;
+        }
+
+        /// <summary>
+        /// FileStore plugin configuration constructor
+        /// </summary>
         /// <param name="fileManagementService">File management service</param>
         public AptkAmaFileStorePluginConfiguration(IAptkAmaFileManagementService fileManagementService)
         {
@@ -28,13 +37,20 @@ namespace Aptk.Plugins.AptkAma.Data
         /// <summary>
         /// FileStore plugin configuration constructor
         /// </summary>
+        /// <param name="fileFolderShortPath">Local folder relative path to store files</param>
         /// <param name="fileManagementService">File management service</param>
         /// <param name="globalFileSyncTriggerFactory">Global file sync trigger</param>
-        public AptkAmaFileStorePluginConfiguration(IAptkAmaFileManagementService fileManagementService, IFileSyncTriggerFactory globalFileSyncTriggerFactory)
+        public AptkAmaFileStorePluginConfiguration(string fileFolderShortPath, IAptkAmaFileManagementService fileManagementService, IFileSyncTriggerFactory globalFileSyncTriggerFactory)
         {
+            FileFolderShortPath = fileFolderShortPath;
             FileManagementService = fileManagementService;
             GlobalFileSyncTriggerFactory = globalFileSyncTriggerFactory;
         }
+
+        /// <summary>
+        /// Local folder relative path to store files
+        /// </summary>
+        public string FileFolderShortPath { get; set; }
 
         /// <summary>
         /// Local file management service

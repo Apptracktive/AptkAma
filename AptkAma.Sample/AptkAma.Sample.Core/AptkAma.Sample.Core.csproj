@@ -64,11 +64,13 @@
       <HintPath>..\..\packages\Aptk.Plugins.AptkAma.1.0.0\lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Aptk.Plugins.AptkAma.FileStore">
-      <HintPath>..\..\AptkAma.FileStore\AptkAma.FileStore\bin\Debug\Aptk.Plugins.AptkAma.FileStore.dll</HintPath>
+    <Reference Include="Aptk.Plugins.AptkAma.FileStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.FileStore.1.0.0-beta1\lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Aptk.Plugins.AptkAma.FileStore.Abstractions">
-      <HintPath>..\..\AptkAma.FileStore\AptkAma.FileStore\bin\Debug\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll</HintPath>
+    <Reference Include="Aptk.Plugins.AptkAma.FileStore.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.FileStore.1.0.0-beta1\lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Aptk.Plugins.AptkAma.LocalStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Aptk.Plugins.AptkAma.LocalStore.1.0.0\lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.LocalStore.dll</HintPath>
@@ -162,6 +164,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ToDo-AptkAma\FileStore.txt" />
     <Content Include="ToDo-AptkAma\Identity.txt" />
     <Content Include="ToDo-AptkAma\LocalStore.txt" />
     <Content Include="ToDo-AptkAma\Notification.txt" />
