@@ -27,6 +27,11 @@ namespace AptkAma.Sample.iOS
             return base.FinishedLaunching(app, options);
         }
 
+        public override void DidRegisterUserNotificationSettings(UIApplication application, UIUserNotificationSettings notificationSettings)
+        {
+            application.RegisterForRemoteNotifications();
+        }
+
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
         {
             AptkAmaPluginLoader.Instance.Notification.RegisteredForRemoteNotifications(deviceToken);

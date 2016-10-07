@@ -1,6 +1,11 @@
 //// Setup ////
 
 1. Into the AppDelegate, add these overrides:
+	
+    public override void DidRegisterUserNotificationSettings(UIApplication application, UIUserNotificationSettings notificationSettings)
+    {
+        application.RegisterForRemoteNotifications();
+    }
 
 	public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
     {
