@@ -49,7 +49,6 @@ namespace Aptk.Plugins.AptkAma.Notification
                             var settings = UIUserNotificationSettings.GetSettingsForTypes(UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, new NSSet());
                             UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
                         }
-                        UIApplication.SharedApplication.RegisterForRemoteNotifications();
                     });
                 }
                 else {

@@ -24,7 +24,7 @@ namespace AptkAma.Sample.Core
         {
             base.OnStart();
             //await _aptkAmaService.Notification.UnregisterAsync();
-            //var success = await _aptkAmaService.Notification.RegisterAsync(AptkAmaNotificationHandler.TestNotificationTemplate);
+            var success = await _aptkAmaService.Notification.RegisterAsync(AptkAmaNotificationHandler.TestNotificationTemplate);
         }
 
         private void InitAptkAmaPlugin()

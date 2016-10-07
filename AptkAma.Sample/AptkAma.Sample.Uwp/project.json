@@ -1,9 +1,9 @@
 ﻿{
   "dependencies": {
     "Acr.XamForms.UserDialogs": "5.0.0",
-    "Microsoft.Azure.Mobile.Client": "2.1.0",
-    "Microsoft.Azure.Mobile.Client.SQLiteStore": "2.1.0",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "Microsoft.Azure.Mobile.Client": "3.0.1",
+    "Microsoft.Azure.Mobile.Client.SQLiteStore": "3.0.1",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "PCLStorage": "1.0.2",
     "Xam.Plugin.Media": "2.3.0",
     "Xam.Plugins.Settings": "2.1.0",

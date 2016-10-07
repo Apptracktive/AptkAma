@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Aptk.Plugins.AptkAma.FileStore</id>
-        <version>1.0.0-beta1</version>
+        <version>1.0.0-beta2</version>
         <title>AptkAma Plugin FileStore Extension</title>
         <authors>Apptracktive</authors>
         <owners>Apptracktive</owners>
@@ -16,14 +16,18 @@ Tuto available on http://www.apptracktive.com
 Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
 Twitter @Apptracktive</description>
         <summary>AptkAma Plugin FileStore Extension</summary>
-        <releaseNotes>1.0.0-beta1:
+        <releaseNotes>1.0.1:
+[Fix] Use last AptkAma main package
+[New] Azure nuget packages updated
+
+1.0.0-beta1:
 [New] Add file sync management features
 [New] Cross-platform initialization</releaseNotes>
         <copyright>Copyright © 2016 Apptracktive</copyright>
         <tags>AptkAma AptkAma.FileStore Azure Mobile Apps Aptk Ama MvvmCross MvvmLight FreshMvvm MVVM Xamarin Apptracktive iOS Android Uwp File</tags>
         <dependencies>
             <dependency id="Microsoft.Azure.Mobile.Client.Files" version="1.0.0-beta-2" />
-            <dependency id="Aptk.Plugins.AptkAma.LocalStore" version="1.0.0" />
+            <dependency id="Aptk.Plugins.AptkAma.LocalStore" version="1.0.1" />
         </dependencies>
     </metadata>
     <files>
@@ -34,33 +38,33 @@ Twitter @Apptracktive</description>
         <file src="content\wp8\ToDo-AptkAmaWinPhone\FileStore.txt" target="content\wp8\ToDo-AptkAmaWinPhone\FileStore.txt" />
         <file src="content\wpa81\_._" target="content\wpa81\_._" />
         <file src="content\Xamarin.iOS10\_._" target="content\Xamarin.iOS10\_._" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.Android\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.Android\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.Android\bin\Release\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.Android\bin\Release\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore\bin\Release\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore\bin\Release\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.Uwp\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.Uwp\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.Uwp\bin\Release\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.Uwp\bin\Release\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WinRT.Windows\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\win8\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WinRT.Windows\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\win8\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WinRT.Windows\bin\Release\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\win8\Aptk.Plugins.AptkAma.FileStore.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WinRT.Windows\bin\Release\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\win8\Aptk.Plugins.AptkAma.FileStore.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WindowsPhone\Bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\wp8\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WindowsPhone\Bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\wp8\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WindowsPhone\Bin\Release\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\wp8\Aptk.Plugins.AptkAma.FileStore.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WindowsPhone\Bin\Release\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\wp8\Aptk.Plugins.AptkAma.FileStore.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WinRT.WindowsPhone\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WinRT.WindowsPhone\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WinRT.WindowsPhone\bin\Release\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.WinRT.WindowsPhone\bin\Release\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.iOS\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.iOS\bin\Release\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.iOS\bin\Release\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.dll" />
-        <file src="..\AptkAma.FileStore\AptkAma.FileStore.iOS\bin\Release\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.pdb" />
+        <file src="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
+        <file src="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
+        <file src="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.dll" />
+        <file src="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.pdb" />
+        <file src="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
+        <file src="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
+        <file src="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.dll" />
+        <file src="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\portable-net45+win8+wp8+MonoTouch10+MonoAndroid10+wpa81+Xamarin.iOS10+UAP10\Aptk.Plugins.AptkAma.FileStore.pdb" />
+        <file src="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
+        <file src="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
+        <file src="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.dll" />
+        <file src="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\UAP10\Aptk.Plugins.AptkAma.FileStore.pdb" />
+        <file src="lib\win8\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\win8\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
+        <file src="lib\win8\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\win8\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
+        <file src="lib\win8\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\win8\Aptk.Plugins.AptkAma.FileStore.dll" />
+        <file src="lib\win8\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\win8\Aptk.Plugins.AptkAma.FileStore.pdb" />
+        <file src="lib\wp8\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\wp8\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
+        <file src="lib\wp8\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\wp8\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
+        <file src="lib\wp8\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\wp8\Aptk.Plugins.AptkAma.FileStore.dll" />
+        <file src="lib\wp8\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\wp8\Aptk.Plugins.AptkAma.FileStore.pdb" />
+        <file src="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
+        <file src="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
+        <file src="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.dll" />
+        <file src="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\wpa81\Aptk.Plugins.AptkAma.FileStore.pdb" />
+        <file src="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll" />
+        <file src="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.Abstractions.pdb" />
+        <file src="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.dll" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.dll" />
+        <file src="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.pdb" target="lib\Xamarin.iOS10\Aptk.Plugins.AptkAma.FileStore.pdb" />
     </files>
 </package>
