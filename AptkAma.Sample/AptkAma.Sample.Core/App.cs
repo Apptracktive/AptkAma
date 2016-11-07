@@ -23,8 +23,8 @@ namespace AptkAma.Sample.Core
         protected override async void OnStart()
         {
             base.OnStart();
-            //await _aptkAmaService.Notification.UnregisterAsync();
-            var success = await _aptkAmaService.Notification.RegisterAsync(AptkAmaNotificationHandler.TestNotificationTemplate);
+            var success = await _aptkAmaService.Notification.UnregisterAsync();
+            success = await _aptkAmaService.Notification.RegisterAsync(AptkAmaNotificationHandler.TestNotificationTemplate);
         }
 
         private void InitAptkAmaPlugin()

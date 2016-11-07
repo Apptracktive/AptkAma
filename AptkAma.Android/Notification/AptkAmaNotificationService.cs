@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Gcm;
+using Gcm.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
 using Plugin.CurrentActivity;

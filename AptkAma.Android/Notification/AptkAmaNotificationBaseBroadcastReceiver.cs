@@ -1,4 +1,4 @@
-using Gcm;
+using Gcm.Client;
 
 namespace Aptk.Plugins.AptkAma.Notification
 {

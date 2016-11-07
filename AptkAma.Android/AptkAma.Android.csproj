@@ -39,8 +39,8 @@
     <DocumentationFile>bin\Release\Aptk.Plugins.AptkAma.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.WindowsAzure.Messaging.Android">
-      <HintPath>..\Components\azure-messaging-1.1.5.6\lib\android\Microsoft.WindowsAzure.Messaging.Android.dll</HintPath>
+    <Reference Include="GCM.Client">
+      <HintPath>..\Components\GCMClient-1.0\lib\android\GCM.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Mobile, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.Mobile.Client.3.0.1\lib\monoandroid\Microsoft.WindowsAzure.Mobile.dll</HintPath>
@@ -100,9 +100,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="azure-messaging">
+    <XamarinComponentReference Include="GCMClient">
       <Visible>False</Visible>
-      <Version>1.1.5.6</Version>
+      <Version>1.0</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <Import Project="..\AptkAma.Shared\AptkAma.Shared.projitems" Label="Shared" />

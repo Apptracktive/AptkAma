@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Aptk.Plugins.AptkAma.FileStore</id>
-        <version>1.0.0-beta2</version>
+        <version>1.0.0-beta3</version>
         <title>AptkAma Plugin FileStore Extension</title>
         <authors>Apptracktive</authors>
         <owners>Apptracktive</owners>
@@ -16,7 +16,10 @@ Tuto available on http://www.apptracktive.com
 Sources, documentation and samples on https://github.com/Apptracktive/AptkAma
 Twitter @Apptracktive</description>
         <summary>AptkAma Plugin FileStore Extension</summary>
-        <releaseNotes>1.0.1:
+        <releaseNotes>1.0.2:
+[Fix] External references fixed
+
+1.0.1:
 [Fix] Use last AptkAma main package
 [New] Azure nuget packages updated
 
@@ -27,7 +30,7 @@ Twitter @Apptracktive</description>
         <tags>AptkAma AptkAma.FileStore Azure Mobile Apps Aptk Ama MvvmCross MvvmLight FreshMvvm MVVM Xamarin Apptracktive iOS Android Uwp File</tags>
         <dependencies>
             <dependency id="Microsoft.Azure.Mobile.Client.Files" version="1.0.0-beta-2" />
-            <dependency id="Aptk.Plugins.AptkAma.LocalStore" version="1.0.1" />
+            <dependency id="Aptk.Plugins.AptkAma.LocalStore" version="1.0.2" />
         </dependencies>
     </metadata>
     <files>

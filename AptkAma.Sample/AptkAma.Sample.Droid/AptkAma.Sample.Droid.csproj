@@ -60,32 +60,35 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Aptk.Plugins.AptkAma, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.1.0.0\lib\MonoAndroid10\Aptk.Plugins.AptkAma.dll</HintPath>
+      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.1.0.2\lib\MonoAndroid10\Aptk.Plugins.AptkAma.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Aptk.Plugins.AptkAma.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.1.0.0\lib\MonoAndroid10\Aptk.Plugins.AptkAma.Abstractions.dll</HintPath>
+      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.1.0.2\lib\MonoAndroid10\Aptk.Plugins.AptkAma.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Aptk.Plugins.AptkAma.FileStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.FileStore.1.0.0-beta1\lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.dll</HintPath>
+      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.FileStore.1.0.0-beta3\lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Aptk.Plugins.AptkAma.FileStore.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.FileStore.1.0.0-beta1\lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll</HintPath>
+      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.FileStore.1.0.0-beta3\lib\MonoAndroid10\Aptk.Plugins.AptkAma.FileStore.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Aptk.Plugins.AptkAma.LocalStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.LocalStore.1.0.0\lib\MonoAndroid10\Aptk.Plugins.AptkAma.LocalStore.dll</HintPath>
+      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.LocalStore.1.0.2\lib\MonoAndroid10\Aptk.Plugins.AptkAma.LocalStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Aptk.Plugins.AptkAma.LocalStore.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.LocalStore.1.0.0\lib\MonoAndroid10\Aptk.Plugins.AptkAma.LocalStore.Abstractions.dll</HintPath>
+      <HintPath>..\..\packages\Aptk.Plugins.AptkAma.LocalStore.1.0.2\lib\MonoAndroid10\Aptk.Plugins.AptkAma.LocalStore.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.0.107\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="GCM.Client">
+      <HintPath>..\..\Components\GCMClient-1.0\lib\android\GCM.Client.dll</HintPath>
     </Reference>
     <Reference Include="Java.Interop" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -95,10 +98,6 @@
     <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Data.OData.5.6.4\lib\portable-net45+wp8+win8+wpa\Microsoft.Data.OData.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Messaging.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Components\azure-messaging-1.1.5.6\lib\android\Microsoft.WindowsAzure.Messaging.Android.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Mobile, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Azure.Mobile.Client.3.0.1\lib\monoandroid\Microsoft.WindowsAzure.Mobile.dll</HintPath>
@@ -284,22 +283,22 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AptkAma.Sample.Core\AptkAma.Sample.Core.csproj">
-      <Project>{e6a4a0f3-0591-441b-98f8-65eb42bcb114}</Project>
-      <Name>AptkAma.Sample.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\Logo_RVB_72.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\plugin_lc_smallicon.png" />
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="azure-messaging">
+    <XamarinComponentReference Include="GCMClient">
       <Visible>False</Visible>
-      <Version>1.1.5.6</Version>
+      <Version>1.0</Version>
     </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AptkAma.Sample.Core\AptkAma.Sample.Core.csproj">
+      <Project>{e6a4a0f3-0591-441b-98f8-65eb42bcb114}</Project>
+      <Name>AptkAma.Sample.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

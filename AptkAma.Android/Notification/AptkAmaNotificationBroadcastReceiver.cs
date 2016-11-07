@@ -1,6 +1,6 @@
 using Android.App;
 using Android.Content;
-using Gcm;
+using Gcm.Client;
 
 [assembly: UsesPermission(Android.Manifest.Permission.ReceiveBootCompleted)]
 [assembly: Permission(Name = "@PACKAGE_NAME@.permission.C2D_MESSAGE")]

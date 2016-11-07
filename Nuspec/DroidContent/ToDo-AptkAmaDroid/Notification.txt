@@ -1,6 +1,6 @@
 //// Setup ////
 
-Nothing.
+Please install the GcmClient package from the Components store
 
 
 //// Usage ////

@@ -1,6 +1,7 @@
+using System.Diagnostics;
 using Android.App;
 using Android.Content;
-using Gcm;
+using Gcm.Client;
 
 namespace Aptk.Plugins.AptkAma.Notification
 {
